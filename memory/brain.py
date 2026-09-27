@@ -225,6 +225,13 @@ def _dedupe(facts: list[dict]) -> list[dict]:
     return out
 
 
+def _filter_query(facts: list[dict], query: str | None) -> list[dict]:
+    if not query:
+        return facts
+    q = query.lower()
+    return [f for f in facts if q in f.get("fact", "").lower()]
+
+
 def recall_facts(company: str, query: str | None = None) -> tuple[list[dict], str]:
     """-> (facts, mode). mode: 'live' (CLI recall), 'locked' (serve holds the
     brain; verified through the write seam from the local ledger), or 'none'."""
@@ -238,7 +245,7 @@ def recall_facts(company: str, query: str | None = None) -> tuple[list[dict], st
         except json.JSONDecodeError:
             facts = []
         if facts:
-            return _dedupe(facts), "live"
+            return _filter_query(_dedupe(facts), query), "live"
     proc = _run_gbrain(["recall", company])
     if proc.returncode == 0 and not _is_lock_error(proc):
         facts = []
@@ -248,7 +255,7 @@ def recall_facts(company: str, query: str | None = None) -> tuple[list[dict], st
                 facts.append({"id": int(m.group(1)), "entity_slug": m.group(2),
                               "fact": m.group(3), "provenance": ""})
         if facts:
-            return _dedupe(facts), "live"
+            return _filter_query(_dedupe(facts), query), "live"
     if _is_lock_error(proc):
         facts = []
         for entry in load_ledger().get(company, []):
@@ -256,7 +263,7 @@ def recall_facts(company: str, query: str | None = None) -> tuple[list[dict], st
             if fid is not None:
                 facts.append({"id": fid, "entity_slug": company, "fact": entry["claim"],
                               "provenance": entry["provenance"]})
-        return _dedupe(facts), "locked"
+        return _filter_query(_dedupe(facts), query), "locked"
     return [], "none"
 
 
