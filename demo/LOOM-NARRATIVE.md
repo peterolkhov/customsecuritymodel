@@ -2,13 +2,15 @@
 
 ## The exigence
 
-Security testing is a commodity with a customization tax. Every company starts
-from the same checklist (OWASP et al.), so the expensive part isn't the scan —
-it's making the suite actually fit *your* stack. That takes security engineers
-hand-tuning rules for weeks, so almost nobody gets a suite that matches their
-actual attack surface. The result: the same misses everywhere — a payment
-webhook replay on a fintech, an unauthenticated passwordless-login mutation on
-a GraphQL app, an MCP auth gap on an open-source project.
+Security scanning is a commodity, and the commodity is standardized. OWASP's
+Top 10 — a free, open, community-standard list of the most critical web
+application security risk categories — is what every tool builds against
+(Burp, ZAP, Semgrep, Snyk…). So all scanners converge on the same coverage,
+and every company ends up with the same blind spots: the stack-specific issues
+no generic rule set knows about — a payment webhook replay on a fintech, an
+unauthenticated passwordless-login mutation on a GraphQL app, an MCP auth gap
+on an open-source project. Catching those means hand-writing custom tests,
+which takes security engineers weeks per company. Almost nobody does it.
 
 ## The genesis
 

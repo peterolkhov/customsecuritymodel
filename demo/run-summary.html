@@ -34,11 +34,11 @@
 <main>
   <h1>customsecuritymodel</h1>
 
-  <p class="problem"><b>Every company rents the same security checklist.</b> OWASP's Top 10 is a shared floor, so the misses are shared too. Customizing a suite to your stack costs weeks of engineer time — almost nobody does it.</p>
+  <p class="problem"><b>Every security scanner checks the same public baseline.</b> OWASP's Top 10 is a free, open standard — so Burp, ZAP, Semgrep, Snyk all build rules against it, and every company ends up with the same blind spots. The stack-specific misses (a webhook replay, an unauthenticated GraphQL mutation) go unchecked because catching them means hand-writing tests — weeks of engineer time per company.</p>
 
   <div class="solution">
-    <h2>The fix: train a model on your own findings</h2>
-    <p>A River LoRA on the company's scan findings learns what matters <b>for that stack</b> — minutes, dollars, and the company owns the weights.</p>
+    <h2>The fix: train a model on the company's own findings</h2>
+    <p>A River LoRA learns which findings matter <b>for that stack</b> — minutes, dollars, and the company owns the weights. Customization stops being a hiring problem and becomes a training run.</p>
   </div>
 
   <div class="grid">

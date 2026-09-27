@@ -7,9 +7,11 @@ Business style. Show, don't tell. Every claim backed by something on screen.
 
 ## 0. Hook (0:00–0:12)
 
-> "Every company on Earth rents the same security checklist. OWASP is the same
-> logic, the same severities, the same misses. So when your stack is weird —
-> GraphQL in front of your payments, a status page on a vendor you stopped
+> "Every security scanner on the market checks the same public baseline — the
+> OWASP Top 10 is a free, open standard, so Burp, ZAP, Semgrep all build the
+> same rules. Every company gets the same coverage, the same blind spots. So
+> when your stack is weird — GraphQL in front of your payments, a status page
+> on a vendor you stopped
 > paying — the generic suite misses exactly the thing that will hurt you."
 
 Screen: split — left `data/example.pairs.jsonl`, right a generic "checklist" image.

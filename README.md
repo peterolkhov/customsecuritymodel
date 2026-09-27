@@ -1,8 +1,8 @@
 # customsecuritymodel
 
-**[OWASP](https://owasp.org/) is every company renting the same logic.** OWASP — the Open Worldwide Application Security Project, a nonprofit that publishes the OWASP Top 10, the industry-standard list of the most critical web application security risks (2025 edition: broken access control, security misconfiguration, injection, cryptographic failures, and more) — is the shared baseline every security suite checks against. Every company gets the same checklist, the same severities, the same misses. Getting a security suite that actually fits your stack means weeks of security engineers hand-tuning rules — customization is the expensive part, so almost nobody gets it.
+**Every security scanner checks the same public baseline.** OWASP — the Open Worldwide Application Security Project, a nonprofit — publishes the OWASP Top 10, a free, community-standard list of the most critical web application security risk categories. It is not proprietary: any vendor (Burp, ZAP, Semgrep, Snyk…) builds rules against it. So every scanner converges on the same coverage, and every company ends up with the same blind spots — the stack-specific issues no generic rule set knows about: a payment-webhook replay, an unauthenticated GraphQL mutation, an MCP auth gap. Catching those means hand-writing custom tests, which takes security engineers weeks per company. Almost nobody does it.
 
-The trick that makes it cheap: **train a small model on the company's own scan findings.** A River LoRA on their probe output learns what matters *for their stack* — in minutes, for dollars, and the company holds the weights. Customization stops being an engineer hiring problem and becomes a training run.
+The trick that makes it cheap: **train a small model on the company's own scan findings.** A River LoRA on their probe output learns which findings matter *for their stack* — in minutes, for dollars, and the company holds the weights. Customization stops being an engineer hiring problem and becomes a training run.
 
 ## The product
 
