@@ -8,13 +8,14 @@ The contract between scan output and the River model. One JSONL row = one traini
   "instruction": "Given this finding, assign a severity for THIS company's stack.",
   "input": "<evidence only — hosts pseudonymised to *.example>",
   "output": "<the label / judgment text>",
-  "provenance": {"source": "probe-report", "target": "target-01.example", "observed_at": "2026-09-27T00:00:00Z"}
+  "provenance": {"source": "probe-report", "target": "target-NNN.example", "observed_at": "2026-09-27T00:00:00Z"}
 }
 ```
 
 Rules:
 
 - `input` and `output` never contain a real hostname, IP, email or brand — `*.example` only.
+- `provenance.target` is a **per-report pseudonym** `target-NNN.example` — each scanned company gets its own, and only that report's in-scope hosts map under it (foreign hosts are `thirdparty-NN.example`). This is what enables the eval harness's target-disjoint held-out split: a company's rows are either all-train or all-eval.
 - `provenance.observed_at` timestamps every row; the build story needs per-row "when".
 - Rows split into **standard** (the OWASP-style floor every suite checks) and **blind_spot** (stack-specific things teams miss — the rows that justify a custom model).
 

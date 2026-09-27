@@ -16,3 +16,6 @@ One file per hackathon worker. Format: `UTC_TIMESTAMP | ACTION | FILE(s) | RESUL
 | vuln-memorable | hack/ws-vuln-memorable | Memorable security arch + 12 findings | RUNLOG-vuln-memorable.md |
 | arch-mine | hack/ws-arch-mine | 32 companies judged by architecture | RUNLOG-arch-mine.md |
 | vuln-superset | hack/ws-vuln-superset | Superset security arch + 284 findings | RUNLOG-vuln-superset.md |
+| checkpoint | hack/ws-checkpoint | wire owned river:// checkpoint into eval/infer/suite | RUNLOG-checkpoint.md |
+
+Generated artifacts (loss curve, telemetry snapshots, etc.) live under `runlogs/artifacts/` when produced.

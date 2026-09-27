@@ -21,6 +21,7 @@ checks and reports the degradation.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import shutil
@@ -57,9 +58,29 @@ def deidentify_host(host: str) -> str:
     if host == "example":
         return host
     parts = host.split(".")
-    if len(parts) <= 2:
-        return "example" if len(parts) == 1 else "example"
+    if len(parts) == 1:
+        return "example"
+    if len(parts) == 2:
+        # 2-label apex domains get a deterministic pseudonym so different
+        # companies don't all collapse into one bare "example" entity
+        return f"apex-{hashlib.sha1(host.encode()).hexdigest()[:8]}.example"
     return f"{parts[0]}.example"
+
+
+def deidentify_entity(scope: str) -> str:
+    """Deterministic pseudonym for the gbrain entity slug.
+
+    Scan scopes are real domains (e.g. affirm.com) — hashing keeps repeated
+    ingests on the same entity without leaking real infra into shared memory.
+    Already-pseudonymised slugs (*.example) and the 'unknown' fallback pass
+    through unchanged.
+    """
+    scope = (scope or "").strip()
+    if not scope or scope == "unknown":
+        return scope or "unknown"
+    if scope.endswith(".example") or scope == "example":
+        return scope
+    return f"co-{hashlib.sha1(scope.encode()).hexdigest()[:10]}.example"
 
 
 def parse_pairs_findings(path: Path) -> list[tuple[str, str, list[dict]]]:
@@ -117,9 +138,14 @@ def parse_scan_findings(scan: dict) -> tuple[str, str, list[dict]]:
 
 def load_findings(path: Path, deidentify: bool) -> list[tuple[str, str, list[dict]]]:
     if path.suffix.lower() == ".jsonl":
+        # pairs rows: provenance.target is already a pseudonym — keep it
         groups = parse_pairs_findings(path)
     else:
         company, provenance, findings = parse_scan_findings(json.loads(path.read_text(encoding="utf-8")))
+        if deidentify:
+            # the entity slug is the real scope domain — pseudonymise it so
+            # the brain's story never leaks real infra into shared memory
+            company = deidentify_entity(company)
         groups = [(company, provenance, findings)]
     if deidentify:
         for _, _, findings in groups:
@@ -258,11 +284,24 @@ def recall_facts(company: str, query: str | None = None) -> tuple[list[dict], st
             return _filter_query(_dedupe(facts), query), "live"
     if _is_lock_error(proc):
         facts = []
-        for entry in load_ledger().get(company, []):
-            fid = verify_fact(entry)
-            if fid is not None:
-                facts.append({"id": fid, "entity_slug": company, "fact": entry["claim"],
-                              "provenance": entry["provenance"]})
+        ledger = load_ledger()
+        entries = ledger.get(company, [])
+        changed = False
+        for entry in entries:
+            fid = entry.get("fact_id")
+            if fid is None:
+                # no ledger id yet — verify through the write seam once and
+                # record the returned id, so future recalls don't re-issue
+                # remember and accumulate duplicate facts
+                fid = verify_fact(entry)
+                if fid is None:
+                    continue
+                entry["fact_id"] = fid
+                changed = True
+            facts.append({"id": fid, "entity_slug": company, "fact": entry["claim"],
+                          "provenance": entry["provenance"]})
+        if changed:
+            save_ledger(ledger)
         return _filter_query(_dedupe(facts), query), "locked"
     return [], "none"
 

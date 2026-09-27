@@ -2,7 +2,7 @@
 """suite/build_suite.py — per-company suite generator.
 
 Reads the company's owned model (river/out/<ts>/meta.json) + the company's
-GBrain memory (memory/brain.json when present) and the findings pairs
+GBrain memory (memory/brain-ledger.json when present) and the findings pairs
 (`--input`, e.g. data/example.pairs.jsonl) and emits a per-company security
 suite:
 
@@ -32,7 +32,7 @@ _HERE = Path(__file__).resolve().parent
 _ROOT = _HERE.parent
 _DEFAULT_INPUT = _ROOT / "data" / "example.pairs.jsonl"
 _OUT = _HERE                       # suite/ itself
-_BRAIN_JSON = _ROOT / "memory" / "brain.json"
+_BRAIN_JSON = _ROOT / "memory" / "brain-ledger.json"
 
 SEVERITY_RANK = {"CRITICAL": 4, "HIGH": 3, "MEDIUM": 2, "LOW": 1, "INFO": 0}
 SEVERITIES = sorted(SEVERITY_RANK, key=SEVERITY_RANK.get, reverse=True)
@@ -199,20 +199,28 @@ def build_suite(company: str, findings: list[dict], n_standard: int, n_blind: in
 
     L.append("## Memory (GBrain)")
     if brain is not None:
-        if company in brain:
-            comp = brain[company]
-            if isinstance(comp, dict):
-                for k, v in comp.items():
-                    if isinstance(v, (list, dict)):
-                        L.append(f"- {k}: {json.dumps(v, default=str)}")
-                    else:
-                        L.append(f"- {k}: {v}")
-            else:
-                L.append(f"- {comp}")
+        # ledger schema: {company: [{claim, company, provenance, fact_id,
+        # severity, class}, ...]} — summarise, don't dump raw entries
+        entries = [e for e in brain.get(company, []) if isinstance(e, dict)]
+        if entries:
+            entries.sort(
+                key=lambda e: SEVERITY_RANK.get(str(e.get("severity", "INFO")).upper(), -1),
+                reverse=True,
+            )
+            L.append(f"{len(entries)} remembered fact(s) for {company} "
+                     f"(memory/brain-ledger.json). Top by severity:")
+            for e in entries[:3]:
+                fid = e.get("fact_id")
+                tag = f" · fact #{fid}" if fid is not None else ""
+                prov = e.get("provenance", "")
+                src = f"  _({prov}{tag})_" if prov or tag else ""
+                L.append(f"- **{e.get('severity', 'INFO')}** {e.get('claim', '')}{src}")
+            if len(entries) > 3:
+                L.append(f"- … +{len(entries) - 3} more in the ledger")
         else:
             L.append(f"_Brain index present but no entry for {company} yet._")
     else:
-        L.append("_No GBrain index yet (memory/brain.json). The suite compounds once the "
+        L.append("_No GBrain index yet (memory/brain-ledger.json). The suite compounds once the "
                  "findings brain lands: recall across scans instead of resetting each run._")
     L.append("")
 

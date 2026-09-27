@@ -1,11 +1,11 @@
 {
-  "ts": "2026-09-27T21:39:01Z",
+  "ts": "2026-09-27T21:53:11Z",
   "fleet": {
     "adapter": {
       "task": "adapter-1",
       "branch": "hack/ws-adapter",
-      "status": "DONE",
-      "cost_usd": 0.04,
+      "status": "RUNNING",
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -20,21 +20,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                         ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                              ~/.superset/worktrees/                  ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-adapter:    ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    hack/ws-adapter                         ",
-        "   /Users/peterolkhovets/.superset/worktrees/      127.8K (13%) \u00b7 ctrl+p                                                 ",
-        "   customsecuritymodel/hack/ws-adapter                            commands       \u2022 OpenCode 1.18.32"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   Build probe findings to pairs adapter",
+        "  Continue  opencode -s ses_f1b5660c6ffeA9B7SRQdRSr6Jr",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-adapter %"
       ]
     },
     "gbrain": {
       "task": "gbrain-3",
       "branch": "hack/ws-gbrain",
       "status": "RUNNING",
-      "cost_usd": 0.19,
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -49,21 +49,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                         ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                              ~/.superset/worktrees/                  ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-gbrain:     ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    hack/ws-gbrain                          ",
-        "   /Users/peterolkhovets/.superset/worktrees/      291.4K (29%) \u00b7 ctrl+p                                                 ",
-        "   customsecuritymodel/hack/ws-gbrain                             commands       \u2022 OpenCode 1.18.32"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   Implement GBrain memory module",
+        "  Continue  opencode -s ses_f1b56609cffeCU3qj76PqcjPwz",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-gbrain %"
       ]
     },
     "eval": {
       "task": "eval-4",
       "branch": "hack/ws-eval",
-      "status": "DONE",
-      "cost_usd": 0.05,
+      "status": "RUNNING",
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -78,21 +78,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                         ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                              ~/.superset/worktrees/                  ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-eval:hack/  ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    ws-eval                                 ",
-        "   /Users/peterolkhovets/.superset/worktrees/       112.3K (11%) \u00b7ctrl+p                                                 ",
-        "   customsecuritymodel/hack/ws-eval                               commands       \u2022 OpenCode 1.18.32"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   Eval harness and scoreboard build",
+        "  Continue  opencode -s ses_f1b565b72ffeKmJrKT9FC0opCL",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-eval %"
       ]
     },
     "suite": {
       "task": "suite-5",
       "branch": "hack/ws-suite",
-      "status": "DONE",
-      "cost_usd": 0.03,
+      "status": "RUNNING",
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -107,21 +107,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                         ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                              ~/.superset/worktrees/                  ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-suite:      ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    hack/ws-suite                           ",
-        "   /Users/peterolkhovets/.superset/worktrees/       87.8K (9%) \u00b7  ctrl+p                                                 ",
-        "   customsecuritymodel/hack/ws-suite                              commands       \u2022 OpenCode 1.18.32"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   Per-company suite generator",
+        "  Continue  opencode -s ses_f1b565243ffe3cSpv0R2vQ3h4q",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-suite %"
       ]
     },
     "infer": {
       "task": "infer-6",
       "branch": "hack/ws-infer",
-      "status": "DONE",
-      "cost_usd": 0.03,
+      "status": "RUNNING",
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -136,21 +136,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                         ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                              ~/.superset/worktrees/                  ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-infer:      ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    hack/ws-infer                           ",
-        "   /Users/peterolkhovets/.superset/worktrees/       91.9K (9%) \u00b7  ctrl+p                                                 ",
-        "   customsecuritymodel/hack/ws-infer                              commands       \u2022 OpenCode 1.18.32"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   Infer CLI for checkpoint severity",
+        "  Continue  opencode -s ses_f1b56492affexCfaPtTB20Jr3Y",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-infer %"
       ]
     },
     "vuln-gbrain": {
       "task": "vuln-gbrain",
       "branch": "hack/ws-vuln-gbrain",
       "status": "RUNNING",
-      "cost_usd": 0.07,
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -165,21 +165,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                        ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   /Users/peterolkhovets/.superset/worktrees/customsecuritymodel/hack/ws-vuln-    199.7K (20%) \u00b7 $0.07 ctrl+p commands  ",
-        "   gbrain"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   GBrain security architecture + vuln hunt",
+        "  Continue  opencode -s ses_f1b4c53b8ffevYdTL5R7xFb1Uj",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-vuln-gbrain %"
       ]
     },
     "vuln-qm": {
       "task": "vuln-qm",
       "branch": "hack/ws-vuln-qm",
       "status": "RUNNING",
-      "cost_usd": 0.06,
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -194,21 +194,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "     \u25a3  Build \u00b7 DeepSeek V4 Flash \u00b7 8m 52s                                                                              ",
-        "                                                                                                                        ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   /Users/peterolkhovets/.superset/worktrees/customsecuritymodel/hack/ws-vuln-qm 181.6K (18%) \u00b7 $0.06  ctrl+p commands"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   QM security architecture & vuln hunt",
+        "  Continue  opencode -s ses_f1b4c4e19ffeHn2kFnMo2ZJnTi",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-vuln-qm %"
       ]
     },
     "vuln-river": {
       "task": "vuln-river",
       "branch": "hack/ws-vuln-river",
       "status": "RUNNING",
-      "cost_usd": 0.05,
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -223,21 +223,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                        ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   /Users/peterolkhovets/.superset/worktrees/customsecuritymodel/hack/ws-vuln-    151.4K (15%) \u00b7 $0.05 ctrl+p commands  ",
-        "   river"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   River AI security architecture review",
+        "  Continue  opencode -s ses_f1b4c3d6bffeTTNMQO3ySFEIwd",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-vuln-river %"
       ]
     },
     "stacks": {
       "task": "stacks",
       "branch": "hack/ws-stacks",
       "status": "RUNNING",
-      "cost_usd": 0.03,
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -252,21 +252,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "     \u25a3  Build \u00b7 DeepSeek V4 Flash \u00b7 5m 11s                                                                              ",
-        "                                                                                                                        ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   /Users/peterolkhovets/.superset/worktrees/customsecuritymodel/hack/ws-stacks  100.3K (10%) \u00b7 $0.03  ctrl+p commands"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   Build stack references and example security suites",
+        "  Continue  opencode -s ses_f1b4c34b9ffePj6oJ2I6njohgZ",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-stacks %"
       ]
     },
     "vuln-superset": {
       "task": "vuln-superset",
       "branch": "hack/ws-vuln-superset",
       "status": "RUNNING",
-      "cost_usd": 0.12,
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -281,21 +281,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                        ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   /Users/peterolkhovets/.superset/worktrees/customsecuritymodel/hack/ws-vuln-     203.3K (20%) \u00b7 $0.12 ctrl+p commands ",
-        "   superset"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   Superset security architecture + findings",
+        "  Continue  opencode -s ses_f1b47d6d9ffenBtIN3JK27se2d",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-vuln-superset %"
       ]
     },
     "vuln-memorable": {
       "task": "vuln-memorable",
       "branch": "hack/ws-vuln-memorable",
       "status": "RUNNING",
-      "cost_usd": 0.06,
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -310,21 +310,21 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                         ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                              ~/.superset/worktrees/                  ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-vuln-       ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    memorable:hack/ws-vuln-memorable        ",
-        "   /Users/peterolkhovets/.superset/worktrees/      148.3K (15%) \u00b7 ctrl+p                                                 ",
-        "   customsecuritymodel/hack/ws-vuln-memorable                     commands       \u2022 OpenCode 1.18.32"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   Memorable security architecture review",
+        "  Continue  opencode -s ses_f1b47d223ffe1qDXkT4xUplreq",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-vuln-memorable %"
       ]
     },
     "arch-mine": {
       "task": "arch-mine",
       "branch": "hack/ws-arch-mine",
-      "status": "DONE",
-      "cost_usd": 0.09,
+      "status": "RUNNING",
+      "cost_usd": null,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -339,14 +339,14 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                         ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                                                                      ",
-        "  \u2503                                                                              ~/.superset/worktrees/                  ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-arch-mine:  ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    hack/ws-arch-mine                       ",
-        "   /Users/peterolkhovets/.superset/worktrees/      187.0K (19%) \u00b7 ctrl+p                                                 ",
-        "   customsecuritymodel/hack/ws-arch-mine                          commands       \u2022 OpenCode 1.18.32"
+        "  \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2584 \u2588\u2580\u2580\u2580 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588 \u2588\u2580\u2580\u2588",
+        "  \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580 \u2588  \u2588 \u2588    \u2588  \u2588 \u2588  \u2588 \u2588\u2580\u2580\u2580",
+        "  \u2580\u2580\u2580\u2580 \u2588\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580",
+        "",
+        "  Session   Arch-mine vulnerability characterization",
+        "  Continue  opencode -s ses_f1b473394ffeUyG3ZIR4fiGpTg",
+        "",
+        "peterolkhovets@MacBook-Pro-9 ws-arch-mine %"
       ]
     }
   }

@@ -9,11 +9,16 @@ data/example.pairs.jsonl:
      "instruction": "Given this finding, assign a severity for THIS company's stack.",
      "input": "type: <type>; host: <host>.example; detail: <detail>",
      "output": "<SEVERITY>",
-     "provenance": {"source": "probe-report", "target": "target-01.example",
+     "provenance": {"source": "probe-report", "target": "target-NNN.example",
                     "observed_at": "<iso>", "class": "standard"}}
 
-* De-identifies hosts/IPs/emails/brands to *.example (target-NN.example for
-  the report's own hosts, thirdparty-NN.example for anything else).
+* De-identifies hosts/IPs/emails/brands to *.example. Each report gets a
+  unique stable pseudonym target-NNN.example (per-report counter): the scope
+  maps to it and scope subdomains keep their label under it
+  (api.acme.com -> api.target-003.example); every other host maps to
+  thirdparty-NN.example so input `host:` fields never alias a finding into a
+  different company's target namespace. Per-report targets are what let the
+  eval harness do a real target-disjoint held-out split.
 * Classifies each finding `standard` (the OWASP floor) vs `blind_spot`
   (stack-specific misses) with a keyword heuristic.
 * Stamps `provenance.observed_at` from the report's `generated` field.
@@ -139,24 +144,31 @@ def classify(finding_type: str) -> str:
     return "blind_spot" if any(tok in t for tok in BLIND_SPOT_TOKENS) else "standard"
 
 
-def make_host_map(scope: str, hosts: set[str]) -> dict[str, str]:
-    """scope -> target-01.example; scope subdomains keep their label;
-    anything else -> target-NN.example."""
+def _pseudonym_for(host: str, scope: str, target: str, tp: list[int]) -> str:
+    """scope -> <target>; <label>.scope -> <label>.<target>;
+    anything else -> thirdparty-NN.example (per-report counter `tp`)."""
+    if host == scope:
+        return target
+    if host.endswith("." + scope):
+        return f"{host[:-(len(scope) + 1)]}.{target}"
+    name = f"thirdparty-{tp[0]:02d}.example"
+    tp[0] += 1
+    return name
+
+
+def make_host_map(scope: str, hosts: set[str], target: str,
+                  tp: list[int] | None = None) -> dict[str, str]:
+    """scope -> <target> (this report's pseudonym); scope subdomains keep
+    their label under it; anything else -> thirdparty-NN.example so foreign
+    hosts never land in the report's target namespace."""
     mapping = {}
-    counter = [2]
+    tp = tp if tp is not None else [1]
     scope = scope.lower().rstrip(".")
     for h in sorted(hosts, key=lambda x: (-len(x), x)):
         h = h.lower().rstrip(".")
         if not h:
             continue
-        if h == scope:
-            mapping[h] = "target-01.example"
-        elif h.endswith("." + scope):
-            label = h[: -(len(scope) + 1)]
-            mapping[h] = f"{label}.target-01.example"
-        else:
-            mapping[h] = f"target-{counter[0]:02d}.example"
-            counter[0] += 1
+        mapping[h] = _pseudonym_for(h, scope, target, tp)
     return mapping
 
 
@@ -225,6 +237,7 @@ def build(corpus_dir: Path, out_path: Path, manifest_path: Path,
         reports = companies = findings_seen = 0
         candidates: list[dict] = []
         seen = set()
+        target_idx = 0
         for rp, report in iter_reports(corpus_dir):
             reports += 1
             if report.get("scope"):
@@ -232,14 +245,17 @@ def build(corpus_dir: Path, out_path: Path, manifest_path: Path,
             findings, hosts = collect_findings(report)
             if not findings:
                 continue
+            target_idx += 1  # one unique pseudonym per report that yields candidates
             scope = (report.get("scope") or "unknown.example").lower().rstrip(".")
-            target = "target-01.example"
-            host_map = make_host_map(scope, hosts)
+            target = f"target-{target_idx:03d}.example"
+            tp = [1]  # thirdparty-NN counter is per report too
+            host_map = make_host_map(scope, hosts, target, tp)
             observed_at = _normalize_generated(report.get("generated"))
             for f in findings:
                 findings_seen += 1
                 host = (f["host"] or scope).lower().rstrip(".")
-                host_map.setdefault(host, f"target-{len(host_map) + 1:02d}.example")
+                if host and host not in host_map:
+                    host_map[host] = _pseudonym_for(host, scope, target, tp)
                 mapped_host = host_map.get(host, target)
                 cls = classify(f["type"])
                 dedup = (target, f["type"], f["detail"][:200])
