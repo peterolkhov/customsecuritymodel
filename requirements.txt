@@ -1,0 +1,3 @@
+# river/train.py --live needs both; --self-test needs neither.
+river-client        # River API; requires Python >= 3.12
+transformers        # AutoTokenizer for the base model (pre-download so it's cached)

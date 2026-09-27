@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+out/
+runs/
+river/out/
+data/out/

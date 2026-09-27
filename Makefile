@@ -1,0 +1,12 @@
+PYTHON ?= python3
+
+.PHONY: help selftest train
+
+help: ## show this help
+	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
+
+selftest: ## offline check of every module — must pass with no keys, no network
+	$(PYTHON) river/train.py --self-test
+
+train: ## real River training run (needs .env: RIVER_API_KEY, RIVER_BASE_MODEL)
+	$(PYTHON) river/train.py --pairs $(PAIRS) --live
