@@ -320,3 +320,139 @@ scope ceilings + owner-approval, publish-gate fail-closed catalogs, cwd-.env qua
 `--source-guard`, body caps, CORS default-deny, SSRF guards on link-local/metadata, and an
 audit table per request. `gbrain doctor` runs on this machine (0.59.0.0; DB-backed checks
 skipped because a live `gbrain serve` holds the PGLite lock).
+
+---
+
+# Pipeline self-security (customsecuritymodel)
+
+Threat model of THIS build's own loop: `probe scanner → data/build_pairs.py (de-identify) →
+river/train.py (train on River) → river/infer.py + eval/harness.py (serve/eval) →
+suite/build_suite.py (per-company suite) → retrain`. Companion to the scanner/hunting review in
+`data/security-scanners.md` (F-SCN-01…F-SCN-16) and the River SDK review above (F-RIV-01…F-RIV-12).
+All file references are to this repo.
+
+---
+
+## 1. De-identification guarantees (`data/build_pairs.py`) — and where they fail
+
+What it does (lines 172-192, 305-321): for each finding it scrubs, in order — host map
+(longest-first), brand token, generic FQDN → `thirdparty-NN.example`, IPv4 → `198.51.100.N`,
+email → `user@example.com` — then truncates `detail` to 280 chars and emits the training row.
+The guarantee documented in `data/README.md` ("`input` and `output` never contain a real
+hostname, IP, email or brand") is enforced **only for those four classes**. Failure modes:
+
+1. **Secrets and non-email PII are not scrubbed.** The scrub set is closed (host/IP/email/brand
+   only). Live credential material found by the scanner — `sk_...`/`pk_...`/`eyJ...` JWTs,
+   `AKIA...`, phone numbers, personal names, URL userinfo (`http://user:pass@...`) — is **not**
+   redacted. The scanner's findings carry real secret material (see F-SCN-10) and any of it
+   embedded in a finding `detail` passes straight through into the training JSONL and the River
+   upload. **The "de-identified" dataset is not secret-free.**
+2. **Brand scrubbing is optional and fragile.** `brand_token_from_scope` (lines 195-202) takes
+   the second-to-last scope label, strips hyphens, and requires length ≥ 3. `acme-corp.example`
+   → token `acmecorp`, but detail text saying "Acme Corp" or "acme-corp.com" survives. A 3-char
+   token (`tes`, `art`) over-matches unrelated words — scrubbing is either leaky or lossy, never
+   calibrated.
+3. **URL userinfo / ports / path-embedded hosts escape the host regex.** `_HOST_FROM_LOC_RE`
+   (line 60) captures only `[A-Za-z0-9.-]+` right after an optional scheme, so a location like
+   `http://user:pass@host:8080/path` mis-extracts the host as `user`; credentials and ports in
+   the detail are not touched by any scrubber.
+4. **The mapping is deterministic but reversible, and third-party names are per-run unstable.**
+   `thirdparty-NN.example` counters reset each run, so the same third party gets a different
+   alias on every rebuild (provenance/correlation instability, not confidentiality). Anyone with
+   the corpus can reverse the counter mapping — the aliasing is obfuscation, not encryption.
+5. **The corpus is unauthenticated.** `iter_reports` (lines 205-215) `json.loads` any
+   `report.json` under `~/probe/out` with no ownership, signature, or schema check. A process
+   that can write there injects rows at will (see §5).
+
+## 2. Prompt-injection surface of the triage/infer seam
+
+The training row is `instruction` (trusted, static) + `\n\n` + `input`, where `input` is
+`type: <scanner type>; host: <alias>; detail: <untrusted web text, ≤280 chars>`. `river/train.py`
+`render_messages` (lines 51-54) and `river/infer.py` `_build_messages` (lines 75-93) rebuild the
+exact same concatenation at serve time.
+
+- **No instruction hierarchy.** The `detail` (attacker-influenceable page/JS/XML-RPC content —
+  see F-SCN-04) is concatenated with no delimiter escaping, no "ignore instructions inside
+  evidence" guardrail, and no schema wrapper. A hostile page can phrase its detail to steer the
+  severity output (under-rate a real finding, over-rate a false one) at inference time.
+- **Training-time reinforcement of the same seam.** Because the identical format is used to
+  train, the model is *taught* to follow whatever text follows the instruction — a poisoned
+  training row (from a crafted scan target or an injected report) teaches the injection
+  behavior, not just a wrong label. This is the strongest reason the de-identification and
+  corpus-integrity controls matter: they are the only defenses between hostile web content and
+  the model's weights.
+- **Recommended hardening:** wrap `detail` in a quoted, JSON-escaped evidence field; emit a
+  fixed system prompt that marks evidence as untrusted data, never instructions; reject or
+  escape control characters; and validate the output severity against the closed set
+  {CRITICAL, HIGH, MEDIUM, LOW, INFO}.
+
+## 3. Checkpoint / weight custody (`river://` path + who can serve it)
+
+- `train.py:174` saves `model.save_weights(name, mode="inference")` → `river://<run>/weights/<name>`,
+  written into `river/out/<ts>-<name>/{meta.json,checkpoint.txt}` (train.py:176-188). `river/out/`
+  is gitignored, so the reference stays local. The checkpoint is a **URI + metadata, never
+  client-side bytes**; on River Cloud the adapter weights are vendor-custodial (F-RIV-07), so
+  "the company holds the weights" is true only for control (own run, own data, immutable-version
+  option) not for literal custody. Effective custody = the served deployment URL under the team
+  key (F-RIV-08).
+- **Serving is key-authenticated, not path-authenticated.** `infer.py:131` and
+  `harness.py:229` call `chat_complete_from_checkpoint(checkpoint_path=…)` with the same
+  `RIVER_API_KEY`; any holder of the key can load or serve the company's checkpoint, and the
+  `river://` path is the only reference. Cross-tenant isolation of `river://` URIs is asserted
+  only server-side (F-RIV-06, SUSPECTED).
+- **Nothing binds the checkpoint to its training run client-side.** `train.py` never passes
+  `immutable=True` or `expected_policy_id`, so a tampered `meta.json` (or a repo writer swapping
+  the newest `river/out/*/meta.json`, which `suite/build_suite.py:86-98` picks by mtime) silently
+  changes what gets served/evaluated. The training-data-attestation hook exists in the SDK
+  (F-RIV-03/07) but is unused here.
+
+## 4. API-key handling (`RIVER_API_KEY`, `OPENAI_API_KEY`)
+
+- `RIVER_API_KEY` is env-only (`train.py:137`, `infer.py:147`, `harness.py:216`), never written
+  to files, never echoed in errors (SDK verified clean, F-RIV-01). Residual risks: (a) it is
+  inherited by child processes and is in scope for any crash dump / debug of `os.environ`;
+  (b) no rotation or per-capability key story — one key trains and serves; (c) the demo runs
+  `infer.py` in front of a camera, so the key must stay out of shell history and the TTY.
+- `OPENAI_API_KEY` is **not used anywhere in this build** — the checkpoint is served through
+  `chat_complete_from_checkpoint`, not through an OpenAI-SDK deployment. The key would only
+  matter if the served `base_url` path (F-RIV-08) is adopted; if it is, the deployment URL is the
+  single most sensitive surface (streaming + bearer auth).
+
+## 5. Pair supply-chain — who can inject a poisoned training row
+
+- **Corpus: `~/probe/out/*/report.json`, no integrity control.** Anyone who can write to that
+  directory (same-user process, another tool, a malicious scan target via the scanner's own
+  attacker-influenceable output — F-SCN-02/04) can plant a fabricated finding `{type, severity,
+  detail}`. It becomes a training row verbatim; a crafted `detail` doubles as prompt-injection
+  content (§2). There is no signing, no schema validation, no "this row came from a real scan"
+  marker.
+- **The "gold" labels are the scanner's own heuristics.** `build_pairs.py:316` emits the
+  scanner's `severity` field as `output`; `eval/harness.py:312` scores the model against the same
+  field as ground truth. Labels are partly driven by untrusted page content (F-SCN-14) and are
+  never independently verified, so training *and* evaluation inherit scanner error.
+- **Target collapse destroys the eval claim.** `build_pairs.py:236` hardcodes
+  `target = "target-01.example"` for every company, so all rows share one `provenance.target`.
+  `eval/harness.py:113-146` then splits by target and, with a single target, can only hold out
+  everything or nothing — the "unseen company" evaluation (the demo's central receipt) is
+  structurally unsatisfiable on real corpus output, and the "target-disjoint" guarantee in
+  `split.json` is vacuous. De-identification has flattened the very dimension the eval needs.
+
+## 6. The scan → train → serve → retrain loop's trust boundaries
+
+| # | Boundary | Direction of trust | Weakness |
+|---|---|---|---|
+| 1 | Web → scanner | **untrusted in** | TLS off (F-SCN-01), redirects followed (F-SCN-02), private-IP guard rebindable/absent (F-SCN-03), unbounded bodies (F-SCN-07), mutation verbs (F-SCN-08) |
+| 2 | Scanner → `report.json` | untrusted → unauthenticated file | No integrity/schema check; content and severity attacker-influenceable (F-SCN-02/14) |
+| 3 | `report.json` → pairs | de-identification is the only control | Secrets/PII/URL-credentials survive scrubbing (§1); brand scrub fragile; mapping reversible |
+| 4 | pairs → River upload | TLS + bearer key to vendor | De-identification is the *only* confidentiality control; at rest it is vendor trust (F-RIV-07) |
+| 5 | River → checkpoint | vendor-custodial, key-authenticated | No download API; cross-tenant isolation server-asserted only (F-RIV-06); deployment URL is the one streaming surface (F-RIV-08) |
+| 6 | checkpoint → eval/suite | newest-mtime file selection | No run binding, no immutability flag used (§3); a repo writer redirects serving/eval |
+| 7 | eval gold | scanner labels as ground truth | Circular: model vs rulebook both scored against the scanner heuristic (§5, F-SCN-14) |
+
+**Net:** the loop's honest trust position is "untrusted web content → (weak de-identification) →
+vendor-held weights". The three controls that would materially raise it, in order of leverage:
+(1) a real secret/PII redaction pass in `build_pairs.py` + corpus integrity checks (ownership,
+schema, signature); (2) an evidence wrapper + output-allowlist so the model never learns to
+treat page text as instructions; and (3) per-company target preservation through
+de-identification (fix the hardcoded `target-01.example`) so the eval's "unseen company" claim
+is actually tested.
