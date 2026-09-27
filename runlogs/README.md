@@ -9,3 +9,4 @@ One file per hackathon worker. Format: `UTC_TIMESTAMP | ACTION | FILE(s) | RESUL
 | infer | hack/ws-infer | checkpoint infer CLI | RUNLOG-infer.md |
 | suite | hack/ws-suite | per-company suite generator | RUNLOG-suite.md |
 | stacks | hack/ws-stacks | 6 reference stacks + generated suites | RUNLOG-stacks.md |
+| vuln-river | hack/ws-vuln-river | River security arch + 12 findings | RUNLOG-vuln-river.md |
