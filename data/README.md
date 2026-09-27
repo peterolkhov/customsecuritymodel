@@ -34,3 +34,8 @@ Rules in `derive()` are deterministic (no LLM): e.g. `dmarc weak + dkim/SPF miss
 js_credential_exposure`. Corpus-wide baselines (no DNSSEC, no MTA-STS, verification
 tokens) are kept in the derived set but never headline a row, so each company gets
 its own stack-specific signal.
+
+`data/vulns-superset.jsonl` is the mined superset-sh corpus (284 rows, 200 blind_spot
+/ 84 standard) produced by `data/build_vulns.py` (report.json -> pairs), with
+`data/deidentify.py` doing hosts->`*.example`, secret VALUE -> described TYPE,
+and a residue gate.

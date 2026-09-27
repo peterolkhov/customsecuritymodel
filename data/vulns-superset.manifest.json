@@ -1,0 +1,45 @@
+{
+  "rows": 284,
+  "source": "probe-report",
+  "observed_at": "2026-09-08T03:18:00Z",
+  "primary_target": "target-02.example",
+  "corpus_findings": 445,
+  "by_class": {
+    "blind_spot": 200,
+    "standard": 84
+  },
+  "by_task": {
+    "severity": 208,
+    "remediation": 52,
+    "next_test": 24
+  },
+  "by_type": {
+    "repo_secret_history": 33,
+    "repo_posture_noscanning": 22,
+    "repo_posture_noprotection": 22,
+    "cdn_waf_detected": 17,
+    "git_commit_sha_leak": 15,
+    "xss_sink_escaped": 14,
+    "js_route_extraction": 13,
+    "sentry_dsn_telemetry_injection": 12,
+    "api_post_csrf": 12,
+    "repo_secret_file": 11,
+    "repo_email_leak": 10,
+    "posthog_analytics_injection": 8,
+    "csp_unsafe_https_script": 7,
+    "js_api_host_found": 7,
+    "cf_challenge_blocking": 5,
+    "js_api_surface": 5,
+    "firebase_firestore_open": 4,
+    "dangling_dns_record": 4,
+    "repo_ci_risky": 4,
+    "js_cross_root_host": 4
+  },
+  "dropped": {
+    "contaminated": 0,
+    "residue": 0,
+    "unparseable": 0
+  },
+  "deidentify_version": "deidentify/1.1",
+  "adapter": "build_vulns/1.0"
+}

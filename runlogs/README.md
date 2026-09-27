@@ -15,3 +15,4 @@ One file per hackathon worker. Format: `UTC_TIMESTAMP | ACTION | FILE(s) | RESUL
 | vuln-qm | hack/ws-vuln-qm | QM security arch + 18 findings | RUNLOG-vuln-qm.md |
 | vuln-memorable | hack/ws-vuln-memorable | Memorable security arch + 12 findings | RUNLOG-vuln-memorable.md |
 | arch-mine | hack/ws-arch-mine | 32 companies judged by architecture | RUNLOG-arch-mine.md |
+| vuln-superset | hack/ws-vuln-superset | Superset security arch + 284 findings | RUNLOG-vuln-superset.md |
