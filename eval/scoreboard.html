@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Severity scoreboard — owned model vs rulebook floor</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         color: #0f172a; background: #f1f5f9; }
+  main { max-width: 1000px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 24px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 28px 0 10px; }
+  h3 { font-size: 15px; margin: 0 0 8px; }
+  .sub { color: #64748b; font-size: 13px; margin-bottom: 16px; }
+  .banner { padding: 10px 14px; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+  .banner.stub { background: #fef3c7; border: 1px solid #f59e0b; color: #78350f; }
+  .banner.live { background: #ccfbf1; border: 1px solid #14b8a6; color: #134e4a; }
+  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 18px; margin: 12px 0; }
+  .muted { color: #64748b; }
+  code { background: #f1f5f9; border-radius: 4px; padding: 1px 5px; font-size: 13px; }
+  table { border-collapse: collapse; width: 100%; background: #fff; }
+  .summary th, .summary td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; }
+  .summary th { background: #f8fafc; }
+  .summary td { font-size: 13px; }
+  .summary tr.model th { color: #0f766e; }
+  .summary tr.rulebook th { color: #64748b; }
+  .bar { display: inline-block; vertical-align: middle; width: 124px; height: 10px;
+         background: #e2e8f0; border-radius: 5px; overflow: hidden; }
+  .fill { display: block; height: 100%; border-radius: 5px; }
+  tr.model .fill { background: #0f766e; }
+  tr.rulebook .fill { background: #64748b; }
+  .num { margin-left: 6px; font-weight: 600; color: #334155; }
+  .n { color: #64748b; font-weight: 500; margin-right: 8px; }
+  .winner { font-size: 15px; padding: 10px 14px; border-radius: 8px; background: #eef2ff;
+             border: 1px solid #c7d2fe; color: #312e81; margin: 12px 0; }
+  .badge { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; font-weight: 700; }
+  .badge.ok { background: #dcfce7; color: #166534; }
+  .badge.no { background: #fee2e2; color: #991b1b; }
+  table.detail { font-size: 13px; }
+  table.detail th, table.detail td { border: 1px solid #e2e8f0; padding: 6px 8px; text-align: left; }
+  table.detail th { background: #f8fafc; }
+  .dot { width: 10px; }
+  .dot.ok { background: #166534; }
+  .dot.no { background: #991b1b; }
+  .foot { color: #94a3b8; font-size: 12px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Severity scoreboard — owned model vs rulebook floor</h1>
+  <div class="sub">generated 2026-09-27T21:07:49Z &middot;
+      eval/harness.py --pairs data/example.pairs.jsonl --stub</div>
+
+  <div class="banner stub"><strong>STUB MODE</strong> — placeholder — predicts the train split&#x27;s majority class (INFO, 4 train labels); NOT the owned model Scoreboard shows the pipeline, not the owned model.</div>
+
+  <div class="card">
+    <h3>Held-out result</h3>
+    <p>Evaluated on <b>2</b> unseen findings (target-disjoint split —
+       training examples never overlap eval examples). The model matches the gold label on
+       0/2; the rulebook floor on
+       0/2.</p>
+    <div class="winner">Overall winner: <b>tie</b> &middot; Blind-spot winner: <b>tie</b></div>
+  </div>
+
+  <h2>Summary — accuracy &amp; agreement per class</h2>
+  <div class="card" style="padding:0">
+  <table class="summary">
+    <thead><tr>
+      <th>method</th>
+      <th>overall acc</th><th>overall agree</th>
+      <th>standard acc</th><th>standard agree</th>
+      <th>blind-spot acc</th><th>blind-spot agree</th>
+    </tr></thead>
+    <tbody><tr class="model"><th>model</th><td><span class="n">0/2</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td><td><span class="n">0/2</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td><td><span class="n">0/0</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td><td><span class="n">0/0</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td><td><span class="n">0/2</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td><td><span class="n">0/2</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td></tr><tr class="rulebook"><th>rulebook</th><td><span class="n">0/2</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td><td><span class="n">1/2</span> <span class="bar"><span class="fill" style="width:60px"></span></span><span class="num">50%</span></td><td><span class="n">0/0</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td><td><span class="n">0/0</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td><td><span class="n">0/2</span> <span class="bar"><span class="fill" style="width:2px"></span></span><span class="num">0%</span></td><td><span class="n">1/2</span> <span class="bar"><span class="fill" style="width:60px"></span></span><span class="num">50%</span></td></tr></tbody>
+  </table>
+  </div>
+  <p class="muted" style="font-size:12px">agree = prediction within one severity step of gold.
+     Blind spots are where the stack-specific model earns its keep:
+     0% vs 0% on unseen targets.</p>
+
+  <h2>Split</h2>
+  <div class="card"><h3>Split — target-disjoint</h3><p>6 pairs &rarr; <b>4 train</b> / <b>2 eval</b> &nbsp; <span class="badge ok">disjoint: true</span> &nbsp; <span class="muted">seed=4, held-out frac=0.35</span></p><p><span class="muted">train targets:</span> target-01.example, target-02.example, target-03.example<br><span class="muted">eval targets (unseen):</span> <b>target-04.example, target-05.example</b></p></div>
+
+  <h2>Per-finding detail</h2>
+  <div class="card" style="padding:0"><table class='detail'><thead><tr><th>target</th><th>class</th><th>type</th><th>gold</th><th>rulebook</th><th>hit?</th><th>model</th><th>hit?</th></tr></thead><tbody><tr><td>target-04.example</td><td>blind_spot</td><td><code>stale_subdomain</code></td><td><b>HIGH</b></td><td>LOW</td><td class="dot no"></td><td>INFO</td><td class="dot no"></td></tr><tr><td>target-05.example</td><td>blind_spot</td><td><code>graphql_introspection</code></td><td><b>HIGH</b></td><td>MEDIUM</td><td class="dot no"></td><td>INFO</td><td class="dot no"></td></tr></tbody></table></div>
+
+  <div class="foot">eval/harness.py + eval/scoreboard.py &middot; self-contained, no external assets</div>
+</main>
+</body>
+</html>
