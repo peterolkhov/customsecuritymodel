@@ -1,12 +1,16 @@
 PYTHON ?= python3
 
-.PHONY: help selftest train
+.PHONY: help selftest brain-selftest train
 
 help: ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
 
 selftest: ## offline check of every module — must pass with no keys, no network
 	$(PYTHON) river/train.py --self-test
+	$(PYTHON) memory/brain.py --self-test
+
+brain-selftest: ## offline check of the GBrain findings brain
+	$(PYTHON) memory/brain.py --self-test
 
 train: ## real River training run (needs .env: RIVER_API_KEY, RIVER_BASE_MODEL)
 	$(PYTHON) river/train.py --pairs $(PAIRS) --live
