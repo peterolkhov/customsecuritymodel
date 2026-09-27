@@ -1,0 +1,748 @@
+{
+  "_meta": {
+    "backend": "gbrain+local",
+    "updated_at": "2026-09-27T21:43:33Z"
+  },
+  "target-01.example": {
+    "facts": 60,
+    "findings": [
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "X-Frame-Options and CSP absent on the marketing pages",
+        "host": "app.target-01.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_security_headers"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "certificate expires in 11 days, auto-renew via LE confirmed",
+        "host": "api.target-01.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tls_cert_expiry"
+      },
+      {
+        "class": "standard",
+        "company": "target-02.example",
+        "detail": "/.env returns 200 with DATABASE_URL containing a live postgres password",
+        "host": "static.target-02.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "exposed_env_file"
+      },
+      {
+        "class": "standard",
+        "company": "target-03.example",
+        "detail": "stack trace leaks Django ORM query with customer table names",
+        "host": "billing.target-03.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "verbose_error"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-04.example",
+        "detail": "CNAME points to unclaimed *.herokudns.com \u2014 company runs status pages on a vendor they no longer pay",
+        "host": "status.target-04.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "stale_subdomain"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-05.example",
+        "detail": "introspection enabled in prod exposing internal admin mutations; company is a fintech with PCI scope",
+        "host": "api.target-05.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "graphql_introspection"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "SPF IP 198.51.100.1 served vhost email.target-01.example (origin 200/6366B vs CDN 200)",
+        "host": "target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "dns_spf_origin_ip"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no Strict-Transport-Security",
+        "host": "apollo.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no Strict-Transport-Security",
+        "host": "email.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no Strict-Transport-Security",
+        "host": "target-05.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no Strict-Transport-Security",
+        "host": "gw.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no Strict-Transport-Security",
+        "host": "mail.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no Strict-Transport-Security",
+        "host": "target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no Strict-Transport-Security",
+        "host": "pocketbase.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no Strict-Transport-Security",
+        "host": "target-06.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "collection 'users' public-read (totalItems=0)",
+        "host": "pocketbase.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "pocketbase_public_collection"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "apollo.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no X-Content-Type-Options",
+        "host": "apollo.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_xcontent"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "dash.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "email.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no X-Content-Type-Options",
+        "host": "email.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_xcontent"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "target-05.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no X-Content-Type-Options",
+        "host": "target-05.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_xcontent"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "gw.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no X-Content-Type-Options",
+        "host": "gw.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_xcontent"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "target-03.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no X-Content-Type-Options",
+        "host": "target-03.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_xcontent"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "target-04.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no X-Content-Type-Options",
+        "host": "target-04.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_xcontent"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "mail.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no X-Content-Type-Options",
+        "host": "mail.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_xcontent"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no X-Content-Type-Options",
+        "host": "target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_xcontent"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "pocketbase.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "blind_spot",
+        "company": "target-01.example",
+        "detail": "no Content-Security-Policy",
+        "host": "target-06.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "no X-Content-Type-Options",
+        "host": "target-06.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_xcontent"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "/api/graphql exists (POST 401, auth-gated)",
+        "host": "apollo.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "graphql_endpoint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "/api/v1/graphql exists (POST 401, auth-gated)",
+        "host": "apollo.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "graphql_endpoint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "ACAO: * (Allow-Credentials=absent)",
+        "host": "email.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "cors_permissive"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "/graphql exists (POST 401, auth-gated)",
+        "host": "gw.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "graphql_endpoint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "/api/graphql exists (POST 401, auth-gated)",
+        "host": "gw.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "graphql_endpoint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "/v1/graphql exists (POST 401, auth-gated)",
+        "host": "gw.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "graphql_endpoint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "/api/v1/graphql exists (POST 401, auth-gated)",
+        "host": "gw.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "graphql_endpoint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "ACAO: * (Allow-Credentials=absent)",
+        "host": "mail.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "cors_permissive"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "ACAO: * (Allow-Credentials=absent)",
+        "host": "pocketbase.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "cors_permissive"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "identical content across: email.target-01.example, mail.target-01.example",
+        "host": "email.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "alias_duplicate"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "identical content across: target-03.example, target-04.example",
+        "host": "target-03.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "alias_duplicate"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Cloudflare; cloudflare",
+        "host": "apollo.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Cloudflare; cloudflare",
+        "host": "dash.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Cloudflare; cloudflare; X-Powered-By: AgenticMail",
+        "host": "email.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Cloudflare; cloudflare; X-Powered-By: thirdparty-01.example",
+        "host": "target-05.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Cloudflare; cloudflare",
+        "host": "gw.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Vercel",
+        "host": "target-03.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Vercel",
+        "host": "target-04.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Cloudflare; cloudflare; X-Powered-By: AgenticMail",
+        "host": "mail.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Cloudflare; cloudflare; X-Powered-By: thirdparty-01.example",
+        "host": "target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Cloudflare; cloudflare",
+        "host": "pocketbase.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "Cloudflare; cloudflare; X-Powered-By: thirdparty-01.example",
+        "host": "target-06.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tech_fingerprint"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "MX -> self-hosted/other (thirdparty-01.example) (10 thirdparty-01.example.)",
+        "host": "target-05.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "dns_mail_provider"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "google-site-verification=qk2mgcVsmwMR2-kaifhPXpZtQu9DM7n3TGs815ABFZg",
+        "host": "target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "dns_verification_token"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "MX -> Google Workspace (1 thirdparty-01.example.)",
+        "host": "target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "dns_mail_provider"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "MX -> self-hosted/other (thirdparty-01.example) (10 thirdparty-01.example.)",
+        "host": "target-06.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "dns_mail_provider"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "5 endpoints in JS bundles: /api/auth/logout, /api/board, /api/unibox/bulk, /api/unibox/compose, /api/unibox/queue",
+        "host": "dash.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "js_api_surface"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "/api/agenticmail/health leaks version=0.9.64 service= services=['api', 'stalwart']",
+        "host": "email.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "health_version_leak"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "/health leaks version= service=state-gateway services=[]",
+        "host": "gw.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "health_version_leak"
+      },
+      {
+        "class": "standard",
+        "company": "target-01.example",
+        "detail": "/api/agenticmail/health leaks version=0.9.64 service= services=['api', 'stalwart']",
+        "host": "mail.target-01.example",
+        "observed_at": "2026-07-31T07:59:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "health_version_leak"
+      }
+    ],
+    "runs": [
+      "run-fixture-01",
+      "run-20260731T075900",
+      "run-20260731T075900-v2"
+    ]
+  },
+  "target-02.example": {
+    "facts": 1,
+    "findings": [
+      {
+        "class": "standard",
+        "company": "target-02.example",
+        "detail": "/.env returns 200 with DATABASE_URL containing a live postgres password",
+        "host": "static.target-02.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "exposed_env_file"
+      }
+    ],
+    "runs": [
+      "run-fixture-01"
+    ]
+  },
+  "target-03.example": {
+    "facts": 1,
+    "findings": [
+      {
+        "class": "standard",
+        "company": "target-03.example",
+        "detail": "stack trace leaks Django ORM query with customer table names",
+        "host": "billing.target-03.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "verbose_error"
+      }
+    ],
+    "runs": [
+      "run-fixture-01"
+    ]
+  },
+  "target-04.example": {
+    "facts": 1,
+    "findings": [
+      {
+        "class": "blind_spot",
+        "company": "target-04.example",
+        "detail": "CNAME points to unclaimed *.herokudns.com \u2014 company runs status pages on a vendor they no longer pay",
+        "host": "status.target-04.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "stale_subdomain"
+      }
+    ],
+    "runs": [
+      "run-fixture-01"
+    ]
+  },
+  "target-05.example": {
+    "facts": 1,
+    "findings": [
+      {
+        "class": "blind_spot",
+        "company": "target-05.example",
+        "detail": "introspection enabled in prod exposing internal admin mutations; company is a fintech with PCI scope",
+        "host": "api.target-05.example",
+        "observed_at": "2026-09-27T00:00:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "graphql_introspection"
+      }
+    ],
+    "runs": [
+      "run-fixture-01"
+    ]
+  }
+}
