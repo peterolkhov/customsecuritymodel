@@ -132,7 +132,7 @@ def _pick_base(caps) -> str:
 
 
 def live_train(args) -> int:
-    import river
+    import river_client as river
 
     api_key = os.environ.get("RIVER_API_KEY")
     if not api_key:
