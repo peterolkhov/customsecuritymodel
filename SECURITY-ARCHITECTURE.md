@@ -9,6 +9,10 @@ section per vendor, each with its own findings JSONL in `data/vulns-*.jsonl`:
 - **Memorable** procedure recording/replay
 - **Superset** orchestration cockpit
 
+For the baseline this project contrasts against — the generic OWASP floor every scanner
+checks, its corpus severity split, and the rulebook-vs-owned scorecard — see
+**[`BASELINE.md`](BASELINE.md)**.
+
 ---
 
 # River AI client/server trust model
