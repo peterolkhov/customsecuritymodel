@@ -1,0 +1,25 @@
+# RUNLOG — corpus (research/security-corpus)
+
+Worker: corpus-research | branch: research/security-corpus | repo: peterolkhov/customsecuritymodel (worktree /Users/peterolkhovets/research-security-corpus)
+Contract: data/README.md — JSONL row shape byte-identical to data/vulns-river.jsonl (task/instruction/input/output + provenance{source,target,observed_at,class}).
+Deliverables: data/vulns-corpus.jsonl (>=40 de-identified findings), data/security-corpus.md (intel doc), runlogs/RUNLOG-corpus.md.
+All times UTC.
+
+| UTC | ACTION | FILE(s) | RESULT/CHECK | DECISION |
+|---|---|---|---|---|
+| 2026-09-27T21:00Z | Recon contract + conventions | data/README.md, data/vulns-river.jsonl, data/vulns-gbrain.jsonl, runlogs/RUNLOG-adapter.md | Row shape confirmed: task/instruction/input/output + provenance{source,target,observed_at,class}; observed_at must be ISO Z; class standard\|blind_spot; ids unique; de-ident: hosts->target-NN.example, 3rd-party->thirdparty.example, IPs->198.51.100.x, emails->user@example.com, brands->brand.example, secrets->{{redacted}} | New file only; never modify files another branch owns |
+| 2026-09-27T21:04Z | Read probe notes | notes/probe-data-for-model-training.md, probe-labels-and-ground-truth.md, probe-severity-reasoning.md, probe-validation-pass-2026-09-09.md, accurate-severity-opportunity.md, security-data-valid-abstractions.md | 23,380 findings / 269 types / 1,733 H+C in parent corpus; severity = rulebook (TIPS) + few conditional overrides + noise caps; validation pass flagged template contamination + de-id gaps | Model must learn evidence-judgment (read body, reachability, stack), not rulebook imitation |
+| 2026-09-27T21:08Z | Sample corpus | ~/probe/out/*/report.json | 27 targets across fintech/insurtech/health/D2C/AI-SaaS/OSS; 52,748 findings; 212 types; CRITICAL 84 / HIGH 4,416 / MEDIUM 12,365 / LOW 7,027 / INFO 28,856 | Depth over breadth; ~20-30 targets was the brief |
+| 2026-09-27T21:12Z | Mine findings | sampled report.json (5 sections: top findings, probe[*].findings, deep.findings, deep.hosts[*].findings, repos.findings) | Gold types: mcp_tools_unauth(30), payment_provider_secret_leak(3, all CRITICAL-class), firebase_rtdb_open(6), cross_tenant_idor(3), unauth_write_bypass(81), cors_credentials_reflected(51 CRITICAL), consul_exposed(87 H), oauth_dcr_open(57 H), payment_order_idor(45 H), nextjs_data_route_unauth(24), dns_spf_origin_ip(12) | Severity-reasoning rows: same-type-different-evidence; blind-spot rows: stack-specific (MCP/Next.js/Firebase/provider-secrets/actuator/consul); standard rows: high-value OWASP floor |
+| 2026-09-27T21:20Z | Write generator + rows | data/vulns-corpus.jsonl | 59 rows written (>=40 required); task=severity all; class blind_spot 35 / standard 24; severities CRITICAL 3 / HIGH 27 / MEDIUM 15 / LOW 5 / INFO 9; 20 distinct targets; observed_at from report `generated` parsed to ISO Z | ids F-CORP-01..59; output "<SEVERITY> — one-line rationale" per contract |
+| 2026-09-27T21:22Z | Leak scan round 1 | data/vulns-corpus.jsonl | Found real hosts (.elb.amazonaws.com, firebaseio.com, stockx.app, .co.uk/.co.nz) + brand words (affirm, roboflow, alivecor, RunPod, AGENTMAIL, baseten) + key prefixes (ROBOFLOW_) | Rewrote all hosts to target-NN.example / thirdparty.example; redacted key values to {{redacted}}; replaced brand tokens |
+| 2026-09-27T21:23Z | Leak scan final | data/vulns-corpus.jsonl | 0 real hosts (only *.example), 0 real IPs (only 198.51.100.x), 0 emails, 0 brand tokens, 0 high-entropy secrets; python3 -m json.tool pass on all 59 lines; ids unique; observed_at present+Z | Verified before commit per standing rule |
+| 2026-09-27T21:24Z | Write intel doc | data/security-corpus.md | 5 sections: corpus scale, vuln-class distribution (count vs severity), severity-reasoning patterns, per-stack blind-spot taxonomy (fintech/health/D2C/AI-SaaS/OSS), top-10 rulebook failures | Numbers from sample (52,748 findings / 212 types); gold classes surfaced |
+| 2026-09-27T21:25Z | Write RUNLOG | runlogs/RUNLOG-corpus.md | retroactive rows | Standing order: log every action |
+| 2026-09-27T21:26Z | Commit + push | data/vulns-corpus.jsonl, data/security-corpus.md, runlogs/RUNLOG-corpus.md | git add -A && commit && push -u origin HEAD | Milestone: corpus security intel |
+
+## Handoff / notes
+
+- Next worker: feed `data/vulns-corpus.jsonl` through `river/train.py --pairs data/vulns-corpus.jsonl` (task=severity matches vulns-gbrain format) or eval held-out.
+- Blind-spot insight for the demo narrative: the corpus's CRITICALs are stack-specific (payment-provider SECRET in JS, open Firebase RTDB, reflective-CORS+credentials, open OAuth DCR) — classes a generic OWASP rulebook never checks. The owned model justifies its cost by catching these per stack.
+- Severity-reasoning rows teach the model to read the evidence body, not the finding type (unauth 200 with billing data vs empty search vs SPA shell).
