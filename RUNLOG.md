@@ -18,7 +18,9 @@ Format: `UTC | ACTION | FILE(s) | RESULT/CHECK | DECISION/REASON`
 | 2026-09-27T21:14Z | Dedupe recall + ledger | memory/brain.py | recall dedupes by fact id; ledger dedupes by claim on append | scan reports repeat probe entries; clean demo output |
 | 2026-09-27T21:16Z | Cleanup of test pollution | — | forgot ws-gbrain-demo.example (28 unique facts); ledger trimmed to 5 fixture companies | keep shared brain demo-clean; dbg/ws-gbrain-test entities left (no ledger, recall locked) |
 | 2026-09-27T21:18Z | Final verification | memory/brain.py | `--self-test` PASS (locked), fixture ingest+recall OK, real scan ingest+recall OK, no-key degrade OK | all checks green |
-| 2026-09-27T21:20Z | gbrain milestone facts + git push | memory/brain.py, memory/brain-ledger.json, RUNLOG.md, Makefile | `gbrain remember … --entity gbrain-3 --kind runlog`; committed + pushed branch | coordinator standing order: frequent push + milestone facts |
+| 2026-09-27T21:20Z | gbrain milestone facts + git push | memory/brain.py, memory/brain-ledger.json, RUNLOG.md, Makefile | `gbrain remember … --entity gbrain-3` (facts #368-370); committed `9c530ad` + pushed `hack/ws-gbrain` | coordinator standing order: frequent push + milestone facts |
+| 2026-09-27T21:22Z | Final verification sweep | memory/brain.py | self-test PASS; fixture ingest 6/6; recall works (locked); --help OK; no-key degrade exit 0; `make selftest` (river+brain) PASS | task acceptance checks all green |
+| 2026-09-27T21:24Z | Final milestone + push | RUNLOG.md | gbrain remember final; committed | ship state |
 
 ## Key decisions
 - **Fact format**: `finding: <type> on <host> — <detail> | sev=<SEV>, class=<CLASS>`, capped at 128 chars, never ends with a bare `…` (avoids gbrain `fact_withdrawn`/fingerprint collisions).
