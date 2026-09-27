@@ -144,12 +144,21 @@ def live_train(args) -> int:
     client = river.Client(api_key=api_key)
     client.health_check()
     base = args.base_model or os.environ.get("RIVER_BASE_MODEL") or _pick_base(client.get_capabilities())
-    tok = get_tokenizer(base)
+    try:
+        tok = get_tokenizer(base)
+    except Exception as e:
+        print(f"tokenizer for {base!r} not loadable from HF ({e}) — set "
+              "RIVER_BASE_MODEL to a HF repo id or pass --base-model", file=sys.stderr)
+        return 2
     batches = build_batches(pairs, tok, args.batch_size, args.max_len)
 
     started = _now()
     run_dir = _OUT / f"{started.replace(':', '-')}-{args.name}"
-    run_dir.mkdir(parents=True, exist_ok=False)
+    suffix = 1
+    while run_dir.exists():          # same-second re-run of the same name
+        suffix += 1
+        run_dir = _OUT / f"{started.replace(':', '-')}-{args.name}-{suffix}"
+    run_dir.mkdir(parents=True)
     log_path = run_dir / "log.jsonl"
     meta = {
         "kind": "river-train", "started_at": started, "pairs": str(args.pairs),
@@ -192,13 +201,43 @@ def live_train(args) -> int:
         smoke = client.chat_complete_from_checkpoint(
             messages=render_messages(random.choice(pairs))[:-1],
             checkpoint_path=meta["checkpoint"], base_model=base)
-        (run_dir / "smoke.json").write_text(json.dumps(smoke, indent=2, default=str))
+        (run_dir / "smoke.json").write_text(json.dumps(
+            getattr(smoke, "response_json", smoke), indent=2, default=str))
     except Exception as e:  # serve layer may lag checkpoint; the weights still exist
         meta["smoke_error"] = str(e)
 
     (run_dir / "meta.json").write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n")
+    _snapshot_run(run_dir, meta, Path(args.pairs))
     print(f"checkpoint: {meta['checkpoint']}\nartifacts: {run_dir}")
     return 0
+
+
+def _snapshot_run(run_dir: Path, meta: dict, pairs_path: Path) -> None:
+    """Promote the run's provenance record into tracked runlogs/artifacts/ —
+    river/out/ is gitignored, so without this the checkpoint record vanishes."""
+    dest = _ROOT / "runlogs" / "artifacts" / run_dir.name
+    try:
+        dest.mkdir(parents=True, exist_ok=True)
+        import shutil
+        for name in ("meta.json", "checkpoint.txt", "smoke.json", "log.jsonl"):
+            src = run_dir / name
+            if src.exists():
+                shutil.copy2(src, dest / name)
+        manifest = pairs_path.parent / "manifest.json"
+        if manifest.exists():
+            shutil.copy2(manifest, dest / "pairs-manifest.json")
+        index = dest.parent / "INDEX.md"
+        if not index.exists():
+            index.write_text("# Training-run artifacts\n\n"
+                             "| ts | name | checkpoint | pairs | base |\n|---|---|---|---|---|\n",
+                             encoding="utf-8")
+        with index.open("a", encoding="utf-8") as f:
+            f.write(f"| {meta.get('started_at','')} | {run_dir.name} | "
+                    f"`{meta.get('checkpoint','')}` | {meta.get('n_pairs','')} "
+                    f"| {meta.get('base_model','')} |\n")
+        print(f"snapshot: {dest}")
+    except Exception as e:  # never fail a successful train over bookkeeping
+        print(f"note: artifact snapshot failed ({e})", file=sys.stderr)
 
 
 def _self_test() -> int:
