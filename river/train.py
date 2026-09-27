@@ -132,6 +132,18 @@ def _pick_base(caps) -> str:
     return min(names, key=size_key)
 
 
+def _next_name() -> str:
+    """Next free `company-model-v<N>` name based on existing run dirs."""
+    import re
+    nxt = 1
+    if _OUT.is_dir():
+        seen = [int(m.group(1)) for d in _OUT.iterdir()
+                if (m := re.search(r"company-model-v(\d+)", d.name))]
+        if seen:
+            nxt = max(seen) + 1
+    return f"company-model-v{nxt}"
+
+
 def live_train(args) -> int:
     import river_client as river
 
@@ -152,12 +164,13 @@ def live_train(args) -> int:
         return 2
     batches = build_batches(pairs, tok, args.batch_size, args.max_len)
 
+    name = args.name or _next_name()
     started = _now()
-    run_dir = _OUT / f"{started.replace(':', '-')}-{args.name}"
+    run_dir = _OUT / f"{started.replace(':', '-')}-{name}"
     suffix = 1
     while run_dir.exists():          # same-second re-run of the same name
         suffix += 1
-        run_dir = _OUT / f"{started.replace(':', '-')}-{args.name}-{suffix}"
+        run_dir = _OUT / f"{started.replace(':', '-')}-{name}-{suffix}"
     run_dir.mkdir(parents=True)
     log_path = run_dir / "log.jsonl"
     meta = {
@@ -190,7 +203,7 @@ def live_train(args) -> int:
                 print(f"[{rec['ts']}] epoch {epoch} step {step} loss {rec['loss']} "
                       f"tok {n_tok} {dt_step:.1f}s")
                 step += 1
-        ckpt = model.save_weights(args.name, mode="inference")
+        ckpt = model.save_weights(name, mode="inference")
 
     meta.update(ended_at=_now(), checkpoint=str(getattr(ckpt, "path", ckpt)),
                 steps=step, n_tokens_epoch=tokens_total // args.epochs,
@@ -270,7 +283,8 @@ def main(argv=None) -> int:
     ap.add_argument("--pairs", default=str(_ROOT / "data" / "example.pairs.jsonl"))
     ap.add_argument("--live", action="store_true", help="real River run")
     ap.add_argument("--dry-run", action="store_true", help="tokenize + batch, no training")
-    ap.add_argument("--name", default="company-model-v1")
+    ap.add_argument("--name", default=None,
+                    help="run/checkpoint name; defaults to the next company-model-v<N>")
     ap.add_argument("--base-model", default=None)
     ap.add_argument("--rank", type=int, default=32)
     ap.add_argument("--lr", type=float, default=2e-4)

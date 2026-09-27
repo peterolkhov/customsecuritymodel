@@ -6,7 +6,7 @@ loss curve) and the before/after bench (bench.json: correctness + latency) into
 one self-contained report.html that a judge can read top to bottom.
 
     python3 eval/value_report.py \
-        --run river/out/<ts>-company-model-v2-flood \
+        --run river/out/<ts>-company-model-v<N> \
         --bench eval/out/bench.json --out eval/out/value_report.html
 """
 from __future__ import annotations

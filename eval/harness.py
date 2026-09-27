@@ -13,11 +13,11 @@ heuristic) against the owned model on the unseen targets.
 
     # owned checkpoint, single-target corpus: hold out the blind-spot slice
     python3 eval/harness.py --pairs data/out/pairs.jsonl \\
-        --checkpoint river://<run-id>/sampler_weights/company-model-v1 \\
+        --checkpoint river://<run-id>/sampler_weights/<name> \\
         --held-out-class blind_spot
     # no key on disk: same split, stub model, owned row marked pending
     python3 eval/harness.py --pairs data/out/pairs.jsonl --stub \\
-        --held-out-class blind_spot --pending-checkpoint river://<run-id>/sampler_weights/company-model-v1
+        --held-out-class blind_spot --pending-checkpoint river://<run-id>/sampler_weights/<name>
 
 Predictor selection (exactly one; defaults to --stub):
   --stub          offline placeholder — majority class of the train split. Runs
