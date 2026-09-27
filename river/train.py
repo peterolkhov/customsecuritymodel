@@ -22,6 +22,7 @@ import os
 import random
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent
@@ -160,21 +161,31 @@ def live_train(args) -> int:
     with client.session(project="customsecuritymodel") as session:
         model = session.create_model(base_model=base, lora=river.LoraConfig(rank=args.rank))
         step = 0
+        tokens_total = 0
+        t_step0 = time.time()
         for epoch in range(args.epochs):
             random.shuffle(batches)
             for batch in batches:
+                t0 = time.time()
                 fb = model.forward_backward(batch, loss_fn="cross_entropy")
                 model.optim_step(lr=args.lr, grad_clip_norm=1.0)
+                dt_step = time.time() - t0
+                n_tok = sum(len(e.get("target_tokens", [])) for e in batch)
+                tokens_total += n_tok
                 rec = {"ts": _now(), "epoch": epoch, "step": step,
-                       "loss": (fb.metrics or {}).get("loss")}
+                       "loss": (fb.metrics or {}).get("loss"),
+                       "tokens": n_tok, "step_s": round(dt_step, 3),
+                       "tokens_cum": tokens_total}
                 with log_path.open("a", encoding="utf-8") as f:
                     f.write(json.dumps(rec) + "\n")
-                print(f"[{rec['ts']}] epoch {epoch} step {step} loss {rec['loss']}")
+                print(f"[{rec['ts']}] epoch {epoch} step {step} loss {rec['loss']} "
+                      f"tok {n_tok} {dt_step:.1f}s")
                 step += 1
         ckpt = model.save_weights(args.name, mode="inference")
 
     meta.update(ended_at=_now(), checkpoint=str(getattr(ckpt, "path", ckpt)),
-                steps=step)
+                steps=step, n_tokens_epoch=tokens_total // args.epochs,
+                n_tokens_total=tokens_total, wall_s=time.time() - t_step0)
     (run_dir / "checkpoint.txt").write_text(meta["checkpoint"] + "\n")
 
     try:

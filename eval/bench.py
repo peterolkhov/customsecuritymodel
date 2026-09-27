@@ -78,9 +78,22 @@ class Predictor:
         # dig the text + usage out of whatever the SDK returned
         text = None
         usage = None
+        rj = None
+        if isinstance(out, dict):
+            rj = out.get("response_json")
+        elif hasattr(out, "response_json"):
+            rj = out.response_json
+        if isinstance(rj, str):
+            try:
+                rj = json.loads(rj)
+            except Exception:
+                rj = None
+        if isinstance(rj, dict):
+            out = rj
         if isinstance(out, dict):
             usage = out.get("usage")
-            text = out.get("content") or out.get("output") or out.get("text")
+            if not text:
+                text = out.get("content") or out.get("output") or out.get("text")
             if text is None:
                 choices = out.get("choices")
                 if choices:
@@ -121,6 +134,11 @@ def _metrics(rows: list[dict], key: str) -> dict:
         n = len(sub)
         exact = sum(1 for r in sub if _exact(r[key], r["gold"]))
         agree = sum(1 for r in sub if _agree(r[key], r["gold"]))
+        if key == "rulebook":  # deterministic — no latency/cost
+            return {"n": n, "exact": exact, "agreement": agree,
+                    "accuracy": exact / n if n else 0.0,
+                    "agreement_rate": agree / n if n else 0.0,
+                    "latency_p50": None, "latency_p95": None, "total_cost_usd": 0.0}
         lat = [r[f"{key}_latency"] for r in sub]
         return {"n": n, "exact": exact, "agreement": agree,
                 "accuracy": exact / n if n else 0.0,
