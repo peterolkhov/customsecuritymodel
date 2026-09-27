@@ -1,0 +1,13 @@
+# RUNLOG — customsecuritymodel (hack/ws-arch-mine)
+
+| UTC | action | files | result/check | decision |
+|---|---|---|---|---|
+| 2026-09-27T21:20Z | Surveyed probe corpus: 864 report.json, 810 with deep.infra; indexed 856 targets, mapped mail/DMARC/DNSSEC/CDN/server signal distributions | /tmp/arch_idx.json (scratch) | infra sizes 1..12; DNSSEC absent corpus-wide; Cloudflare/Vercel/AWS dominate edge | Rule engine must treat corpus-wide constants (dnssec, mta-sts, verify tokens) as baseline, not headline |
+| 2026-09-27T21:24Z | Wrote data/arch_mine.py: selection (32 targets, 10 industries), ArchProfile signal extraction from deep.infra/deep.hosts, deterministic derive() rules, de-identification maps, JSONL+MD emitters | data/arch_mine.py | generates 32 rows; severity split HIGH 15 / MEDIUM 17 | Accept; iterate on accuracy (apex selection, probe-gap handling) |
+| 2026-09-27T21:31Z | Reworked _compute: prefer canonical apex record (first scope entry), aggregate dkim/dnssec/mta-sts/caa/bimi + saas/tokens across all infra records | data/arch_mine.py | together-ai now reads apex quarantine (was weak .co); tooltip honest | Keep apex-first aggregation |
+| 2026-09-27T21:38Z | Made corpus-wide baselines (dnssec/mta-sts/caa/bimi/verify-tokens) second-tier: derived but never headline; added top_n_for_table | data/arch_mine.py | per-company discrimination restored (js_credential, subdomain_takeover, origin_exposure, api_csrf, self_hosted_mail, sourcemap, domain_spoofing spread) | Keep |
+| 2026-09-27T21:41Z | Fixed probe-gap targets (razorpay, langfuse: empty deep.infra dns) -> show 'unknown (dns not captured)' in input, headline from host signals only | data/arch_mine.py | razorpay HIGH js_credential_exposure, langfuse MEDIUM origin_exposure | Honest labeling retained |
+| 2026-09-27T21:44Z | Verification pass: python3 parses every JSONL line + re-serializes; regex sweep for hostnames/IPs/emails/secrets/brands across input/output/instruction; contract shape (task/instruction/input/output/provenance, class=blind_spot, target=*.example) | data/arch-mine.jsonl, ARCH-MINE.md | 32/32 rows clean, zero de-identification leaks | Verified |
+| 2026-09-27T21:45Z | Wrote ARCH-MINE.md demo table + documented arch-mine rows in data/README.md | ARCH-MINE.md, data/README.md | 32-row table with industry guess, arch signals, top vulns, severity | Commit + push |
+| 2026-09-27T21:47Z | Final ARCH-MINE.md review + data/README.md doc note | ARCH-MINE.md, data/README.md | 32-row table: de-identified slug, industry guess, arch signals, top vulns, severity | OK |
+| 2026-09-27T21:48Z | Committed + pushed hack/ws-arch-mine | all (5 files, +613) | git commit 2cfe962; origin/hack/ws-arch-mine updated | Done |
