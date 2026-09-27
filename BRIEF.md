@@ -31,6 +31,14 @@ Extend QM and GBrain. Push further with Memorable, Superset and UFO. Ship someth
 - Superset: AirPods Max + 1yr Superset Pro
 - QM: Mac mini
 
+## River's judging guide (their page, verbatim)
+
+"The best showcase of using a custom model wins." Three asks: (1) demo the experience — who it's for; (2) explain what the model learned — show training examples or reward signal; (3) show why it helps — compare on unseen tasks. Their reference example re-trains a LoRA *live* during use — they like watching training happen. **Free credits at the River booth; they expire end of day — claim first.**
+
+## Submission (due 5:00 — full checklist in SUBMISSION.md)
+
+Google Form: team name, members+emails, project description, GitHub URL, **demo video URL (required — Loom)**, per-sponsor side-quest ticks, anything-else box. Video before form; form before judging.
+
 ## Sponsor mapping for this build
 
 | sponsor | where it lands |
