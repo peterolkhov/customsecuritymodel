@@ -17,3 +17,5 @@ Format: `UTC_TIMESTAMP | ACTION | FILE(s) | RESULT/CHECK | DECISION`
 | 2026-09-27T21:32:00Z | write | data/vulns-river.jsonl | 12 finding rows per data/README.md contract | validate JSONL |
 | 2026-09-27T21:35:00Z | check | data/vulns-river.jsonl | python json validate: 12 rows, keys present, class standard|blind_spot, targets *.example, no IP/email/foreign host | pass; de-identified console.river.ai -> 'metrics console endpoint' |
 | 2026-09-27T21:37:00Z | write | stack-references.md | river block appended (SDK/auth/transport/checkpoint/serving/custody/notes) | push milestone |
+| 2026-09-27T21:41:00Z | commit+push | all deliverables | git commit hack: vuln-river security architecture + static SDK review; branch hack/ws-vuln-river pushed to origin | milestone verified |
+| 2026-09-27T21:42:00Z | gbrain remember | memory | fact #251 saved, entity=vuln-river, kind=event, provenance=runlog | recall-able milestone |
