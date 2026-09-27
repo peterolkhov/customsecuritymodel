@@ -17,7 +17,7 @@ All times UTC. Source for the demo narrative.
 | 2026-09-27T21:04Z | Cross-module check | river/train.py (read-only) | `river/train.py --pairs data/out/pairs.jsonl --dry-run` -> 300 pairs -> 38 batches, tok=hf, len 51/106/208 | Proves downstream trainer consumes adapter output unchanged |
 | 2026-09-27T21:06Z | gbrain milestones | gbrain (fact #198, #200) | `gbrain init --pglite` ok; `gbrain serve --http` required for persistence owner; remember -> fact #198 (build), #200 (verify) | `--kind runlog` rejected by gbrain (only event/preference/commitment/belief/fact) -> used `--kind event`, entity adapter-1 |
 | 2026-09-27T21:07Z | Write RUNLOG | RUNLOG.md | retroactive + current rows | Coordinator standing order #2: log every action with UTC/action/files/check/decision |
-| 2026-09-27T21:08Z | Commit + push | all | `git add -A && git commit -m 'hack: adapter-1 ...' && git push -u origin HEAD` | Standing order #1: push after every milestone |
+| 2026-09-27T21:08Z | Commit + push | all | commit 65cf704 pushed to origin/hack/ws-adapter (new branch, tracking set) — 3 files, +419/-1 | Standing order #1 satisfied; push succeeded, no auth blocker |
 
 ## Handoff / next steps
 
