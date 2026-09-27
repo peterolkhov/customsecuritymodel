@@ -1,6 +1,6 @@
 # Security suite — target-01.example
 
-> Generated 2026-09-27T21:39:01Z by suite/build_suite.py (offline, no keys). Every company gets a different suite — generated from its own findings, not hand-tuned.
+> Generated 2026-09-27T21:39:58Z by suite/build_suite.py (offline, no keys). Every company gets a different suite — generated from its own findings, not hand-tuned.
 
 **Owned model:** river://c1f3375c-3877-488c-99f9-3660cb9b0a3d/sampler_weights/company-model-v1 (base Qwen/Qwen3.5-9B, 300 pairs)
 Severity rankings below are attributed to this checkpoint.
