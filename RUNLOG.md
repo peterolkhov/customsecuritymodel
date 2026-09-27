@@ -1,0 +1,16 @@
+# RUNLOG — ws-suite (task suite-5)
+
+Format: `UTC_TIMESTAMP | ACTION | FILE(s) touched | RESULT/CHECK | DECISION/REASON`
+Append-only. Source for the demo narrative and the Superset pages write-up.
+
+| UTC timestamp | ACTION | FILE(s) touched | RESULT/CHECK | DECISION/REASON |
+|---|---|---|---|---|
+| 2026-09-27T20:58Z | Explored workspace: read PLAN.md excerpt, Makefile, data/README.md (pairs contract), river/train.py, data/example.pairs.jsonl, requirements.txt, .gitignore | (read-only) | Confirmed no suite/ exists yet; train.py is the model contract; pairs carry `provenance.{target,class}` | Design: suite generator must consume the same pairs contract and tolerate memory/ + river/out being absent (other workers land later) |
+| 2026-09-27T21:00Z | Designed generator: N standard (own + shared floor backfill) + M blind spots (company-only), ranked CRITICAL>HIGH>MEDIUM>LOW>INFO | suite/build_suite.py | — | Multiplayer claim: floor is shared, blind spots are per-stack; severity label = model judgment, honestly labeled when no checkpoint yet |
+| 2026-09-27T21:00Z | Wrote suite/build_suite.py: load_pairs, parse_finding, latest_model(), load_brain(), rank_findings(), build_suite(), argparse main | suite/build_suite.py | py-syntax OK (ast.parse) | Kept zero heavy deps + zero network; auto-attaches river/out meta.json and memory/brain.json when they exist |
+| 2026-09-27T21:00Z | Ran required verify: `python3 suite/build_suite.py --company target-01.example --input data/example.pairs.jsonl` | suite/target-01.example.md | wrote suite/target-01.example.md (6 findings, model=none, brain=none), exit 0 | Verify command from PLAN #5 passes offline |
+| 2026-09-27T21:02Z | Multiplayer check: generated suites for target-02 and target-04, diffed check lines | suite/target-02.example.md, suite/target-04.example.md | `diff` → DIFFERENT; each suite distinct | Claim "every company gets a different suite" holds on the fixture corpus |
+| 2026-09-27T21:03Z | Staged temp river/out/<ts>/meta.json + memory/brain.json, re-ran generator | (temp) river/out/, memory/brain.json | model=yes, brain=yes; attribution + GBrain recall sections rendered correctly | Verified the integration paths #3/#4 will hit when they land; artifacts removed after (river/out is gitignored anyway) |
+| 2026-09-27T21:04Z | Cleaned up extra generated suite files | removed suite/target-02.example.md, suite/target-04.example.md | only build_suite.py + target-01.example.md remain | Scope discipline: keep the single required verification artifact |
+| 2026-09-27T21:06Z | Created this run log per coordinator instruction; remembered milestones in gbrain | RUNLOG.md | see `gbrain remember` calls, entity suite-5 | Run log = demo narrative source; completeness over polish |
+| 2026-09-27T21:08Z | gbrain milestones: remember each milestone, entity suite-5, kind event (kind runlog is invalid in 0.59.0.0 — event used) | gbrain facts #185/#187/#194/#196 | `gbrain recall suite-5` lists all 4, conf 1.00 | Local persistence owner flaky → retried until inserted; duplicate-detection degraded (no embedding provider) but recall works |
