@@ -127,6 +127,8 @@ def _build_messages(a, finding: str) -> list[dict]:
 
 def _extract_text(resp) -> str:
     """Best-effort pull of the model's text out of whatever the SDK returned."""
+    if hasattr(resp, "response_json"):           # ChatCompleteResult (river_client 0.12+)
+        resp = resp.response_json
     if isinstance(resp, str):
         return resp.strip()
     if isinstance(resp, (list, tuple)) and resp:
@@ -151,13 +153,22 @@ def _extract_text(resp) -> str:
     return json.dumps(resp, default=str)
 
 
-def _infer(a, api_key: str, messages: list[dict]) -> int:
+def _river_sdk():
+    """river-client installs as `river_client`; `import river` inside this repo
+    resolves to the local river/ directory (a namespace package with no Client)."""
     try:
         import river
-        if not hasattr(river, "Client"):
-            print("local river/ directory shadows the river SDK — install "
-                  "river-client and run from a different cwd", file=sys.stderr)
-            return 2
+        if hasattr(river, "Client"):
+            return river
+    except ImportError:
+        pass
+    import river_client
+    return river_client
+
+
+def _infer(a, api_key: str, messages: list[dict]) -> int:
+    try:
+        river = _river_sdk()
         client = river.Client(api_key=api_key)
         base = a.base_model or os.environ.get("RIVER_BASE_MODEL")
         resp = client.chat_complete_from_checkpoint(

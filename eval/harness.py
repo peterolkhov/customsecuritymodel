@@ -47,7 +47,10 @@ import re
 import sys
 from pathlib import Path
 
-from scoreboard import render
+try:
+    from scoreboard import render           # python3 eval/harness.py
+except ImportError:
+    from eval.scoreboard import render      # python3 -m eval.harness
 
 _HERE = Path(__file__).resolve().parent
 _ROOT = _HERE.parent
@@ -253,23 +256,46 @@ def _load_predict_fn(spec: str):
     return fn, {"kind": "predict", "note": f"custom offline predictor {spec}"}
 
 
+def _base_from_latest_run() -> str | None:
+    """Base model recorded by the newest river/out/<ts>/meta.json — the
+    checkpoint's true base beats a hardcoded guess."""
+    out = _ROOT / "river" / "out"
+    metas = sorted(out.glob("*/meta.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+    for m in metas:
+        try:
+            b = json.loads(m.read_text(encoding="utf-8")).get("base_model")
+            if b:
+                return b
+        except Exception:
+            continue
+    return None
+
+
 def _checkpoint_predictor(checkpoint: str):
     api_key = os.environ.get("RIVER_API_KEY")
     if not api_key:
         raise RuntimeError("--checkpoint needs RIVER_API_KEY (or use --stub / --predict offline)")
     try:
         import river
-    except ModuleNotFoundError:
-        raise RuntimeError("--checkpoint needs the `river` package installed "
-                           "(or use --stub / --predict offline)")
+        if not hasattr(river, "Client"):  # local river/ dir shadows the SDK
+            raise ImportError
+    except ImportError:
+        try:
+            import river_client as river
+        except ModuleNotFoundError:
+            raise RuntimeError("--checkpoint needs the `river-client` package installed "
+                               "(or use --stub / --predict offline)")
     client = river.Client(api_key=api_key)
-    base = os.environ.get("RIVER_BASE_MODEL") or "Qwen/Qwen3.5-9B"
+    base = os.environ.get("RIVER_BASE_MODEL") or _base_from_latest_run() \
+        or "Qwen/Qwen3.5-9B"
 
     def predict(pair: dict) -> str:
         user = pair["instruction"].rstrip() + "\n\n" + pair["input"].strip()
         out = client.chat_complete_from_checkpoint(
             messages=[{"role": "user", "content": user}],
             checkpoint_path=checkpoint, base_model=base)
+        if hasattr(out, "response_json"):        # ChatCompleteResult (river_client 0.12+)
+            out = out.response_json
         if isinstance(out, dict):
             text = out.get("content") or out.get("output")
             if text is None:
