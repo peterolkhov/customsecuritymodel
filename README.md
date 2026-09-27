@@ -31,3 +31,4 @@ Hackathon build, 1:30–5:00 PM PT. Live so far:
 - `suite/` — per-company suite generator + 6 reference stacks (fintech, ecommerce, health, gbrain/qm/river open-source).
 - `eval/` — target-disjoint held-out harness + `scoreboard.html`.
 - `demo/` — loss curve, fleet telemetry, 2-min Loom script + narrative.
+- [`BASELINE.md`](BASELINE.md) — the baseline security data this project contrasts against: corpus severity split (52,748 findings, 54.7% INFO), the rulebook-floor scorecard, and the blind-spot taxonomy.
