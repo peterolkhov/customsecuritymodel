@@ -6,3 +6,4 @@ One file per hackathon worker. Format: `UTC_TIMESTAMP | ACTION | FILE(s) | RESUL
 |---|---|---|---|
 | adapter | hack/ws-adapter | probe→pairs adapter | RUNLOG-adapter.md |
 | eval | hack/ws-eval | held-out harness + scoreboard | RUNLOG-eval.md |
+| infer | hack/ws-infer | checkpoint infer CLI | RUNLOG-infer.md |
