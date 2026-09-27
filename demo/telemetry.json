@@ -1,5 +1,5 @@
 {
-  "ts": "2026-09-27T21:25:52Z",
+  "ts": "2026-09-27T21:38:00Z",
   "fleet": {
     "adapter": {
       "task": "adapter-1",
@@ -241,11 +241,11 @@
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
+          "hack: vuln-superset append superset reference stack (7) to stack library",
           "hack: stacks \u2014 RUNLOG final rows (commit + gbrain milestone #283)",
           "hack: stacks \u2014 6 reference stacks (stack-references.md) + per-company security suites via suite/build_suite.py",
           "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
-          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
-          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve"
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF"
         ],
         "uncommitted_changes": 0,
         "unpushed": "0"
@@ -266,29 +266,29 @@
       "task": "vuln-superset",
       "branch": "hack/ws-vuln-superset",
       "status": "RUNNING",
-      "cost_usd": 0.08,
+      "cost_usd": 0.12,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
+          "hack: vuln-superset finalize runlog",
+          "hack: vuln-superset security architecture + de-identified findings corpus + superset stack ref",
           "demo: loss curve, fleet telemetry, Loom script + narrative",
           "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
-          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
-          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve",
-          "Skeleton: pitch, brief, pair-format contract, example fixture"
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF"
         ],
-        "uncommitted_changes": 5,
+        "uncommitted_changes": 0,
         "unpushed": "0"
       },
       "has_runlog": true,
       "envelope_tail": [
-        "     \u25a3  Build \u00b7 DeepSeek V4 Flash                                                                                       ",
         "                                                                                                                        ",
         "  \u2503                                                                                                                     ",
         "  \u2503                                                                                                                     ",
         "  \u2503                                                                                                                     ",
         "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
         "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   \u25a0\u25a0\u25a0\u25a0\u25a0\u25a0\u2b1d\u2b1d  esc interrupt                                                       168.4K (17%) \u00b7 $0.08  ctrl+p commands"
+        "   /Users/peterolkhovets/.superset/worktrees/customsecuritymodel/hack/ws-vuln-     203.3K (20%) \u00b7 $0.12 ctrl+p commands ",
+        "   superset"
       ]
     },
     "vuln-memorable": {
@@ -310,43 +310,43 @@
       },
       "has_runlog": true,
       "envelope_tail": [
-        "                                                                                                                        ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   /Users/peterolkhovets/.superset/worktrees/customsecuritymodel/hack/ws-vuln-     148.3K (15%) \u00b7 $0.06ctrl+p commands  ",
-        "   memorable"
+        "                                                                                                                         ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                              ~/.superset/worktrees/                  ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-vuln-       ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    memorable:hack/ws-vuln-memorable        ",
+        "   /Users/peterolkhovets/.superset/worktrees/      148.3K (15%) \u00b7 ctrl+p                                                 ",
+        "   customsecuritymodel/hack/ws-vuln-memorable                     commands       \u2022 OpenCode 1.18.32"
       ]
     },
     "arch-mine": {
       "task": "arch-mine",
       "branch": "hack/ws-arch-mine",
-      "status": "RUNNING",
-      "cost_usd": 0.06,
+      "status": "DONE",
+      "cost_usd": 0.09,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
+          "hack: arch-mine \u2014 append RUNLOG final rows",
+          "hack: arch-mine \u2014 architecture-derived vuln characterization for 32 targets, zero scans",
           "demo: loss curve, fleet telemetry, Loom script + narrative",
           "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
-          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
-          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve",
-          "Skeleton: pitch, brief, pair-format contract, example fixture"
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF"
         ],
-        "uncommitted_changes": 3,
+        "uncommitted_changes": 0,
         "unpushed": "0"
       },
-      "has_runlog": false,
+      "has_runlog": true,
       "envelope_tail": [
-        "     \u25a3  Build \u00b7 DeepSeek V4 Flash                                                                                       ",
-        "                                                                                                                        ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503                                                                                                                     ",
-        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
-        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   \u2b1d\u2b1d\u25a0\u25a0\u25a0\u25a0\u25a0\u25a0  esc interrupt                                                       154.5K (15%) \u00b7 $0.06  ctrl+p commands"
+        "                                                                                                                         ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                              ~/.superset/worktrees/                  ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-arch-mine:  ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    hack/ws-arch-mine                       ",
+        "   /Users/peterolkhovets/.superset/worktrees/      187.0K (19%) \u00b7 ctrl+p                                                 ",
+        "   customsecuritymodel/hack/ws-arch-mine                          commands       \u2022 OpenCode 1.18.32"
       ]
     }
   }
