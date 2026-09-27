@@ -1,0 +1,262 @@
+{
+  "ts": "2026-09-27T21:12:41Z",
+  "fleet": {
+    "adapter": {
+      "task": "adapter-1",
+      "branch": "hack/ws-adapter",
+      "status": "DONE",
+      "cost_usd": 0.04,
+      "work_ops_snapshot": 0,
+      "git": {
+        "commits": [
+          "hack: adapter-1 log push result in RUNLOG",
+          "hack: adapter-1 probe findings -> training pairs adapter + runlog",
+          "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
+          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve"
+        ],
+        "uncommitted_changes": 0,
+        "unpushed": "0"
+      },
+      "has_runlog": true,
+      "envelope_tail": [
+        "                                                                                                                         ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                              ~/.superset/worktrees/                  ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-adapter:    ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    hack/ws-adapter                         ",
+        "   /Users/peterolkhovets/.superset/worktrees/      127.8K (13%) \u00b7 ctrl+p                                                 ",
+        "   customsecuritymodel/hack/ws-adapter                            commands       \u2022 OpenCode 1.18.32"
+      ]
+    },
+    "gbrain": {
+      "task": "gbrain-3",
+      "branch": "hack/ws-gbrain",
+      "status": "RUNNING",
+      "cost_usd": 0.14,
+      "work_ops_snapshot": 0,
+      "git": {
+        "commits": [
+          "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
+          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve",
+          "Skeleton: pitch, brief, pair-format contract, example fixture"
+        ],
+        "uncommitted_changes": 1,
+        "unpushed": "0"
+      },
+      "has_runlog": false,
+      "envelope_tail": [
+        "     \u25a3  Build \u00b7 DeepSeek V4 Flash                                                                                        ",
+        "                                                                                                                         ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                              ~/.superset/worktrees/                  ",
+        "  \u2503                                                                              customsecuritymodel/hack/ws-gbrain:     ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                hack/ws-gbrain                          ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580                                            ",
+        "   \u2b1d\u2b1d\u25a0\u25a0\u25a0\u25a0\u25a0\u25a0  esc interrupt              257.8K (26%) \u00b7 $0.14  ctrl+p commands    \u2022 OpenCode 1.18.32"
+      ]
+    },
+    "eval": {
+      "task": "eval-4",
+      "branch": "hack/ws-eval",
+      "status": "DONE",
+      "cost_usd": 0.05,
+      "work_ops_snapshot": 0,
+      "git": {
+        "commits": [
+          "hack: eval-4 regenerate scoreboard.html (hit? header)",
+          "hack: eval-4 runlog + gbrain completion fact",
+          "hack: eval-4 eval harness + scoreboard (target-disjoint held-out, rulebook vs model, scoreboard.html)",
+          "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF"
+        ],
+        "uncommitted_changes": 0,
+        "unpushed": "0"
+      },
+      "has_runlog": true,
+      "envelope_tail": [
+        "                                                                                                                         ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                              ~/.superset/worktrees/                  ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-eval:hack/  ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    ws-eval                                 ",
+        "   /Users/peterolkhovets/.superset/worktrees/       112.3K (11%) \u00b7ctrl+p                                                 ",
+        "   customsecuritymodel/hack/ws-eval                               commands       \u2022 OpenCode 1.18.32"
+      ]
+    },
+    "suite": {
+      "task": "suite-5",
+      "branch": "hack/ws-suite",
+      "status": "DONE",
+      "cost_usd": 0.03,
+      "work_ops_snapshot": 0,
+      "git": {
+        "commits": [
+          "hack: suite-5 runlog append (push milestone, gbrain #201)",
+          "hack: suite-5 per-company suite generator + RUNLOG",
+          "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
+          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve"
+        ],
+        "uncommitted_changes": 0,
+        "unpushed": "0"
+      },
+      "has_runlog": true,
+      "envelope_tail": [
+        "                                                                                                                         ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                              ~/.superset/worktrees/                  ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-suite:      ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    hack/ws-suite                           ",
+        "   /Users/peterolkhovets/.superset/worktrees/       87.8K (9%) \u00b7  ctrl+p                                                 ",
+        "   customsecuritymodel/hack/ws-suite                              commands       \u2022 OpenCode 1.18.32"
+      ]
+    },
+    "infer": {
+      "task": "infer-6",
+      "branch": "hack/ws-infer",
+      "status": "DONE",
+      "cost_usd": 0.03,
+      "work_ops_snapshot": 0,
+      "git": {
+        "commits": [
+          "hack: infer-6 RUNLOG push result + gbrain fact #205",
+          "hack: infer-6 river/infer.py checkpoint infer CLI",
+          "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
+          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve"
+        ],
+        "uncommitted_changes": 0,
+        "unpushed": "0"
+      },
+      "has_runlog": true,
+      "envelope_tail": [
+        "                                                                                                                         ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                                                                      ",
+        "  \u2503                                                                              ~/.superset/worktrees/                  ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                customsecuritymodel/hack/ws-infer:      ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580    hack/ws-infer                           ",
+        "   /Users/peterolkhovets/.superset/worktrees/       91.9K (9%) \u00b7  ctrl+p                                                 ",
+        "   customsecuritymodel/hack/ws-infer                              commands       \u2022 OpenCode 1.18.32"
+      ]
+    },
+    "vuln-gbrain": {
+      "task": "vuln-gbrain",
+      "branch": "hack/ws-vuln-gbrain",
+      "status": "RUNNING",
+      "cost_usd": 0.04,
+      "work_ops_snapshot": 2,
+      "git": {
+        "commits": [
+          "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
+          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve",
+          "Skeleton: pitch, brief, pair-format contract, example fixture"
+        ],
+        "uncommitted_changes": 0,
+        "unpushed": "0"
+      },
+      "has_runlog": false,
+      "envelope_tail": [
+        "     \u25a3  Build \u00b7 DeepSeek V4 Flash                                                                                       ",
+        "                                                                                                                        ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
+        "   \u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d  esc interrupt                                                       166.9K (17%) \u00b7 $0.04  ctrl+p commands"
+      ]
+    },
+    "vuln-qm": {
+      "task": "vuln-qm",
+      "branch": "hack/ws-vuln-qm",
+      "status": "RUNNING",
+      "cost_usd": 0.03,
+      "work_ops_snapshot": 1,
+      "git": {
+        "commits": [
+          "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
+          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve",
+          "Skeleton: pitch, brief, pair-format contract, example fixture"
+        ],
+        "uncommitted_changes": 0,
+        "unpushed": "0"
+      },
+      "has_runlog": false,
+      "envelope_tail": [
+        "     \u25a3  Build \u00b7 DeepSeek V4 Flash                                                                                       ",
+        "                                                                                                                        ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
+        "   \u25a0\u25a0\u25a0\u25a0\u25a0\u2b1d\u2b1d\u2b1d  esc interrupt                                                       127.7K (13%) \u00b7 $0.03  ctrl+p commands"
+      ]
+    },
+    "vuln-river": {
+      "task": "vuln-river",
+      "branch": "hack/ws-vuln-river",
+      "status": "RUNNING",
+      "cost_usd": 0.05,
+      "work_ops_snapshot": 0,
+      "git": {
+        "commits": [
+          "hack: vuln-river runlog rows for push + gbrain remember",
+          "hack: vuln-river security architecture + static SDK review (12 findings, JSONL verified)",
+          "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
+          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve"
+        ],
+        "uncommitted_changes": 0,
+        "unpushed": "0"
+      },
+      "has_runlog": true,
+      "envelope_tail": [
+        "                                                                                                                        ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
+        "   /Users/peterolkhovets/.superset/worktrees/customsecuritymodel/hack/ws-vuln-    151.4K (15%) \u00b7 $0.05 ctrl+p commands  ",
+        "   river"
+      ]
+    },
+    "stacks": {
+      "task": "stacks",
+      "branch": "hack/ws-stacks",
+      "status": "RUNNING",
+      "cost_usd": 0.02,
+      "work_ops_snapshot": 0,
+      "git": {
+        "commits": [
+          "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
+          "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
+          "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve",
+          "Skeleton: pitch, brief, pair-format contract, example fixture"
+        ],
+        "uncommitted_changes": 1,
+        "unpushed": "0"
+      },
+      "has_runlog": false,
+      "envelope_tail": [
+        "     \u25a3  Build \u00b7 DeepSeek V4 Flash                                                                                       ",
+        "                                                                                                                        ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503                                                                                                                     ",
+        "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
+        "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
+        "   \u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d  esc interrupt                                                         82.4K (8%) \u00b7 $0.02  ctrl+p commands"
+      ]
+    }
+  }
+}
