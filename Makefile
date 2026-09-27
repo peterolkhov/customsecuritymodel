@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: help selftest train adapter adapter-dry brain-selftest
+.PHONY: help selftest train adapter adapter-dry brain-selftest figures
 
 help: ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
@@ -20,3 +20,7 @@ adapter: ## probe reports -> data/out/pairs.jsonl (falls back to the example fix
 
 adapter-dry: ## manifest-only dry run of the adapter
 	$(PYTHON) data/build_pairs.py --dry-run
+
+figures: ## regenerate all demo PNGs from live data (pairs, loss log, eval result)
+	$(PYTHON) demo/make_figures.py
+	$(PYTHON) demo/why_figure.py

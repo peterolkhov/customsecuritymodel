@@ -25,7 +25,7 @@ A multiplayer security test suite per company:
 
 Hackathon build, 1:30–5:00 PM PT. Live so far:
 
-- `river/` — trained a real checkpoint on 300 de-identified pairs (loss 20 → ~1e-4 in ~10 min). Checkpoint: `river://c1f3375c-3877-488c-99f9-3660cb9b0a3d/sampler_weights/company-model-v1` (base Qwen/Qwen3.5-9B, 300 pairs), smoke-tested.
+- `river/` — trained a real checkpoint on 300 de-identified pairs (76 steps, ~7 min wall, 57.6k tokens ≈ $0.08). Checkpoint: `river://36e63f69-c24e-447b-af27-1e7b6bf931f1/sampler_weights/company-model-v1` (base Qwen/Qwen3.5-9B, 300 pairs), smoke-tested.
 - `data/` — adapter turns the probe corpus (857 reports) into `data/out/pairs.jsonl`; plus sponsor vuln findings (river, gbrain, qm, memorable, superset).
 - `memory/` — per-company findings brain wrapping the `gbrain` CLI (rules-required).
 - `suite/` — per-company suite generator + 6 reference stacks (fintech, ecommerce, health, gbrain/qm/river open-source).

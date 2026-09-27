@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>demo figures — paste guide</title>
+<style>
+  body{font:15px/1.5 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:#0f172a;background:#f1f5f9;margin:0}
+  main{max-width:1100px;margin:0 auto;padding:32px 20px 64px}
+  h1{font-size:24px;margin:0 0 4px}
+  .sub{color:#64748b;font-size:13px;margin-bottom:8px}
+  .note{background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;
+        padding:10px 14px;font-size:13px;color:#92400e;margin:14px 0}
+  .fig{background:#fff;border:1px solid #e2e8f0;border-radius:10px;
+       padding:18px 20px;margin:18px 0}
+  .fig h2{font-size:17px;margin:0 0 2px}
+  .fig .file{font:12px ui-monospace,Menlo,monospace;color:#64748b;margin-bottom:8px}
+  .fig img{max-width:100%;border:1px solid #e2e8f0;border-radius:6px;display:block;margin:10px 0}
+  .claim{font-size:14px;margin:8px 0}
+  .claim b{color:#0f766e}
+  .spot{font-size:13px;color:#334155;margin:4px 0}
+  .spot b{color:#b45309}
+  .src{font-size:12px;color:#94a3b8}
+  .warn{font-size:12.5px;color:#92400e;background:#fffbeb;border-left:3px solid #f59e0b;
+        padding:6px 10px;margin-top:8px;border-radius:0 6px 6px 0}
+  code{background:#f1f5f9;border-radius:4px;padding:1px 5px;font-size:12px}
+</style></head><body><main>
+<h1>demo/figures — what each image proves and where it goes</h1>
+<div class="sub">Regenerate everything with <code>make figures</code> then
+<code>cp demo/*.png demo/figures/</code>. All numbers are computed from live files
+(<code>data/out/pairs.jsonl</code>, <code>demo/loss-full.jsonl</code>,
+<code>eval/out/result.json</code>, <code>river/out/*/meta.json</code>).</div>
+<div class="note"><b>Pitch order = page order:</b> hero (problem+fix) → unseen-tasks proof →
+the shape of the error → the mechanism → the cost funnel → the training receipt.
+Caveats that matter live at the bottom of each card.</div>
+
+<div class="fig" id="hero">
+  <h2>1 · why-owned-model.png — the hero</h2>
+  <div class="file">demo/figures/why-owned-model.png</div>
+  <img src="why-owned-model.png" alt="why we trained our own model">
+  <p class="claim"><b>Claim:</b> every scanner ships the same severity table — its only answer
+     for a type it doesn't know is MEDIUM, so on this company's 150 held-out blind spots it's
+     wrong 81/150 times (54%), in both directions: real HIGHs (JS-bundle API keys, GraphQL
+     introspection) get buried as MEDIUM while INFO noise inflates to MEDIUM. The fix is a
+     7m19s, ~$0.08 LoRA trained on the company's own 300 pairs.</p>
+  <p class="spot"><b>Paste at:</b> top of the main page / opening beat of the Loom — it IS the pitch.</p>
+  <p class="src">sources: data/out/pairs.jsonl · river/out/2026-09-27T22-07-57Z-company-model-v1/{meta,log}.jsonl</p>
+</div>
+
+<div class="fig" id="eval">
+  <h2>2 · eval-results.png — proof on unseen tasks</h2>
+  <div class="file">demo/figures/eval-results.png</div>
+  <img src="eval-results.png" alt="owned model vs generic floor">
+  <p class="claim"><b>Claim:</b> on 97 findings across 23 targets the model never trained on
+     (sponsor + arch-mine corpora), the owned LoRA beats the generic floor on blind spots
+     (16/48 vs 15/48 exact) and on within-one-step agreement overall (73% vs 67%).</p>
+  <p class="spot"><b>Paste at:</b> "compare on unseen tasks" / "why it helps" section —
+     this is River's rubric item #3 answered with a measured number.</p>
+  <p class="src">source: eval/out/result.json (target-disjoint split, checkpoint mode)</p>
+  <div class="warn">Don't oversell: the rulebook edges overall exact-match (31/97 vs 29/97).
+     The honest line — "competitive on the floor's turf, better where the floor has no opinion,
+     more often close".</div>
+</div>
+
+<div class="fig" id="calibration">
+  <h2>3 · calibration.png — the shape of the error</h2>
+  <div class="file">demo/figures/calibration.png</div>
+  <img src="calibration.png" alt="severity error distribution">
+  <p class="claim"><b>Claim:</b> on the same held-out rows, the rulebook's errors pile up at
+     +2 (it calls unknown types MEDIUM/HIGH) while the model's cluster at ±1 — within one
+     severity step of gold on 87% of parseable outputs vs the floor's 67%.</p>
+  <p class="spot"><b>Paste at:</b> directly under eval-results.png — answers
+     "ok, but <em>how</em> is it better?"</p>
+  <p class="src">source: eval/out/result.json rows</p>
+  <div class="warn">Model n=82 vs rulebook n=97 — 15 outputs were unparseable reasoning text
+     (format fix, not a training failure). Know it before a judge asks.</div>
+</div>
+
+<div class="fig" id="gap">
+  <h2>4 · blind-spot-gap.png — the mechanism</h2>
+  <div class="file">demo/figures/blind-spot-gap.png</div>
+  <img src="blind-spot-gap.png" alt="rulebook vs gold on blind spots">
+  <p class="claim"><b>Claim:</b> the standalone version of the hero's left panel — each
+     blind-spot finding type vs the MEDIUM band the rulebook defaults to. 30/33
+     js_hardcoded_api_key and 16/18 graphql_introspection are real HIGHs buried; 32/32
+     spa_catchall INFOs inflated.</p>
+  <p class="spot"><b>Paste at:</b> the problem section — "every scanner rents the same
+     baseline, so every company shares the same blind spots."</p>
+  <p class="src">sources: data/out/pairs.jsonl · rulebook verbatim from eval/harness.py</p>
+</div>
+
+<div class="fig" id="funnel">
+  <h2>5 · pipeline.png — the cost funnel</h2>
+  <div class="file">demo/figures/pipeline.png</div>
+  <img src="pipeline.png" alt="customization funnel">
+  <p class="claim"><b>Claim:</b> customization stops being an engineer-hiring problem and
+     becomes a training run: 857 reports → 300 de-identified pairs → 191 pseudonym companies
+     → 76 optimizer steps → 8¢ → 1 owned checkpoint.</p>
+  <p class="spot"><b>Paste at:</b> "how it works" / economics beat — pairs well with the
+     "weeks of engineer time vs 7 minutes and 8 cents" line.</p>
+  <p class="src">sources: data/out/pairs.jsonl · river/out/*/meta.json (newest run)</p>
+</div>
+
+<div class="fig" id="loss">
+  <h2>6 · loss.png — the training receipt</h2>
+  <div class="file">demo/figures/loss.png</div>
+  <img src="loss.png" alt="loss curve">
+  <p class="claim"><b>Claim:</b> it really trained — per-step loss (log scale) from 19.4,
+     hitting ~1e-4 minima, 76 steps over 2 epochs. River's reference style is
+     "watch training happen" — this is the static version of that.</p>
+  <p class="spot"><b>Paste at:</b> the training-run section, or wherever a live-receipt
+     screenshot would go in the video.</p>
+  <p class="src">source: demo/loss-full.jsonl (mirrored from the completed run's log.jsonl)</p>
+</div>
+
+</main></body></html>

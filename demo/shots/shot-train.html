@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#0b1220;font:14px/1.6 "SF Mono",Menlo,monospace;color:#dbe4f0;padding:22px}
+.t{background:#111a2e;border:1px solid #24314f;border-radius:10px;overflow:hidden}
+.bar{display:flex;gap:7px;padding:10px 14px;background:#0d1526;border-bottom:1px solid #24314f}
+.d{width:11px;height:11px;border-radius:50%}
+.p{padding:16px 18px;white-space:pre-wrap;word-break:break-all}
+.c{color:#7dd3fc}.g{color:#34d399}.y{color:#fbbf24}.m{color:#94a3b8}.k{color:#c4b5fd}
+</style></head><body><div class="t"><div class="bar">
+<div class="d" style="background:#f87171"></div><div class="d" style="background:#fbbf24"></div><div class="d" style="background:#34d399"></div>
+<span class="m" style="margin-left:10px;font-size:12px">river/train.py · live run · 2026-09-27 22:07:57Z</span></div><div class="p">
+<span class="g">$</span> python3 river/train.py --pairs data/out/pairs.jsonl --live --name company-model-v1
+
+<span class="c">{"ts":"22:08:11Z","step":0,  "loss":19.378, "tokens":716}</span>
+<span class="c">{"ts":"22:08:16Z","step":1,  "loss":2.898}</span>
+<span class="c">{"ts":"22:08:22Z","step":2,  "loss":3.325}</span>
+<span class="m">   … 72 more optimizer steps …</span>
+<span class="c">{"ts":"22:14:06Z","step":71, "loss":1.189}</span>
+<span class="c">{"ts":"22:14:10Z","step":72, "loss":0.961}</span>
+<span class="c">{"ts":"22:14:14Z","step":73, "loss":0.845}</span>
+<span class="c">{"ts":"22:14:18Z","step":74, "loss":0.507}</span>
+<span class="c">{"ts":"22:15:17Z","step":75, "loss":1.404, "tokens_cum":57622}</span>
+
+<span class="y">meta.json → Qwen/Qwen3.5-9B · LoRA rank 32 · batch 8 · lr 2e-4 · 2 epochs</span>
+<span class="y">          300 pairs · 57,622 tokens · 76 steps · wall 438.7s (7.3 min) · ≈$0.08</span>
+
+<span class="k">checkpoint.txt → river://36e63f69-c24e-447b-af27-1e7b6bf931f1/sampler_weights/company-model-v1</span>
+</div></div></body></html>

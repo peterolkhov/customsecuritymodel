@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#0b1220;font:14px/1.6 "SF Mono",Menlo,monospace;color:#dbe4f0;padding:22px}
+.t{background:#111a2e;border:1px solid #24314f;border-radius:10px;overflow:hidden}
+.bar{display:flex;gap:7px;padding:10px 14px;background:#0d1526;border-bottom:1px solid #24314f}
+.d{width:11px;height:11px;border-radius:50%}
+.p{padding:16px 18px;white-space:pre-wrap;word-break:break-all}
+.c{color:#7dd3fc}.g{color:#34d399}.y{color:#fbbf24}.m{color:#94a3b8}.k{color:#c4b5fd}
+</style></head><body><div class="t"><div class="bar">
+<div class="d" style="background:#f87171"></div><div class="d" style="background:#fbbf24"></div><div class="d" style="background:#34d399"></div>
+<span class="m" style="margin-left:10px;font-size:12px">river/infer.py · owned checkpoint · live call</span></div><div class="p">
+<span class="g">$</span> python3 river/infer.py \
+    --checkpoint river://36e63f69-…/company-model-v1 \
+    --finding "type: js_hardcoded_api_key · host: cdn.ledgerway.example ·
+               detail: hardcoded 40-char API key in the production JS bundle"
+
+<span class="m"># generic rulebook answer: MEDIUM  (default for unknown types)</span>
+<span class="m"># owned checkpoint, live response — chatcmpl-6ab99e496fea9:</span>
+
+<span class="k">{"model": "Qwen/Qwen3.5-9B",
+ "message": {"reasoning_content": "Thinking Process:\n\n<b>HIGH</b>"},
+ "usage": {"prompt_tokens": 53, "completion_tokens": 5}}</span>
+
+<span class="g">verdict: HIGH</span>  <span class="m">← matches gold on a finding the generic floor under-rates</span>
+</div></div></body></html>

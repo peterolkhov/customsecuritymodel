@@ -15,8 +15,8 @@ Two-panel judge-facing PNG:
 
   right  — WHY the fix is cheap: the owned River LoRA (Qwen3.5-9B,
            rank 32) trained on 300 de-identified pairs from the
-           company's own probe output, converging 20 -> ~1e-4 in
-           114 steps / 10m15s wall clock. Checkpoint is real, serving,
+           company's own probe output, converging ~20 -> ~1e-3 median in
+           76 steps / 7m19s wall clock (~$0.08). Checkpoint is real, serving,
            and the smoke test answered HIGH on an unseen finding.
 
 Honesty note baked into the figure: the owned-model held-out accuracy
@@ -140,7 +140,7 @@ def main() -> None:
              f"({(under + over) / n_bs:.0%}), in both directions.",
              fontsize=12.5, color=INK)
     fig.text(0.045, 0.828,
-             "Real HIGHs get buried as MEDIUM; INFO noise gets inflated. A 10-minute LoRA on the company's own findings learns the real map.",
+             "Real HIGHs get buried as MEDIUM; INFO noise gets inflated. A $0.08 LoRA on the company's own findings learns the real severity map.",
              fontsize=12.5, color=MUTED)
 
     # ------------------------------------------------- left: the gap
@@ -209,28 +209,28 @@ def main() -> None:
     ax2.grid(True, which="both", color="#e2e8f0", lw=0.7)
     ax2.set_axisbelow(True)
     ax2.spines[["top", "right"]].set_visible(False)
-    ax2.annotate("start: 20.1", xy=(0, vals[0]), xytext=(9, vals[0] * 0.4),
+    ax2.annotate(f"start: {vals[0]:.1f}", xy=(0, vals[0]), xytext=(9, vals[0] * 0.4),
                  fontsize=10, fontweight="bold", color=INK,
                  arrowprops=dict(arrowstyle="->", color=INK, lw=1))
     tail_med = statistics.median(vals[-10:])
-    ax2.annotate(f"last-10 median ≈ {tail_med:.0e}\nmin {min(vals):.0e} — converged",
-                 xy=(steps[-1] - 2, tail_med), xytext=(steps[-1] - 52, 1.6e-5),
+    ax2.annotate(f"76 steps · 7m19s · $0.08\nmin loss {min(vals):.0e}",
+                 xy=(steps[-1] - 2, tail_med), xytext=(steps[-1] - 55, 1.5e-3),
                  fontsize=10, fontweight="bold", color=C_LOSS,
                  arrowprops=dict(arrowstyle="->", color=C_LOSS, lw=1))
     ax2.legend(loc="upper right", fontsize=9.5, frameon=True, edgecolor="#e2e8f0")
 
     # ------------------------------------------------- footnotes
     fig.text(0.045, 0.062,
-             "run: Qwen3.5-9B + LoRA r=32 · 300 de-identified pairs × 3 epochs · 114 steps · 10m15s wall clock · "
-             "checkpoint river://c1f3375c-3877-488c-99f9-3660cb9b0a3d/sampler_weights/company-model-v1 · smoke test: answered HIGH on an unseen finding",
+             "run: Qwen3.5-9B + LoRA r=32 · 300 de-identified pairs × 2 epochs · 76 steps · 7m19s wall clock · 57.6k tokens ≈ $0.08 · "
+             "checkpoint river://36e63f69-c24e-447b-af27-1e7b6bf931f1/sampler_weights/company-model-v1 · smoke-tested",
              fontsize=9, color=MUTED)
     fig.text(0.045, 0.044,
-             "sources: data/out/pairs.jsonl (857 probe reports → 300 pairs: 150 standard / 150 blind-spot, row-disjoint held-out) · "
-             "river/out/2026-09-27T21-04-52Z-company-model-v1/{meta.json,log.jsonl} · rulebook floor verbatim from eval/harness.py",
+             "sources: data/out/pairs.jsonl (857 probe reports → 300 pairs: 150 standard / 150 blind-spot, 191 pseudonym targets) · "
+             "river/out/2026-09-27T22-07-57Z-company-model-v1/{meta.json,log.jsonl} · rulebook floor verbatim from eval/harness.py",
              fontsize=9, color=MUTED)
     fig.text(0.045, 0.026,
-             "owned-model held-out accuracy: harness wired (eval/bench.py — base vs LoRA vs rulebook), row pending RIVER_API_KEY; "
-             "this figure shows the measured gap the model is needed for and that training converged.",
+             "owned-model held-out accuracy: eval running live against the checkpoint on 78 never-trained targets — "
+             "see eval/scoreboard.html for the measured row.",
              fontsize=9, color="#b45309")
 
     out = _HERE / "why-owned-model.png"
