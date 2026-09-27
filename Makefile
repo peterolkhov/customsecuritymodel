@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: help selftest train
+.PHONY: help selftest train adapter adapter-dry
 
 help: ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
@@ -10,3 +10,9 @@ selftest: ## offline check of every module — must pass with no keys, no networ
 
 train: ## real River training run (needs .env: RIVER_API_KEY, RIVER_BASE_MODEL)
 	$(PYTHON) river/train.py --pairs $(PAIRS) --live
+
+adapter: ## probe reports -> data/out/pairs.jsonl (falls back to the example fixture)
+	$(PYTHON) data/build_pairs.py
+
+adapter-dry: ## manifest-only dry run of the adapter
+	$(PYTHON) data/build_pairs.py --dry-run
