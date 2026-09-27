@@ -15,4 +15,4 @@ One row per action: `UTC_TIMESTAMP | ACTION | FILE(s) | RESULT/CHECK | DECISION`
 | 2026-09-27T21:22Z | superset fleet ws list | superset ws list --project customsecuritymodel | 14 workspaces listed; 4 ws branches have NO upstream (ws-arch-mine, ws-gbrain, ws-vuln-memorable, ws-vuln-superset); all hack branches 0 ahead of main (merged) | branch hygiene notes |
 | 2026-09-27T21:23Z | write audit | data/security-fleet-audit.md | full report written (6 sections + risk list) | commit |
 | 2026-09-27T21:24Z | write findings JSONL | data/security-fleet-audit.jsonl | 12 vuln-contract rows, ids F-FLT-01..12, unique, de-identified | commit |
-| 2026-09-27T21:25Z | verify + push milestone | runlogs/RUNLOG-fleet.md, data/* | JSONL valid, ids unique, no secrets in deliverables | git add -A + commit + push origin research/security-fleet |
+| 2026-09-27T21:25Z | verify + push milestone | runlogs/RUNLOG-fleet.md, data/* | JSONL valid (12 rows, 12 unique ids), no secrets in deliverables | commit bf8c809 pushed to origin/research/security-fleet |
