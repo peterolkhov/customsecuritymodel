@@ -13,3 +13,4 @@ One file per hackathon worker. Format: `UTC_TIMESTAMP | ACTION | FILE(s) | RESUL
 | vuln-river | hack/ws-vuln-river | River security arch + 12 findings | RUNLOG-vuln-river.md |
 | vuln-gbrain | hack/ws-vuln-gbrain | GBrain security arch + 8 findings | RUNLOG-vuln-gbrain.md |
 | vuln-qm | hack/ws-vuln-qm | QM security arch + 18 findings | RUNLOG-vuln-qm.md |
+| vuln-memorable | hack/ws-vuln-memorable | Memorable security arch + 12 findings | RUNLOG-vuln-memorable.md |
