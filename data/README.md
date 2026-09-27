@@ -18,4 +18,8 @@ Rules:
 - `provenance.observed_at` timestamps every row; the build story needs per-row "when".
 - Rows split into **standard** (the OWASP-style floor every suite checks) and **blind_spot** (stack-specific things teams miss — the rows that justify a custom model).
 
-`example.pairs.jsonl` is a 6-row fixture for `--self-test`. The probe-corpus adapter (`probe report.json -> pairs`) lands next.
+`example.pairs.jsonl` is a 6-row fixture for `--self-test`. The probe-corpus
+adapter is `data/build_vulns.py` (report.json -> pairs); `data/vulns-superset.jsonl`
+is the mined superset-sh corpus (284 rows, 200 blind_spot / 84 standard), with
+`data/deidentify.py` doing hosts->`*.example`, secret VALUE -> described TYPE,
+and a residue gate.
