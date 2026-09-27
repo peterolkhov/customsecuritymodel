@@ -3,67 +3,94 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>customsecuritymodel — hackathon build</title>
+<title>customsecuritymodel — a security suite per company</title>
 <style>
-  :root { --sp-measure: 72ch; }
-  body { margin: 0; }
-  main { max-width: var(--sp-measure); margin: 0 auto; padding: 2rem 1.25rem 4rem; }
-  h1 { font-size: 2rem; margin-bottom: .25rem; }
-  .lede { color: var(--sp-muted); font-size: 1.05rem; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: .75rem; margin: 1.5rem 0; }
-  .stat { background: var(--sp-surface); border: 1px solid var(--sp-border); border-radius: var(--sp-radius); padding: .8rem 1rem; }
-  .stat .n { font-size: 1.6rem; font-weight: 700; }
-  .stat .k { color: var(--sp-muted); font-size: .85rem; }
-  h2 { margin-top: 2.2rem; border-top: 1px solid var(--sp-border); padding-top: 1.4rem; }
-  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  th, td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid var(--sp-border); vertical-align: top; }
-  th { color: var(--sp-muted); font-weight: 600; }
-  .tag { display:inline-block; background: var(--sp-code-bg); border:1px solid var(--sp-border); border-radius: 999px; padding:.1rem .55rem; font-size:.78rem; margin:.15rem .15rem; }
-  .tag.ok { color: var(--sp-accent-text); }
-  .muted { color: var(--sp-muted); }
-  code { font-family: var(--sp-font-mono); font-size: .85em; }
-  pre { overflow-x:auto; background: var(--sp-code-bg); padding:.8rem 1rem; border-radius: var(--sp-radius); }
-  .chart { margin: 1rem 0; }
-  footer { margin-top: 3rem; color: var(--sp-muted); font-size: .85rem; border-top: 1px solid var(--sp-border); padding-top: 1rem; }
+  :root { --sp-measure: 68ch; }
+  body { margin:0; }
+  main { max-width: var(--sp-measure); margin:0 auto; padding:2.5rem 1.25rem 4rem; }
+  h1 { font-size:2.2rem; margin-bottom:.35rem; }
+  .problem { font-size:1.05rem; color:var(--sp-text); max-width:60ch; }
+  .problem b { color:var(--sp-accent); }
+  .solution { background:var(--sp-surface); border:1px solid var(--sp-border); border-radius:var(--sp-radius); padding:1rem 1.25rem; margin:1.25rem 0; }
+  .solution h2 { margin:0 0 .4rem; font-size:1.15rem; border:none; padding:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.75rem; margin:1.5rem 0 2rem; }
+  .stat { background:var(--sp-surface); border:1px solid var(--sp-border); border-radius:var(--sp-radius); padding:.8rem 1rem; }
+  .stat .n { font-size:1.7rem; font-weight:700; line-height:1.1; }
+  .stat .k { color:var(--sp-text); font-size:.88rem; margin-top:.15rem; }
+  .stat .src { color:var(--sp-muted); font-size:.72rem; margin-top:.3rem; font-family:var(--sp-font-mono); }
+  h2 { margin-top:2rem; font-size:1.25rem; }
+  .caption { color:var(--sp-muted); font-size:.8rem; margin-top:.5rem; font-family:var(--sp-font-mono); }
+  .chart { margin:1rem 0; }
+  table { width:100%; border-collapse:collapse; font-size:.88rem; }
+  th,td { text-align:left; padding:.4rem .5rem; border-bottom:1px solid var(--sp-border); }
+  th { color:var(--sp-muted); font-weight:600; }
+  .tag { display:inline-block; border-radius:999px; padding:.1rem .55rem; font-size:.74rem; border:1px solid var(--sp-border); background:var(--sp-code-bg); }
+  .tag.ok { color:var(--sp-accent-text); }
+  .tablescroll { overflow-x:auto; }
+  footer { margin-top:3rem; color:var(--sp-muted); font-size:.8rem; border-top:1px solid var(--sp-border); padding-top:1rem; }
 </style>
 </head>
 <body class="auto">
 <main>
   <h1>customsecuritymodel</h1>
-  <p class="lede">A custom security suite per company, where customization is a <b>training run</b>, not an engineer hire. OWASP's Top 10 (the industry-standard checklist) is the floor everyone shares — the owned model finds what fits <i>your</i> stack.</p>
 
-  <div class="grid">
-    <div class="stat"><div class="n">300</div><div class="k">training pairs (de-identified)</div></div>
-    <div class="stat"><div class="n">12</div><div class="k">parallel agents</div></div>
-    <div class="stat"><div class="n">50+284</div><div class="k">sponsor vuln findings</div></div>
-    <div class="stat"><div class="n">32</div><div class="k">companies judged by architecture</div></div>
+  <p class="problem"><b>Every company rents the same security checklist.</b> OWASP's Top 10 is a shared floor, so the misses are shared too. Customizing a suite to your stack costs weeks of engineer time — almost nobody does it.</p>
+
+  <div class="solution">
+    <h2>The fix: train a model on your own findings</h2>
+    <p>A River LoRA on the company's scan findings learns what matters <b>for that stack</b> — minutes, dollars, and the company owns the weights.</p>
   </div>
 
-  <h2>Training — live on River</h2>
-  <p>Qwen-9B + LoRA (rank 32), 300 pairs, 114 steps, 3 epochs. Loss <b>20.1 → 0.00001</b> in ~10 minutes. The company holds the weights.</p>
-  <div class="chart"><svg viewBox="0 0 900 300" role="img" aria-label="Training loss curve" style="width:100%;height:auto;background:var(--sp-code-bg)"><polyline points="40.0,40.0 47.3,66.7 54.5,83.2 61.8,73.6 69.0,86.3 76.3,59.9 83.5,73.5 90.8,78.0 98.1,83.2 105.3,71.7 112.6,102.6 119.8,78.4 127.1,77.5 134.3,93.4 141.6,76.5 148.8,87.8 156.1,94.5 163.4,110.3 170.6,69.3 177.9,170.8 185.1,83.0 192.4,170.7 199.6,63.4 206.9,71.0 214.2,83.5 221.4,77.6 228.7,112.2 235.9,87.4 243.2,181.4 250.4,80.8 257.7,74.4 265.0,153.1 272.2,74.4 279.5,105.9 286.7,72.3 294.0,125.6 301.2,158.9 308.5,199.2 315.8,78.6 323.0,75.6 330.3,217.0 337.5,216.2 344.8,78.2 352.0,75.0 359.3,216.2 366.5,85.1 373.8,88.4 381.1,249.5 388.3,156.4 395.6,97.1 402.8,260.0 410.1,80.0 417.3,260.0 424.6,80.3 431.9,86.9 439.1,102.9 446.4,91.1 453.6,70.2 460.9,218.9 468.1,223.6 475.4,217.0 482.7,73.1 489.9,186.9 497.2,89.3 504.4,101.4 511.7,186.0 518.9,77.9 526.2,204.5 533.5,211.2 540.7,80.6 548.0,155.7 555.2,249.5 562.5,83.5 569.7,85.2 577.0,82.4 584.2,228.5 591.5,105.6 598.8,168.2 606.0,260.0 613.3,260.0 620.5,80.0 627.8,74.5 635.0,260.0 642.3,70.6 649.6,249.5 656.8,100.6 664.1,243.3 671.3,243.3 678.6,91.6 685.8,260.0 693.1,106.0 700.4,98.9 707.6,112.2 714.9,82.3 722.1,85.1 729.4,179.2 736.6,94.0 743.9,102.5 751.2,181.4 758.4,89.3 765.7,99.0 772.9,210.6 780.2,81.0 787.4,87.2 794.7,223.6 801.9,228.5 809.2,232.8 816.5,72.1 823.7,81.8 831.0,223.6 838.2,195.8 845.5,222.3 852.7,102.4 860.0,73.4" fill="none" stroke="var(--sp-chart-1)" stroke-width="2"/></svg></div>
-  <p class="muted">Checkpoint: <code>river://c1f3375c-3877-488c-99f9-3660cb9b0a3d/sampler_weights/company-model-v1</code></p>
+  <div class="grid">
+    
+<div class="stat"><div class="n">334</div><div class="k">findings triaged</div><div class="src">source: data/vulns-*.jsonl</div></div>
+<div class="stat"><div class="n">300</div><div class="k">training pairs</div><div class="src">source: data/out/pairs.jsonl</div></div>
+<div class="stat"><div class="n">32</div><div class="k">companies judged from architecture</div><div class="src">source: data/arch-mine.jsonl</div></div>
+<div class="stat"><div class="n">$0.79</div><div class="k">total agent burn</div><div class="src">source: demo/telemetry.json</div></div>
 
-  <h2>Fleet telemetry (Superset)</h2>
-  <p>Every worker runs in its own workspace/branch, pushes to GitHub, and keeps a timestamped RUNLOG. 1339 agents live.</p>
-  <table><thead><tr><th>agent</th><th>task</th><th>status</th><th>cost</th><th>commits</th></tr></thead><tbody><tr><td>adapter</td><td>adapter-1</td><td><span class="tag ok">DONE</span></td><td>$0.04</td><td>5</td></tr><tr><td>gbrain</td><td>gbrain-3</td><td><span class="tag run">RUNNING</span></td><td>$0.19</td><td>5</td></tr><tr><td>eval</td><td>eval-4</td><td><span class="tag ok">DONE</span></td><td>$0.05</td><td>5</td></tr><tr><td>suite</td><td>suite-5</td><td><span class="tag ok">DONE</span></td><td>$0.03</td><td>5</td></tr><tr><td>infer</td><td>infer-6</td><td><span class="tag ok">DONE</span></td><td>$0.03</td><td>5</td></tr><tr><td>vuln-gbrain</td><td>vuln-gbrain</td><td><span class="tag run">RUNNING</span></td><td>$0.07</td><td>5</td></tr><tr><td>vuln-qm</td><td>vuln-qm</td><td><span class="tag run">RUNNING</span></td><td>$0.06</td><td>5</td></tr><tr><td>vuln-river</td><td>vuln-river</td><td><span class="tag run">RUNNING</span></td><td>$0.05</td><td>5</td></tr><tr><td>stacks</td><td>stacks</td><td><span class="tag run">RUNNING</span></td><td>$0.03</td><td>5</td></tr><tr><td>vuln-superset</td><td>vuln-superset</td><td><span class="tag run">RUNNING</span></td><td>$0.1</td><td>5</td></tr><tr><td>vuln-memorable</td><td>vuln-memorable</td><td><span class="tag run">RUNNING</span></td><td>$0.06</td><td>5</td></tr><tr><td>arch-mine</td><td>arch-mine</td><td><span class="tag run">RUNNING</span></td><td>$0.08</td><td>5</td></tr></tbody></table>
+  </div>
 
-  <h2>Sponsor security coverage</h2>
-  <p>Static architecture reviews + de-identified findings for the sponsor stack — the blind-spot rows standard suites miss.</p>
-  <section><h3>gbrain — 8 findings</h3><table><thead><tr><th>class</th><th>severity</th><th>finding (de-identified)</th></tr></thead><tbody><tr><td>standard</td><td><b>high — an insecure default: the zero-argument token-creation path grants full read/write/admin over the brain. On a shared company brain one careless mint = cross-tenant read+write. Mitigation: default `auth create` to 'read' (mirror register-client), or fail closed on NULL scopes at verify.</b></td><td>gbrain: `gbrain auth create <name>` with no --scopes mints a legacy bearer token with full access. auth.ts:1162 'default: full access, grand</td></tr><tr><td>standard</td><td><b>low — the vulnerable nested version is present but effectively unreachable: gbrain only uses ip-address through express-rate-limit for IP classification (not a network trust boundary), and never renders Address6 HTML or builds SSRF decisions on ip-address. Worth fixing (pin the nested edge or drop express-rate-limit's pin) so OSV stops flagging, but no exploitable path in this stack today.</b></td><td>gbrain dependency tree: nested `@modelcontextprotocol/sdk/express-rate-limit@8.3.2` resolves `ip-address@10.1.0`, a version carrying CVE-202</td></tr><tr><td>blind_spot</td><td><b>high — this is the crux of the multi-tenant claim: company-brain isolation holds only if the operator's existing grant hygiene is perfect. Any pre-existing unscoped read/admin client or stdio writer on the shared brain reads every company's findings. Admission should fail closed while broad grants exist (or warn loudly and require an explicit operator override), and the boundary would benefit from a Postgres-role/RLS second layer on the remote engine.</b></td><td>gbrain company-brain mode (per-company memory slices on one shared brain): admission counts but does not gate on pre-existing broad grants. </td></tr><tr><td>standard</td><td><b>medium — flag-gated and loudly warned, but a public-internet reachable brain with self-service registration is a single operator mistake from exposure of every company's memory. For a security-suite vendor that runs per-company brains, recommend: refuse --funnel+--enable-dcr together, require an explicit env override, and make client_credentials DCR require owner pre-approval.</b></td><td>gbrain mcp expose: --funnel publishes the MCP server on the public internet via Tailscale Funnel (mcp-expose.ts:63); --enable-dcr is a docum</td></tr><tr><td>standard</td><td><b>medium — a stolen admin cookie is a 7-day full-admin credential (mint tokens, rescope clients, read api keys) with no idle timeout or step-up re-auth. The nonce/cookie hygiene is otherwise good. Recommend: shorter session lifetime, sliding idle expiry, and re-auth for sensitive admin mutations.</b></td><td>gbrain admin web UI: a redeemed magic-link nonce issues a gbrain_admin session cookie valid for 7 days (serve-http.ts:1414-1417); requireAdm</td></tr><tr><td>standard</td><td><b>medium — plaintext secrets at rest is standard for a local CLI vault but becomes a real exposure for a vendor shipping per-company brains to many machines: any backup, sync, or same-user process reads every provider credential. Encrypt the vault with a local key (e.g. OS keychain) or at minimum document the plaintext-at-rest tradeoff and exclude the vault from backups.</b></td><td>gbrain connector credential vault (~/.gbrain/credentials.json): FileVaultBackend reads and writes the whole vault as plaintext JSON (creds/v</td></tr><tr><td colspan="3" class="muted">+2 more…</td></tr></tbody></table></section><section><h3>memorable — 12 findings</h3><table><thead><tr><th>class</th><th>severity</th><th>finding (de-identified)</th></tr></thead><tbody><tr><td>standard</td><td><b>CONFIRMED good - INFO: extraction is minimized by construction; file contents, tool output, edit bodies and the transcript never leave the machine; only the scrubbed prompt line and allow-listed tool arguments are sent</b></td><td>area: extraction_payload_minimization; verdict: confirmed_good; evidence: the outbound /v1/extract request (built by N7/k8) sends only task_</td></tr><tr><td>standard</td><td><b>CONFIRMED good - INFO: consent is fail-closed by default (nothing stored or sent before enable); disable/forget give read-only/deny escalation, and prune remains available in every mode so a store can always be emptied</b></td><td>area: consent_fail_closed; verdict: confirmed_good; evidence: consent is unset by default and q8() maps anything other than read-write/read-</td></tr><tr><td>standard</td><td><b>CONFIRMED good - INFO: procedure rendering is defended against terminal-escape and control-character injection with size caps and explicit data-not-instructions framing; residual markup vectors are tracked separately</b></td><td>area: injection_safe_render; verdict: confirmed_good; evidence: every stored value rendered into an agent context passes through b() which s</td></tr><tr><td>standard</td><td><b>CONFIRMED good - INFO: the MCP server is read-only by construction with advisory annotations and a hard refusal for write/capture/billing operations; the residual read-surface exposure of stored step commands is tracked separately</b></td><td>area: mcp_tool_surface; verdict: confirmed_good; evidence: memorable mcp exposes exactly 5 tools (memorable_recall, memorable_show, memorabl</td></tr><tr><td>blind_spot</td><td><b>CONFIRMED - MEDIUM: regex-based redaction has several blind spots; env-style assignments with non-keyword names or short values, and single-case tokens, can be sent to the extraction API in plaintext inside allow-listed command/description fields</b></td><td>area: redaction_gaps; verdict: confirmed; evidence: the redactor J8 collapses home dir to ~, rewrites emails to <email>, known-prefix secret</td></tr><tr><td>blind_spot</td><td><b>CONFIRMED - MEDIUM: the procedure-injection protection is advisory framing plus control-char stripping, not markup sanitisation; if a procedure can be seeded (shared store, hostile extraction endpoint, or a poisoned ingested trace), the injected block is a plausible prompt-injection channel that survives the current renderer</b></td><td>area: render_markup_passthrough; verdict: confirmed; evidence: the injection-safe renderer b() strips ANSI escapes and control characters an</td></tr><tr><td colspan="3" class="muted">+6 more…</td></tr></tbody></table></section><section><h3>qm — 18 findings</h3><table><thead><tr><th>class</th><th>severity</th><th>finding (de-identified)</th></tr></thead><tbody><tr><td>standard</td><td><b>HIGH</b></td><td>type: weak_execute_gate; target: qm-core.example; detail: default posture is 'auto' which has toolApprovals=none; SECURITY_SCREEN_BACKEND de</td></tr><tr><td>blind_spot</td><td><b>HIGH</b></td><td>type: no_egress_enforcement; target: qm-core.example; detail: the local Docker sandbox backend sets egressEnforcement=none and has no egress</td></tr><tr><td>blind_spot</td><td><b>MEDIUM</b></td><td>type: strict_private_network_gap; target: qm-core.example; detail: Strict posture has denyPrivateNetworks=false (src/security/security-postu</td></tr><tr><td>blind_spot</td><td><b>MEDIUM</b></td><td>type: advisory_egress_proxy; target: qm-core.example; detail: egress enforcement is done by injecting HTTP(S)_PROXY with a per-turn token (s</td></tr><tr><td>standard</td><td><b>HIGH</b></td><td>type: secret_masking_gaps; target: qm-core.example; detail: execute stdout/stderr are masked by exact-substring only (src/security/secret-ma</td></tr><tr><td>standard</td><td><b>HIGH</b></td><td>type: source_auth_principal_bypass; target: qm-core.example; detail: GET/PUT /v1/memory are auth=source routes that take principalId from qu</td></tr><tr><td colspan="3" class="muted">+12 more…</td></tr></tbody></table></section><section><h3>river — 12 findings</h3><table><thead><tr><th>class</th><th>severity</th><th>finding (de-identified)</th></tr></thead><tbody><tr><td>standard</td><td><b>CONFIRMED good - INFO: API key is never logged or echoed; stored in memory only, sent exclusively as gRPC x-api-key metadata and HTTP Authorization: Bearer over TLS by default</b></td><td>area: api_key_handling; verdict: confirmed; evidence: api key held only in Client._api_key and RunMetricsLogger._api_key (memory); grep acro</td></tr><tr><td>standard</td><td><b>CONFIRMED - MEDIUM: default TLS is secure, but use_ssl=False silently downgrades both gRPC and the deployments/metrics HTTP paths to plaintext with the same live API key; no guard when paired with a non-local endpoint</b></td><td>area: tls_endpoint; verdict: confirmed; evidence: Client(api_key, endpoint, port=443, use_ssl=True) exposes use_ssl=False as a first-class o</td></tr><tr><td>blind_spot</td><td><b>CONFIRMED - HIGH: hardcoded trust_remote_code=True on the tokenizer-load path is a remote-code-execution supply-chain surface; the tokenizer name derives from the user-controllable base_model; an attacker-influenced repo name becomes arbitrary code execution during create_model()</b></td><td>area: supply_chain_rce; verdict: confirmed; evidence: tokenizers.py loads AutoTokenizer.from_pretrained(tokenizer_name, trust_remote_code=Tr</td></tr><tr><td>blind_spot</td><td><b>CONFIRMED - MEDIUM: tokenizer downloads are unpinned by default; a rewritten Hugging Face repo (or dependency confusion) silently changes the tokenizer used to build training batches, corrupting the model and running untrusted code</b></td><td>area: supply_chain_unpinned; verdict: confirmed; evidence: tokenizer assets are fetched via hf_hub_download(tokenizer_name, filename) with n</td></tr><tr><td>standard</td><td><b>CONFIRMED - LOW: checkpoint save/load paths are passed verbatim with no client-side validation; the server is the sole authority, so this is a missing input-control rather than a client exploit, but a malicious name is forwarded unchecked</b></td><td>area: checkpoint_path_handling; verdict: confirmed; evidence: Model.save_weights(name) scopes name as f'{run_id}/{name}' and sends it verbat</td></tr><tr><td>standard</td><td><b>SUSPECTED - HIGH if unverified: cross-tenant checkpoint isolation depends entirely on server-side river:// authorization; a guessed or leaked checkpoint path is only safe if the server enforces ownership per key - this must be verified server-side before relying on it</b></td><td>area: checkpoint_tenant_isolation; verdict: suspected; evidence: the SDK can pass any river:// path to load_weights and create_deployment; w</td></tr><tr><td colspan="3" class="muted">+6 more…</td></tr></tbody></table></section>
+  <h2>Proof: the model converged, live</h2>
+  <p>Qwen-9B + LoRA, 300 de-identified pairs, 114 steps.</p>
+  <div class="chart"><svg viewBox="0 0 880 340" role="img" aria-label="Training loss vs step, log scale" style="width:100%;height:auto;background:var(--sp-code-bg);border-radius:var(--sp-radius)">
+  <line x1="70" y1="294.0" x2="860" y2="294.0" stroke="var(--sp-border)" stroke-width="1" stroke-dasharray="3 3"/><text x="62" y="298.0" text-anchor="end" font-size="11" fill="var(--sp-muted)">1e-05</text><line x1="70" y1="207.0" x2="860" y2="207.0" stroke="var(--sp-border)" stroke-width="1" stroke-dasharray="3 3"/><text x="62" y="211.0" text-anchor="end" font-size="11" fill="var(--sp-muted)">0.001</text><line x1="70" y1="120.1" x2="860" y2="120.1" stroke="var(--sp-border)" stroke-width="1" stroke-dasharray="3 3"/><text x="62" y="124.1" text-anchor="end" font-size="11" fill="var(--sp-muted)">0.1</text><line x1="70" y1="33.1" x2="860" y2="33.1" stroke="var(--sp-border)" stroke-width="1" stroke-dasharray="3 3"/><text x="62" y="37.1" text-anchor="end" font-size="11" fill="var(--sp-muted)">10</text>
+  <polyline points="70.0,20.0 77.0,53.2 84.0,73.8 91.0,61.9 98.0,77.6 105.0,44.8 111.9,61.7 118.9,67.3 125.9,73.8 132.9,59.5 139.9,98.0 146.9,67.8 153.9,66.7 160.9,86.5 167.9,65.4 174.9,79.5 181.9,87.9 188.8,107.6 195.8,56.5 202.8,182.9 209.8,73.6 216.8,182.8 223.8,49.2 230.8,58.7 237.8,74.2 244.8,66.8 251.8,109.9 258.8,79.0 265.8,196.2 272.7,70.8 279.7,62.8 286.7,160.8 293.7,62.8 300.7,102.1 307.7,60.2 314.7,126.6 321.7,168.0 328.7,218.3 335.7,68.0 342.7,64.3 349.6,240.5 356.6,239.4 363.6,67.6 370.6,63.6 377.6,239.4 384.6,76.1 391.6,80.2 398.6,280.9 405.6,165.0 412.6,91.1 419.6,294.0 426.5,69.8 433.5,294.0 440.5,70.2 447.5,78.4 454.5,98.4 461.5,83.7 468.5,57.6 475.5,242.9 482.5,248.7 489.5,240.5 496.5,61.2 503.5,203.0 510.4,81.4 517.4,96.5 524.4,201.8 531.4,67.2 538.4,224.8 545.4,233.2 552.4,70.5 559.4,164.1 566.4,280.9 573.4,74.2 580.4,76.3 587.3,72.8 594.3,254.7 601.3,101.7 608.3,179.6 615.3,294.0 622.3,294.0 629.3,69.8 636.3,63.0 643.3,294.0 650.3,58.1 657.3,280.9 664.2,95.5 671.2,273.3 678.2,273.3 685.2,84.3 692.2,294.0 699.2,102.2 706.2,93.3 713.2,109.9 720.2,72.6 727.2,76.2 734.2,193.4 741.2,87.3 748.1,97.8 755.1,196.2 762.1,81.4 769.1,93.5 776.1,232.5 783.1,71.0 790.1,78.8 797.1,248.7 804.1,254.7 811.1,260.2 818.1,60.0 825.0,72.1 832.0,248.7 839.0,214.1 846.0,247.1 853.0,97.7 860.0,61.5" fill="none" stroke="var(--sp-chart-1)" stroke-width="2.2"/>
+  <circle cx="419.6" cy="294.0" r="4" fill="var(--sp-chart-1)"/>
+  <text x="425.6" y="286.0" font-size="12" fill="var(--sp-text)">loss 1e-05</text>
+  <text x="465" y="310" text-anchor="middle" font-size="12" fill="var(--sp-text)">optimizer step</text>
+  <text x="860" y="14" text-anchor="end" font-size="12" fill="var(--sp-muted)">loss (log scale)</text>
+  <text x="70.0" y="326" text-anchor="middle" font-size="11" fill="var(--sp-muted)">0</text><text x="419.6" y="326" text-anchor="middle" font-size="11" fill="var(--sp-muted)">50</text><text x="769.1" y="326" text-anchor="middle" font-size="11" fill="var(--sp-muted)">100</text>
+</svg></div>
+  <p class="caption">source: river/out/2026-09-27T21-04-52Z-company-model-v1/log.jsonl</p>
 
-  <h2>Reference suites</h2>
-  <p>Generated per company by <code>suite/build_suite.py</code> — different stack, different suite.</p>
-  <div><span class="tag">gbrain-oss</span> <span class="tag">target-01</span> <span class="tag">pulsepath</span> <span class="tag">river-sdk-oss</span> <span class="tag">northbridge</span> <span class="tag">qm-oss</span> <span class="tag">ledgerway</span></div>
+  <h2>Proof: held-out vs the rulebook floor</h2>
+  <p>Target-disjoint evaluation: the owned model vs the baseline on unseen tasks → <code>eval/scoreboard.html</code>.</p>
 
-  <h2>Memory + proof</h2>
+  <h2>Sponsor coverage</h2>
+  <p>Static architecture reviews, de-identified. Every sponsor gets a real security write-up.</p>
+  <div class="tablescroll">
+  <table>
+    <thead><tr><th>sponsor</th><th>findings</th><th>sample (short label)</th><th>severity</th></tr></thead>
+    <tbody>
+      <tr><td>River</td><td>12</td><td>tokenizer trust_remote_code</td><td><b>MED</b></td></tr>
+      <tr><td>GBrain</td><td>8</td><td>auth create defaults to full access</td><td><b>HIGH</b></td></tr>
+      <tr><td>QM</td><td>18</td><td>sandbox execute surface</td><td><b>HIGH</b></td></tr>
+      <tr><td>Memorable</td><td>12</td><td>procedure rendering</td><td><b>MED</b></td></tr>
+      <tr><td>Superset</td><td>284</td><td>repo secret history (in-flight)</td><td><b>HIGH</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">source: data/vulns-*.jsonl</p>
+
+  <h2>Delivered this hackathon</h2>
   <ul>
-    <li><b>GBrain</b> (rules-required): <code>memory/brain.py</code> ingests findings → per-company recall.</li>
-    <li><b>Eval</b>: target-disjoint held-out — rulebook floor vs owned model → <code>eval/scoreboard.html</code>.</li>
-    <li><b>QM</b>: <code>setup/qm.memory-provider.json</code> routes org scope → findings brain.</li>
+    <li><b>Live checkpoint</b> — trained, smoke-tested, owned weights</li>
+    <li><b>Per-company suites</b> — 7 generated from 6 reference stacks (<code>suite/</code>)</li>
+    <li><b>Memory</b> — GBrain ingest/recall per company (<code>memory/brain.py</code>)</li>
+    <li><b>Fleet</b> — 4/12 agents done, all pushed to GitHub</li>
   </ul>
 
-  <footer>Generated live during the Own Your Intelligence hackathon · source: <code>customsecuritymodel</code> repo, all branches merged to main.</footer>
+  <footer>Own Your Intelligence hackathon · all work merged to <code>main</code> · <code>github.com/peterolkhov/customsecuritymodel</code></footer>
 </main>
 </body>
 </html>
