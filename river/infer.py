@@ -12,6 +12,12 @@ model assigns — using the same prompt/format it was trained on.
     python3 river/infer.py --checkpoint <path> --finding 'type: tls_cert_expiry; host: api.target-01.example; ...'
     python3 river/infer.py --checkpoint <path> --finding '...' --dry-run    # offline: show the exact messages
 
+    # no --checkpoint: the newest owned checkpoint in river/out/ is auto-discovered
+    echo 'type: exposed_env_file; host: static.target-02.example; detail: /.env returns 200' | \
+        python3 river/infer.py
+
+    python3 river/infer.py --finding 'type: graphql_introspection; host: api.target-01.example; ...'
+
 The finding may also be a full JSONL pair row (from data/*.pairs.jsonl); it is
 then sent as-is, preserving its own instruction/input.
 
@@ -34,6 +40,32 @@ except ImportError:  # script invocation: python3 river/infer.py
     from train import render_messages
 
 DEFAULT_INSTRUCTION = "Given this finding, assign a severity for THIS company's stack."
+_OUT = Path(__file__).resolve().parent / "out"
+
+
+def latest_checkpoint() -> tuple[str | None, dict]:
+    """Newest owned checkpoint in river/out/, else (None, {}).
+
+    Reads checkpoint.txt (the river:// URI) + meta.json (base_model) from the
+    most recent run dir — the same discovery suite/build_suite.py uses, so
+    infer and the suite generator always agree on which model is "owned".
+    """
+    if not _OUT.is_dir():
+        return None, {}
+    runs = sorted((d for d in _OUT.iterdir()
+                   if (d / "checkpoint.txt").is_file()),
+                  key=lambda d: d.stat().st_mtime, reverse=True)
+    if not runs:
+        return None, {}
+    ck = (runs[0] / "checkpoint.txt").read_text(encoding="utf-8").strip()
+    meta: dict = {}
+    mp = runs[0] / "meta.json"
+    if mp.is_file():
+        try:
+            meta = json.loads(mp.read_text(encoding="utf-8"))
+        except Exception:
+            meta = {}
+    return (ck or meta.get("checkpoint")), meta
 
 
 def _parse(argv=None) -> argparse.Namespace:
@@ -152,9 +184,18 @@ def main(argv=None) -> int:
         return 2
 
     if not a.checkpoint and not a.dry_run:
-        print("missing --checkpoint: pass the path from river/out/<ts>/checkpoint.txt",
-              file=sys.stderr)
-        return 2
+        ck, meta = latest_checkpoint()
+        if ck:
+            a.checkpoint = ck
+            if not a.base_model and meta.get("base_model"):
+                a.base_model = meta["base_model"]
+            print(f"using owned checkpoint: {ck} "
+                  f"(base {a.base_model or 'default'}, auto-discovered from river/out/)",
+                  file=sys.stderr)
+        else:
+            print("missing --checkpoint: pass the path from river/out/<ts>/checkpoint.txt "
+                  "(none auto-discovered in river/out/)", file=sys.stderr)
+            return 2
 
     finding = _read_finding(a)
     messages = _build_messages(a, finding)

@@ -40,24 +40,35 @@ def _bar(acc: float, width: int = 120) -> str:
 
 def _mode_banner(mode: dict) -> str:
     kind = mode.get("kind")
+    out = []
     if kind == "stub":
-        return (f'<div class="banner stub"><strong>STUB MODE</strong> — '
-                f'{html.escape(mode.get("note", ""))} '
-                f'Scoreboard shows the pipeline, not the owned model.</div>')
-    if kind == "checkpoint":
+        out.append(f'<div class="banner stub"><strong>STUB MODE</strong> — '
+                   f'{html.escape(mode.get("note", ""))} '
+                   f'Scoreboard shows the pipeline, not the owned model.</div>')
+    elif kind == "checkpoint":
         ck = html.escape(mode.get("checkpoint", "") or "")
-        return (f'<div class="banner live"><strong>OWNED MODEL</strong> — scored via '
-                f'checkpoint <code>{ck}</code></div>')
-    return (f'<div class="banner live"><strong>MODEL</strong> — {html.escape(mode.get("note", ""))}</div>')
+        out.append(f'<div class="banner live"><strong>OWNED MODEL</strong> — scored via '
+                   f'checkpoint <code>{ck}</code></div>')
+    else:
+        out.append(f'<div class="banner live"><strong>MODEL</strong> — {html.escape(mode.get("note", ""))}</div>')
+    pending = mode.get("pending")
+    if pending:
+        ck = html.escape(str(pending.get("checkpoint", "") or ""))
+        reason = html.escape(str(pending.get("reason", "") or ""))
+        out.append(
+            f'<div class="banner pending"><strong>OWNED-MODEL ROW PENDING</strong> — '
+            f'the checkpoint <code>{ck}</code> exists but {reason} '
+            f'The "model" row below is the offline stub, NOT the owned model.</div>')
+    return "".join(out)
 
 
-def _method_row(name: str, m: dict, color: str) -> str:
+def _method_row(name: str, m: dict, color: str, label: str | None = None) -> str:
     cells = []
     for key in ("overall", "standard", "blind_spot"):
         b = m[key]
         cells.append(f'<td><span class="n">{b["exact"]}/{b["n"]}</span> {_bar(b["accuracy"])}</td>')
         cells.append(f'<td><span class="n">{b["agreement"]}/{b["n"]}</span> {_bar(b["agreement_rate"])}</td>')
-    return (f'<tr class="{name}"><th>{html.escape(name)}</th>' + "".join(cells) + "</tr>")
+    return (f'<tr class="{name}"><th>{html.escape(label or name)}</th>' + "".join(cells) + "</tr>")
 
 
 def _winner_line(winner: dict) -> str:
@@ -94,9 +105,13 @@ def _split_card(split: dict) -> str:
     eval_t = ", ".join(html.escape(t) for t in split.get("eval_targets", [])) or "—"
     badge = ('<span class="badge ok">disjoint: true</span>' if split.get("disjoint")
              else '<span class="badge no">overlap!</span>')
+    hold = ''
+    if split.get("held_out_class"):
+        hold = (f' &nbsp; <span class="badge ok">held-out class: '
+                f'{html.escape(str(split["held_out_class"]))}</span>')
     return (f'<div class="card"><h3>Split — {html.escape(str(split.get("method", "target-disjoint")))}</h3>'
             f'<p>{split.get("n_pairs")} pairs &rarr; <b>{split.get("n_train")} train</b> / '
-            f'<b>{split.get("n_eval")} eval</b> &nbsp; {badge} &nbsp; '
+            f'<b>{split.get("n_eval")} eval</b> &nbsp; {badge}{hold} &nbsp; '
             f'<span class="muted">seed={split.get("seed")}, held-out frac={split.get("held_out_frac")}</span></p>'
             f'<p><span class="muted">train targets:</span> {train_t}<br>'
             f'<span class="muted">eval targets (unseen):</span> <b>{eval_t}</b></p></div>')
@@ -110,7 +125,9 @@ def render(result: dict) -> str:
     winner = result.get("winner", {"overall": "tie", "blind_spot": "tie"})
     rows = result.get("rows", [])
 
-    summary = _method_row("model", metrics["model"], _COLORS["model"]) + \
+    summary = _method_row(
+        "model", metrics["model"], _COLORS["model"],
+        label="model — owned row pending" if mode.get("pending") else "model") + \
         _method_row("rulebook", metrics["rulebook"], _COLORS["rulebook"])
 
     n_eval = split.get("n_eval", 0)
@@ -138,6 +155,7 @@ def render(result: dict) -> str:
   .banner {{ padding: 10px 14px; border-radius: 8px; margin: 12px 0; font-size: 14px; }}
   .banner.stub {{ background: #fef3c7; border: 1px solid #f59e0b; color: #78350f; }}
   .banner.live {{ background: #ccfbf1; border: 1px solid #14b8a6; color: #134e4a; }}
+  .banner.pending {{ background: #fee2e2; border: 1px solid #ef4444; color: #7f1d1d; }}
   .card {{ background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 18px; margin: 12px 0; }}
   .muted {{ color: #64748b; }}
   code {{ background: #f1f5f9; border-radius: 4px; padding: 1px 5px; font-size: 13px; }}

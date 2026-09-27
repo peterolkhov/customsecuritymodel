@@ -11,6 +11,14 @@ heuristic) against the owned model on the unseen targets.
     python3 eval/harness.py --predict eval/custom_predictor.py:my_predict --pairs data/out/pairs.jsonl
     python3 eval/harness.py --self-test
 
+    # owned checkpoint, single-target corpus: hold out the blind-spot slice
+    python3 eval/harness.py --pairs data/out/pairs.jsonl \\
+        --checkpoint river://<run-id>/sampler_weights/company-model-v1 \\
+        --held-out-class blind_spot
+    # no key on disk: same split, stub model, owned row marked pending
+    python3 eval/harness.py --pairs data/out/pairs.jsonl --stub \\
+        --held-out-class blind_spot --pending-checkpoint river://<run-id>/sampler_weights/company-model-v1
+
 Predictor selection (exactly one; defaults to --stub):
   --stub          offline placeholder — majority class of the train split. Runs
                   the whole pipeline with no checkpoint and no network. The
@@ -18,6 +26,10 @@ Predictor selection (exactly one; defaults to --stub):
   --predict fn    offline python predictor, "<path.py>:<function>". The function
                   is called with each pair dict and returns a severity text.
   --checkpoint p  live owned model via river chat_complete_from_checkpoint.
+  --pending-checkpoint p  with --stub only: record the owned checkpoint that the
+                  model row is waiting on (RIVER_API_KEY missing). The scoreboard
+                  marks the owned-model row PENDING instead of presenting the stub
+                  as the owned model.
 
 Outputs (out dir, default eval/out/): train.jsonl, eval.jsonl, split.json,
 result.json. Scoreboard is written to eval/scoreboard.html by default.
@@ -109,6 +121,35 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
 
 
 # ----------------------------------------------------------------------- split
+
+def split_by_class(pairs: list[dict], held_out_class: str) -> tuple:
+    """Row-disjoint class slice for single-target corpora.
+
+    The probe adapter collapses every company into target-01.example, so a
+    target-disjoint split cannot isolate the blind-spot rows. Held-out is the
+    class slice (e.g. blind_spot = the stack-specific rows the custom model
+    must win); train is everything else. Rows are still disjoint: no training
+    example is an eval example (the scoreboard's disjoint badge refers to rows).
+    """
+    train = [p for p in pairs if (p.get("provenance") or {}).get("class") != held_out_class]
+    ev = [p for p in pairs if (p.get("provenance") or {}).get("class") == held_out_class]
+    if not ev:
+        raise ValueError(f"empty eval split — no rows of class {held_out_class!r} in the corpus")
+    if not train:
+        raise ValueError("empty train split — class-slice needs rows of the other class too")
+    train_targets = sorted({p["provenance"]["target"] for p in train})
+    eval_targets = sorted({p["provenance"]["target"] for p in ev})
+    overlap = set(train_targets) & set(eval_targets)
+    return train, ev, {
+        "method": "class-slice", "held_out_class": held_out_class,
+        "train_targets": train_targets, "eval_targets": eval_targets,
+        # rows never overlap (classes partition the corpus); a single target may span both classes
+        "disjoint": True,
+        "note": ("single-target corpus — held-out is the blind_spot class slice; "
+                 "no training row is an eval row"),
+        "target_overlap": sorted(overlap),
+    }
+
 
 def split_by_target(pairs: list[dict], held_out_frac: float = 0.35,
                     seed: int = 0, held_out_targets: list[str] | None = None) -> tuple:
@@ -295,9 +336,12 @@ def _pick_winner(rulebook: dict, model: dict) -> dict:
 # ------------------------------------------------------------------------- main
 
 def run_eval(pairs: list[dict], args) -> dict:
-    train, ev, split_info = split_by_target(
-        pairs, held_out_frac=args.held_out_frac, seed=args.seed,
-        held_out_targets=args.held_out_targets)
+    if getattr(args, "held_out_class", None):
+        train, ev, split_info = split_by_class(pairs, args.held_out_class)
+    else:
+        train, ev, split_info = split_by_target(
+            pairs, held_out_frac=args.held_out_frac, seed=args.seed,
+            held_out_targets=args.held_out_targets)
 
     out_dir = Path(args.out_dir)
     write_jsonl(out_dir / "train.jsonl", train)
@@ -306,6 +350,15 @@ def run_eval(pairs: list[dict], args) -> dict:
     (out_dir / "split.json").write_text(json.dumps(split_info, indent=2, sort_keys=True) + "\n")
 
     predict, mode = _build_predictor(args, train)
+
+    pending = getattr(args, "pending_checkpoint", None)
+    if args.stub and pending:
+        mode["pending"] = {
+            "checkpoint": pending,
+            "reason": "RIVER_API_KEY not set — the owned checkpoint exists but no key was "
+                      "found (env, ~/.env, worktrees). Set RIVER_API_KEY and re-run with "
+                      "--checkpoint <this path> to produce the real owned-model row.",
+        }
 
     rows = []
     for p in ev:
@@ -383,8 +436,14 @@ def main(argv=None) -> int:
     ap.add_argument("--stub", action="store_true", help="offline majority-class placeholder predictor")
     ap.add_argument("--predict", default=None, help="offline python predictor '<path.py>:<function>'")
     ap.add_argument("--checkpoint", default=None, help="owned river checkpoint (needs RIVER_API_KEY)")
+    ap.add_argument("--pending-checkpoint", default=None,
+                    help="with --stub only: owned checkpoint the model row is waiting on "
+                         "(marks the scoreboard PENDING; no API call)")
     ap.add_argument("--held-out-frac", type=float, default=0.35, help="fraction of targets held out")
     ap.add_argument("--held-out-targets", default=None, help="comma-separated explicit eval targets")
+    ap.add_argument("--held-out-class", default=None,
+                    help="hold out one class slice instead of targets (e.g. blind_spot) — for "
+                         "single-target corpora the probe adapter collapses to one target")
     ap.add_argument("--seed", type=int, default=4,
                     help="split seed (deterministic); 4 holds out the fixture's blind-spot targets")
     ap.add_argument("--out-dir", default=str(_HERE / "out"))
@@ -393,6 +452,10 @@ def main(argv=None) -> int:
 
     if a.self_test:
         return _self_test()
+
+    if a.pending_checkpoint and not a.stub:
+        print("error: --pending-checkpoint is only meaningful with --stub", file=sys.stderr)
+        return 1
 
     held_out_targets = [t.strip() for t in a.held_out_targets.split(",") if t.strip()] \
         if a.held_out_targets else None

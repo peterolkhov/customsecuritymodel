@@ -84,18 +84,34 @@ def parse_finding(pair: dict) -> dict:
 
 
 def latest_model() -> dict | None:
-    """Newest river/out/<ts>/meta.json, or None when no checkpoint exists yet."""
+    """Newest river/out/<ts>/meta.json, or None when no checkpoint exists yet.
+
+    checkpoint.txt is the source of truth for the river:// URI; meta.json
+    carries the base model / n_pairs provenance. Same discovery river/infer.py
+    uses, so the suite generator and the infer CLI always agree on the owned model.
+    """
     out = _ROOT / "river" / "out"
-    metas = sorted(out.glob("*/meta.json"), key=lambda p: p.stat().st_mtime, reverse=True)
-    if not metas:
-        return None
-    try:
-        meta = json.loads(metas[0].read_text(encoding="utf-8"))
-    except Exception:
-        return None
-    if not meta.get("checkpoint"):
-        return None
-    return meta
+    runs = sorted(out.glob("*"), key=lambda p: p.stat().st_mtime, reverse=True)
+    for run_dir in runs:
+        if not run_dir.is_dir():
+            continue
+        meta: dict = {}
+        ck = None
+        cp = run_dir / "checkpoint.txt"
+        if cp.is_file():
+            ck = cp.read_text(encoding="utf-8").strip()
+        mp = run_dir / "meta.json"
+        if mp.is_file():
+            try:
+                meta = json.loads(mp.read_text(encoding="utf-8"))
+            except Exception:
+                meta = {}
+        ck = ck or meta.get("checkpoint")
+        if not ck:
+            continue
+        meta["checkpoint"] = ck
+        return meta
+    return None
 
 
 def load_brain() -> dict | None:
