@@ -1,0 +1,40 @@
+# ARCH-MINE — architecture-derived vulnerability characterization
+
+**32 companies, zero scans.** Vulns derived purely from each target's existing probe architecture (DNS/mail/DMARC/DNSSEC, CDN/WAF, hosting origin, SaaS footprint, JS/config-leak signals). All targets de-identified to `*.example`.
+
+| target | industry (guess) | architecture signals | top derived vuln(s) | severity |
+|---|---|---|---|---|
+| `razorpay-com.example` | payment processing | mail: unknown (dns not captured); dmarc: unknown (dns not captured) (weak=False); spf: unknown (dns not captured); dnssec: unknown (dns not captured) | js_credential_exposure(HIGH), sourcemap_disclosure(MEDIUM), origin_exposure(MEDIUM) | HIGH |
+| `affirm-com.example` | payment processing / BNPL | mail: self-hosted/third-party mail relay; dmarc: quarantine (weak=False); spf: ~all; dnssec: absent | js_credential_exposure(HIGH), self_hosted_mail(MEDIUM), origin_exposure(MEDIUM) | HIGH |
+| `chewy-com.example` | ecommerce / pet retail | mail: self-hosted/third-party mail relay; dmarc: reject (weak=False); spf: absent; dnssec: absent | subdomain_takeover(HIGH), self_hosted_mail(MEDIUM), origin_exposure(MEDIUM) | HIGH |
+| `glossier-com.example` | ecommerce / DTC beauty | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: ~all; dnssec: absent | origin_exposure(MEDIUM), checkout_payment_surface(MEDIUM), shopify_ucp_surface(MEDIUM) | MEDIUM |
+| `stockx-com.example` | ecommerce / resale marketplace | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: ~all; dnssec: absent | origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM), api_csrf(MEDIUM) | MEDIUM |
+| `poshmark-com.example` | ecommerce / C2C marketplace | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: -all; dnssec: absent | origin_exposure(MEDIUM), checkout_payment_surface(MEDIUM), cors_permissive(MEDIUM) | MEDIUM |
+| `therealreal-com.example` | ecommerce / luxury resale | mail: hosted-email (workspace-class); dmarc: none (weak=True); spf: ~all; dnssec: absent | subdomain_takeover(HIGH), domain_spoofing(MEDIUM), origin_exposure(MEDIUM) | HIGH |
+| `replicate-com.example` | AI infrastructure | mail: hosted-email (workspace-class); dmarc: quarantine (weak=False); spf: ~all; dnssec: absent | origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM), checkout_payment_surface(MEDIUM) | MEDIUM |
+| `together-ai.example` | AI infrastructure | mail: hosted-email (workspace-class); dmarc: quarantine (weak=False); spf: ~all; dnssec: absent | subdomain_takeover(HIGH), origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM) | HIGH |
+| `groq-com.example` | AI hardware / inference | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: ~all; dnssec: absent | sourcemap_disclosure(MEDIUM), origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM) | MEDIUM |
+| `modal-com.example` | AI infrastructure | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: -all; dnssec: absent | subdomain_takeover(HIGH), origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM) | HIGH |
+| `deepinfra-com.example` | AI inference | mail: hosted-email (workspace-class); dmarc: quarantine (weak=False); spf: ~all; dnssec: absent | subdomain_takeover(HIGH), origin_exposure(MEDIUM), cors_permissive(MEDIUM) | HIGH |
+| `runpod-io.example` | GPU cloud | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: -all; dnssec: absent | origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM), checkout_payment_surface(MEDIUM) | MEDIUM |
+| `coreweave-com.example` | GPU cloud | mail: self-hosted/third-party mail relay; dmarc: quarantine (weak=False); spf: ~all; dnssec: absent | self_hosted_mail(MEDIUM), origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM) | MEDIUM |
+| `cerebras-net.example` | AI hardware | mail: hosted-email (office-class); dmarc: quarantine (weak=False); spf: -all; dnssec: absent | sourcemap_disclosure(MEDIUM), origin_exposure(MEDIUM), checkout_payment_surface(MEDIUM) | MEDIUM |
+| `fal-ai.example` | AI media / API | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: -all; dnssec: absent | origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM), checkout_payment_surface(MEDIUM) | MEDIUM |
+| `baseten-co.example` | AI infrastructure | mail: hosted-email (workspace-class); dmarc: quarantine (weak=False); spf: -all; dnssec: absent | origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM), cors_permissive(MEDIUM) | MEDIUM |
+| `cognition-ai.example` | AI devtools / agents | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: -all; dnssec: absent | origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM), cors_permissive(MEDIUM) | MEDIUM |
+| `sierra-ai.example` | AI agents / customer experience | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: -all; dnssec: absent | subdomain_takeover(HIGH), origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM) | HIGH |
+| `stoaexchange-com.example` | crypto exchange | mail: hosted-email (workspace-class); dmarc: quarantine (weak=False); spf: ~all; dnssec: absent | api_csrf(MEDIUM), csp_infra_leak(LOW), dnssec_missing(MEDIUM) | MEDIUM |
+| `opentrade-live.example` | crypto trading | mail: hosted-email (workspace-class); dmarc: quarantine (weak=False); spf: ~all; dnssec: absent | api_csrf(MEDIUM), cors_permissive(MEDIUM), firebase_config_leak(MEDIUM) | MEDIUM |
+| `donkey-trade.example` | crypto trading | mail: hosted-email (workspace-class); dmarc: none (weak=True); spf: ~all; dnssec: absent | domain_spoofing(MEDIUM), origin_exposure(MEDIUM), api_csrf(MEDIUM) | MEDIUM |
+| `cerebral-com.example` | healthcare / telehealth | mail: hosted-email (workspace-class); dmarc: quarantine (weak=False); spf: ~all; dnssec: absent | sourcemap_disclosure(MEDIUM), origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM) | MEDIUM |
+| `hims-com.example` | healthcare / telehealth | mail: self-hosted/third-party mail relay; dmarc: reject (weak=False); spf: ~all; dnssec: absent | self_hosted_mail(MEDIUM), origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM) | MEDIUM |
+| `nurx-com.example` | healthcare / telehealth | mail: self-hosted/third-party mail relay; dmarc: reject (weak=False); spf: -all; dnssec: absent | subdomain_takeover(HIGH), self_hosted_mail(MEDIUM), origin_exposure(MEDIUM) | HIGH |
+| `letsgetchecked-com.example` | healthcare / diagnostics | mail: hosted-email (workspace-class); dmarc: none (weak=True); spf: ~all; dnssec: absent | domain_spoofing(MEDIUM), origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM) | MEDIUM |
+| `posthog-com.example` | devtools / product analytics | mail: hosted-email (workspace-class); dmarc: quarantine (weak=False); spf: -all; dnssec: absent | origin_exposure(MEDIUM), oidc_discovery_open(MEDIUM), api_csrf(MEDIUM) | MEDIUM |
+| `langfuse-com.example` | devtools / LLM observability | mail: unknown (dns not captured); dmarc: unknown (dns not captured) (weak=False); spf: unknown (dns not captured); dnssec: unknown (dns not captured) | origin_exposure(MEDIUM), api_csrf(MEDIUM), cors_permissive(MEDIUM) | MEDIUM |
+| `zendesk-com.example` | SaaS / support platform | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: ~all; dnssec: absent | subdomain_takeover(HIGH), sourcemap_disclosure(MEDIUM), origin_exposure(MEDIUM) | HIGH |
+| `huntresslabs-com-huntress-com.example` | security | mail: hosted-email (workspace-class); dmarc: absent (weak=False); spf: absent; dnssec: absent | domain_spoofing(HIGH), dnssec_missing(MEDIUM), dangling_verification_tokens(MEDIUM) | HIGH |
+| `ouraring-com.example` | wearables / health | mail: hosted-email (workspace-class); dmarc: reject (weak=False); spf: ~all; dnssec: absent | js_credential_exposure(HIGH), sourcemap_disclosure(MEDIUM), origin_exposure(MEDIUM) | HIGH |
+| `linode-com.example` | cloud hosting | mail: self-hosted/third-party mail relay; dmarc: reject (weak=False); spf: -all; dnssec: absent | subdomain_takeover(HIGH), self_hosted_mail(MEDIUM), origin_exposure(MEDIUM) | HIGH |
+
+Generated by `data/arch_mine.py` — analysis only, no scanning.

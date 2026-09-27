@@ -19,3 +19,18 @@ Rules:
 - Rows split into **standard** (the OWASP-style floor every suite checks) and **blind_spot** (stack-specific things teams miss — the rows that justify a custom model).
 
 `example.pairs.jsonl` is a 6-row fixture for `--self-test`. The probe-corpus adapter (`probe report.json -> pairs`) lands next.
+
+## `arch-mine.jsonl` — architecture-derived blind spots (no scanning)
+
+`data/arch_mine.py` characterizes the *existing* probe corpus (DNS/mail/DMARC/DNSSEC,
+CDN/WAF, hosting origin, SaaS footprint, JS/config-leak signals) and derives the
+vulnerabilities the architecture implies — pure analysis, zero network calls. One
+row per target, `provenance.class = "blind_spot"`, all fields de-identified to
+`*.example`. `ARCH-MINE.md` is the human-facing demo table (target slug | industry
+guess | architecture signals | top derived vuln(s) | severity).
+
+Rules in `derive()` are deterministic (no LLM): e.g. `dmarc weak + dkim/SPF missing
+-> domain_spoofing`, `dangling DNS -> subdomain_takeover`, `js_hardcoded_api_key ->
+js_credential_exposure`. Corpus-wide baselines (no DNSSEC, no MTA-STS, verification
+tokens) are kept in the derived set but never headline a row, so each company gets
+its own stack-specific signal.
