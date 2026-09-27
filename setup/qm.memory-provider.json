@@ -1,0 +1,34 @@
+{
+  "providers": [
+    {
+      "id": "findings-brain",
+      "type": "mcp",
+      "url": "http://127.0.0.1:48948/trpc",
+      "timeoutMs": 3000,
+      "read": {
+        "tool": "gbrain.recall",
+        "clientIdEnv": "GBRAIN_RO_CLIENT_ID",
+        "clientSecretEnv": "GBRAIN_RO_CLIENT_SECRET"
+      },
+      "write": {
+        "tool": "gbrain.remember",
+        "clientIdEnv": "GBRAIN_RW_CLIENT_ID",
+        "clientSecretEnv": "GBRAIN_RW_CLIENT_SECRET"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "provider": "default",
+      "scopes": ["personal", "channel", "group", "team"],
+      "capture": "automatic"
+    },
+    {
+      "provider": "findings-brain",
+      "scopes": ["org"],
+      "capture": "explicit",
+      "manage": false,
+      "label": "Company security findings brain (GBrain)"
+    }
+  ]
+}

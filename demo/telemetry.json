@@ -1,5 +1,5 @@
 {
-  "ts": "2026-09-27T21:18:17Z",
+  "ts": "2026-09-27T21:18:48Z",
   "fleet": {
     "adapter": {
       "task": "adapter-1",
@@ -55,7 +55,7 @@
         "  \u2503                                                                              customsecuritymodel/hack/ws-gbrain:     ",
         "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                hack/ws-gbrain                          ",
         "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580                                            ",
-        "   \u25a0\u25a0\u25a0\u25a0\u25a0\u2b1d\u2b1d\u2b1d  esc interrupt              274.1K (27%) \u00b7 $0.16  ctrl+p commands    \u2022 OpenCode 1.18.32"
+        "   \u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d  esc interrupt              274.1K (27%) \u00b7 $0.16  ctrl+p commands    \u2022 OpenCode 1.18.32"
       ]
     },
     "eval": {
@@ -178,28 +178,29 @@
       "task": "vuln-qm",
       "branch": "hack/ws-vuln-qm",
       "status": "RUNNING",
-      "cost_usd": 0.05,
+      "cost_usd": 0.06,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
+          "hack: vuln-qm QM security architecture + static vuln hunt (18 findings, JSONL verified)",
           "PLAN.md: megaplan \u2014 spine, surface, flywheel, timeline, cut order",
           "SUBMISSION.md: form fields, drafts, video plan; River judging criteria into BRIEF",
           "river/train.py: pairs JSONL -> LoRA checkpoint -> smoke serve",
           "Skeleton: pitch, brief, pair-format contract, example fixture"
         ],
-        "uncommitted_changes": 4,
+        "uncommitted_changes": 1,
         "unpushed": "0"
       },
       "has_runlog": true,
       "envelope_tail": [
-        "     \u25a3  Build \u00b7 DeepSeek V4 Flash                                                                                       ",
+        "     \u25a3  Build \u00b7 DeepSeek V4 Flash \u00b7 8m 52s                                                                              ",
         "                                                                                                                        ",
         "  \u2503                                                                                                                     ",
         "  \u2503                                                                                                                     ",
         "  \u2503                                                                                                                     ",
         "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
         "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   \u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d  esc interrupt                                                       179.7K (18%) \u00b7 $0.05  ctrl+p commands"
+        "   /Users/peterolkhovets/.superset/worktrees/customsecuritymodel/hack/ws-vuln-qm 181.6K (18%) \u00b7 $0.06  ctrl+p commands"
       ]
     },
     "vuln-river": {
@@ -286,14 +287,14 @@
         "  \u2503                                                                                                                     ",
         "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
         "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   \u25a0\u25a0\u25a0\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d  esc interrupt                                                       125.0K (13%) \u00b7 $0.04  ctrl+p commands"
+        "   \u25a0\u25a0\u25a0\u25a0\u25a0\u25a0\u2b1d\u2b1d  esc interrupt                                                       125.0K (13%) \u00b7 $0.04  ctrl+p commands"
       ]
     },
     "vuln-memorable": {
       "task": "vuln-memorable",
       "branch": "hack/ws-vuln-memorable",
       "status": "RUNNING",
-      "cost_usd": 0.03,
+      "cost_usd": 0.04,
       "work_ops_snapshot": 0,
       "git": {
         "commits": [
@@ -315,7 +316,7 @@
         "  \u2503                                                                                                                     ",
         "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
         "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   \u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d  esc interrupt                                                       113.9K (11%) \u00b7 $0.03  ctrl+p commands"
+        "   \u25a0\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d  esc interrupt                                                       115.8K (12%) \u00b7 $0.04  ctrl+p commands"
       ]
     },
     "arch-mine": {
@@ -344,7 +345,7 @@
         "  \u2503                                                                                                                     ",
         "  \u2503  Build \u00b7 DeepSeek V4 Flash OpenCode Go \u00b7 high                                                                       ",
         "  \u2579\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580  ",
-        "   \u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d  esc interrupt                                                         81.8K (8%) \u00b7 $0.02  ctrl+p commands"
+        "   \u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d\u2b1d  esc interrupt                                                         83.7K (8%) \u00b7 $0.02  ctrl+p commands"
       ]
     }
   }

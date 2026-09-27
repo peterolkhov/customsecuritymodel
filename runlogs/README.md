@@ -5,6 +5,7 @@ One file per hackathon worker. Format: `UTC_TIMESTAMP | ACTION | FILE(s) | RESUL
 | worker | branch | task | file |
 |---|---|---|---|
 | adapter | hack/ws-adapter | probe→pairs adapter | RUNLOG-adapter.md |
+| gbrain | hack/ws-gbrain | per-company findings brain (gbrain CLI) | (committed from agent) |
 | eval | hack/ws-eval | held-out harness + scoreboard | RUNLOG-eval.md |
 | infer | hack/ws-infer | checkpoint infer CLI | RUNLOG-infer.md |
 | suite | hack/ws-suite | per-company suite generator | RUNLOG-suite.md |
