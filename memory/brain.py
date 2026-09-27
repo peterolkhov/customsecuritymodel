@@ -544,14 +544,16 @@ def _query_filter(facts: list[dict], query: str | None) -> list[dict]:
 
 
 def recall_entity(entity: str, query: str | None = None, store: Path | None = None) -> tuple[list[dict], str]:
+    local = LocalStore(store)
     if gbrain_available():
         live, mode = _live_recall(entity)
-        if live is not None:
+        if live:
             return _query_filter(live, query), mode
-    local = LocalStore(store).recall(entity)
-    if not local and entity.startswith("targets/"):
-        local = LocalStore(store).recall(entity, company=entity.split("/", 1)[1])
-    return _query_filter(local, query), "local"
+        lf = _query_filter(local.recall(entity), query)
+        if lf:
+            return lf, "local"
+        return [], mode
+    return _query_filter(local.recall(entity), query), "local"
 
 
 def _print_facts(entity: str, facts: list[dict], mode: str) -> None:
@@ -566,6 +568,9 @@ def _print_facts(entity: str, facts: list[dict], mode: str) -> None:
 
 
 def cmd_recall(args) -> int:
+    if not args.company and not args.entity:
+        print("error: recall needs <company> or --entity <slug>", file=sys.stderr)
+        return 2
     if args.entity:
         entity = args.entity
     else:
