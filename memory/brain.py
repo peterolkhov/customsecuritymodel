@@ -163,7 +163,14 @@ def _clip(s: str, budget: int) -> str:
     s = s.strip()
     if len(s) <= budget:
         return s
-    return s[:max(budget - 3, 0)].rstrip() + "..."
+    cut = s[: max(budget - 3, 0)]
+    # Never split a token: a truncation mid-domain leaves a fake real-looking
+    # FQDN (www.instagram.target-001... -> www.instagram.target) that the
+    # refuse guard then flags. Back off to the last delimiter.
+    i = max(cut.rfind(" "), cut.rfind(","), cut.rfind(";"))
+    if i > 0:
+        cut = cut[:i]
+    return cut.rstrip(",; ") + "..."
 
 
 def finding_fact(ftype: str, host: str, detail: str, severity: str, cls: str, run_id: str) -> str:

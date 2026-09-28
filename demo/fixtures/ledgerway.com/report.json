@@ -1,0 +1,166 @@
+{
+  "scope": "ledgerway.com",
+  "generated": "2026-09-27T22:07:00Z",
+  "subdomains": [
+    {
+      "domain": "ledgerway.com",
+      "subdomains": [
+        {"subdomain": "www.ledgerway.com"},
+        {"subdomain": "api.ledgerway.com"},
+        {"subdomain": "mcp.ledgerway.com"},
+        {"subdomain": "oauth.ledgerway.com"},
+        {"subdomain": "docs.ledgerway.com"},
+        {"subdomain": "cdn.ledgerway.com"},
+        {"subdomain": "app.ledgerway.com"},
+        {"subdomain": "dashboard.ledgerway.com"},
+        {"subdomain": "status.ledgerway.com"},
+        {"subdomain": "webhooks.ledgerway.com"},
+        {"subdomain": "dev.ledgerway.com"},
+        {"subdomain": "static.ledgerway.com"},
+        {"subdomain": "events.ledgerway.com"},
+        {"subdomain": "signer.ledgerway.com"},
+        {"subdomain": "grants.ledgerway.com"},
+        {"subdomain": "sandbox.ledgerway.com"},
+        {"subdomain": "blog.ledgerway.com"},
+        {"subdomain": "mail.ledgerway.com"},
+        {"subdomain": "grafana.ledgerway.com"},
+        {"subdomain": "checkout.ledgerway.com"},
+        {"subdomain": "m.ledgerway.com"},
+        {"subdomain": "redis.ledgerway.com"}
+      ]
+    }
+  ],
+  "probe": [
+    {
+      "host": "api.ledgerway.com",
+      "findings": [
+        {"type": "mcp_tools_unauth", "severity": "HIGH", "detail": "GET /mcp returns 200 with 8 tools (execute-request, get-server-variables, run-agent) before any auth handshake; tool schemas expose internal server env-var names"},
+        {"type": "unauth_api_200", "severity": "HIGH", "detail": "GET /api/v1/agents returns 200 with 40 agent definitions and 120 env-var mappings to anonymous callers"},
+        {"type": "broken_access_control", "severity": "HIGH", "detail": "PUT /api/v1/agents/{id}/env lets any session overwrite another workspace's env vars — the tenant id is read from the body, not the session"},
+        {"type": "verbose_error", "severity": "MEDIUM", "detail": "500 on /api/v1/oauth/token leaks the Go stack with the signing key path (/etc/signer.key) and the internal redis address"},
+        {"type": "open_port", "severity": "LOW", "detail": "api host exposes 8080/8081 (dev proxy) and 15672 (rabbitmq management) to the public internet"},
+        {"type": "rate_limit_absent", "severity": "MEDIUM", "detail": "POST /api/v1/tokens accepted 500 requests in 30s from one IP with no 429 and no sliding window"}
+      ]
+    },
+    {
+      "host": "mcp.ledgerway.com",
+      "findings": [
+        {"type": "mcp_tools_unauth", "severity": "HIGH", "detail": "tools/list over SSE returns 12 tools including filesystem-write and shell-run before authentication; the handshake accepts any client name"},
+        {"type": "exposed_env_file", "severity": "CRITICAL", "detail": "GET /.env on the mcp origin returns 200 with an API key, an OAuth client secret and 9 provider tokens — dotfiles are served as static assets"},
+        {"type": "mcp_sampling_confusion", "severity": "MEDIUM", "detail": "the sampling handler echoes the model's message back without a human-in-the-loop gate on 6 of 10 requests — a prompt-injection channel"},
+        {"type": "mcp_prompt_injection", "severity": "MEDIUM", "detail": "a tool result containing ignore prior instructions flipped the agent into sending an API key on 2 of 5 test runs"}
+      ]
+    },
+    {
+      "host": "oauth.ledgerway.com",
+      "findings": [
+        {"type": "csrf", "severity": "HIGH", "detail": "the authorize flow does not bind state to the session; a forged authorize link carrying attacker state was accepted and issued a code"},
+        {"type": "oauth_state_missing", "severity": "HIGH", "detail": "GET /oauth/authorize returns a 302 to the callback with a code even when state is absent (4 of 4 probes)"},
+        {"type": "oauth_redirect_uri_open", "severity": "HIGH", "detail": "redirect_uri validation accepts any *.example subdomain; a wildcard entry in the allowlist matches attacker-controlled hosts"},
+        {"type": "oauth_scopes_granularity", "severity": "MEDIUM", "detail": "authorize accepts scope=read,write,admin for any client; a sample app receives admin on 3 of 5 attempts"},
+        {"type": "weak_password_policy", "severity": "MEDIUM", "detail": "account recovery allows a 6-character password; 9 of 30 audit accounts reset to password1"},
+        {"type": "missing_csp", "severity": "LOW", "detail": "no CSP on the consent page; a 200-byte injected script loaded from a third-party widget origin"}
+      ]
+    },
+    {
+      "host": "app.ledgerway.com",
+      "findings": [
+        {"type": "spa_catchall", "severity": "MEDIUM", "detail": "SPA catch-all serves index.html for /api/v1/internal/* — internal routes return 200 HTML and hide 404s from scanners"},
+        {"type": "sourcemap_exposed", "severity": "MEDIUM", "detail": "GET /static/js/main.19a2b3.js.map returns 200 (1.2MB) — full TypeScript source including API key names and internal endpoint paths"},
+        {"type": "js_bundle_api_key", "severity": "HIGH", "detail": "the production bundle contains pk_live_... as a literal, pulled from a window config object at page load"},
+        {"type": "missing_csp", "severity": "MEDIUM", "detail": "no CSP on the dashboard; script-src allows unsafe-inline on 3 of 5 sampled pages"},
+        {"type": "xss", "severity": "MEDIUM", "detail": "POST /api/v1/notes reflects the note title unescaped into the SPA on 3 of 5 probes — stored XSS in the notebook surface"},
+        {"type": "csp_unsafe_https_script", "severity": "MEDIUM", "detail": "CSP script-src includes a third-party widget origin and unsafe-inline — no real XSS mitigation"}
+      ]
+    },
+    {
+      "host": "cdn.ledgerway.com",
+      "findings": [
+        {"type": "hardcoded_api_key", "severity": "CRITICAL", "detail": "a 40-character API key in the production JS bundle for the portal login page (cdn/portal/app.7f2c1d.js, line 812)"},
+        {"type": "sourcemap_exposed", "severity": "LOW", "detail": "the sourcemap for the portal bundle is public and maps to the current production commit hash"},
+        {"type": "directory_listing", "severity": "LOW", "detail": "GET /releases/ autoindexes 214 versioned bundles including the previous key-bearing build"}
+      ]
+    },
+    {
+      "host": "docs.ledgerway.com",
+      "findings": [
+        {"type": "stale_subdomain", "severity": "HIGH", "detail": "docs.ledgerway.com CNAMEs to a discontinued hosting plan (an unclaimed bucket); DNS now resolves to a registered placeholder page"},
+        {"type": "missing_security_headers", "severity": "LOW", "detail": "docs serves no X-Content-Type-Options; an uploaded .html file mirror was served as text/html"}
+      ]
+    },
+    {
+      "host": "webhooks.ledgerway.com",
+      "findings": [
+        {"type": "webhook_unsigned", "severity": "HIGH", "detail": "POST /webhooks/replay accepts a body with no signature header; 10 of 12 replays with forged payloads were accepted"},
+        {"type": "webhook_replay", "severity": "HIGH", "detail": "the same agent.completed event id was delivered twice within 24h and both deliveries were applied — no dedupe on the event sink"},
+        {"type": "unauth_webhook_200", "severity": "HIGH", "detail": "GET /webhooks/replay returns the last 20 event bodies (including token counts) to anonymous callers"},
+        {"type": "webhook_idempotency_absent", "severity": "LOW", "detail": "no Idempotency-Key on /webhooks/replay; retries after timeouts double-process provider billings"}
+      ]
+    },
+    {
+      "host": "dashboard.ledgerway.com",
+      "findings": [
+        {"type": "weak_password_policy", "severity": "MEDIUM", "detail": "dashboard enforces an 8-character minimum but accepts 3 repeated characters; 6 of 20 audit passwords were aaaa8888"},
+        {"type": "missing_xframe", "severity": "MEDIUM", "detail": "no X-Frame-Options or frame-ancestors on the dashboard; the admin panel is iframeable by any origin"},
+        {"type": "tls_cert_expiry", "severity": "INFO", "detail": "dashboard certificate valid for 19 days; deployment tooling confirms auto-renew is configured"}
+      ]
+    },
+    {
+      "host": "signer.ledgerway.com",
+      "findings": [
+        {"type": "signer_key_leak", "severity": "CRITICAL", "detail": "GET /signer/health returns the Ed25519 public key and key id; the matching dev keypair was published in a public gist in June"},
+        {"type": "oauth_token_in_logs", "severity": "HIGH", "detail": "access tokens appear in structured logs (field access_token) on 4 of 10 signer requests; 31 tokens captured in a 15-minute run"},
+        {"type": "verbose_error", "severity": "MEDIUM", "detail": "an unhandled panic returns the full goroutine stack including env-var names and the internal mcp.ledgerway.com address"}
+      ]
+    }
+  ],
+  "deep": {
+    "hosts": [
+      {
+        "host": "events.ledgerway.com",
+        "findings": [
+          {"type": "open_port", "severity": "MEDIUM", "detail": "9092 (kafka) open to the internet; SASL is not enforced on 3 of 6 brokers"},
+          {"type": "unauth_events_200", "severity": "HIGH", "detail": "the webhook-events topic is readable without authentication from the public internet"}
+        ]
+      },
+      {
+        "host": "redis.ledgerway.com",
+        "findings": [
+          {"type": "open_port", "severity": "CRITICAL", "detail": "6379 answers an anonymous CONFIG GET; no auth on the oauth session cache"},
+          {"type": "unauth_redis", "severity": "HIGH", "detail": "the session store holds raw access tokens in plaintext with no ACL restricting reads"}
+        ]
+      }
+    ],
+    "findings": [
+      {"type": "dnssec_missing", "severity": "LOW", "location": "ledgerway.com", "detail": "no DNSSEC on the apex; docs and oauth both resolve unsigned"},
+      {"type": "email_spoofing_spf", "severity": "MEDIUM", "location": "mail.ledgerway.com", "detail": "SPF is -all but there is no DMARC alignment, so spoofed account mail still lands in inboxes"},
+      {"type": "dmarc_missing", "severity": "LOW", "location": "ledgerway.com", "detail": "no DMARC record published; no policy for unaligned mail"},
+      {"type": "dkim_missing", "severity": "LOW", "location": "mail.ledgerway.com", "detail": "no DKIM selector published; account-recovery mail is sent unsigned"},
+      {"type": "tls_cert_expiry", "severity": "INFO", "location": "https://api.ledgerway.com", "detail": "chain valid for 19 days; automated renewal confirmed in the ops log"},
+      {"type": "outdated_software", "severity": "MEDIUM", "location": "https://dashboard.ledgerway.com", "detail": "grafana 10.1 on the dashboard host with an unpatched CVE from the current year"},
+      {"type": "ssh_weak_cipher", "severity": "LOW", "location": "signer.ledgerway.com", "detail": "sshd allows the chacha20-poly1305 fallback and password auth on the signer jump host"}
+    ],
+    "infra": [
+      {"domain": "events.ledgerway.com"},
+      {"domain": "redis.ledgerway.com"}
+    ]
+  },
+  "findings": [
+    {"type": "cookie_secure_flag_missing", "severity": "MEDIUM", "location": "https://app.ledgerway.com", "detail": "session cookie lacks SameSite and is set without Secure on the http cache path"},
+    {"type": "https_to_http_downgrade", "severity": "MEDIUM", "location": "https://checkout.ledgerway.com", "detail": "HTTPS /checkout returns a 307 to a plaintext http download path — a session downgrade on a billing surface"},
+    {"type": "admin_on_public_internet", "severity": "MEDIUM", "location": "https://dashboard.ledgerway.com", "detail": "admin dashboard on the public internet with no VPN gate"},
+    {"type": "grafana_anon", "severity": "HIGH", "location": "https://grafana.ledgerway.com", "detail": "grafana anonymous view is enabled on the agent-runs board, which includes token counts"},
+    {"type": "missing_hsts", "severity": "LOW", "location": "https://m.ledgerway.com", "detail": "no Strict-Transport-Security on the mobile portal"},
+    {"type": "cleartext_password_over_http", "severity": "HIGH", "location": "http://dev.ledgerway.com", "detail": "dev login posts plaintext credentials over http; the 302 chain drops the https hop"}
+  ],
+  "repos": {
+    "findings": [
+      {"type": "hardcoded_api_key", "severity": "CRITICAL", "location": "git.example/sdk", "detail": "pk_live_... appears as a literal in sdk/src/auth.ts; 9 secrets across the public SDK and sample apps"},
+      {"type": "oauth_client_secret_in_git", "severity": "HIGH", "location": "git.example/sdk", "detail": "the sample OAuth app's client secret is committed in .env.example (commit 91c2be)"},
+      {"type": "dependency_vuln", "severity": "HIGH", "location": "git.example/sdk", "detail": "npm audit reports 19 vulnerabilities (6 high) including prototype-pollution in a transitive dependency of the MCP client"},
+      {"type": "secrets_in_git_history", "severity": "HIGH", "location": "git.example/sdk", "detail": "git log -S API_KEY returns 9 commits; a live key rotated in July is still present in history"},
+      {"type": "exposed_env_file", "severity": "CRITICAL", "location": "git.example/portal", "detail": "the portal serves /.env from public/ — a template repo ships the env file into the static root"},
+      {"type": "missing_sbom", "severity": "INFO", "location": "git.example/sdk", "detail": "no SBOM in releases; the lockfile is unsigned"}
+    ]
+  }
+}

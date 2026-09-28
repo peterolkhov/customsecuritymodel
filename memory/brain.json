@@ -1,7 +1,1791 @@
 {
   "_meta": {
     "backend": "gbrain+local",
-    "updated_at": "2026-09-27T21:43:33Z"
+    "updated_at": "2026-09-27T23:08:57Z"
+  },
+  "acme-corp-com.example": {
+    "facts": 58,
+    "findings": [
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "webhook event 61c2a1 (thirdparty-01.example, $2,450.00) replayed verbatim 3 hours later with the same signature and was processed twice \u2014 no idempotency check on replay",
+        "host": "pay.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "payment_webhook_replay"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "session cookie acme_sid lacks Secure and SameSite; set over https but readable on the http downgrade path",
+        "host": "acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "cookie_secure_flag_missing"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "the tokenization proxy writes the full PAN 411111...1111 to stdout on debug; 214 PAN-bearing log lines captured in one 10-minute run",
+        "host": "pay.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "pan_in_logs"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "HTTPS /checkout returns a 307 to http://checkout.acme-corp-com.example/verify on the payment-capture path \u2014 a session downgrade on a PCI surface",
+        "host": "checkout.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "checkout_redirect_downgrade"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "no DMARC policy; the single TXT record found is p=none, so spoofed billing mail is not rejected",
+        "host": "acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "dmarc_missing"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "GET /healthz returns full component versions (nginx 1.24.0, node 20.11.1, redis 7.2) to anonymous callers",
+        "host": "status.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "health_endpoint_info"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "admin console reachable from the public internet with no VPN or WAF layer and no geo-block",
+        "host": "admin.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "admin_on_public_internet"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "no DKIM selector published; transactional billing email is sent unsigned",
+        "host": "mail.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "dkim_missing"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "POST /webhooks/payment accepts JSON with no signature header; 12 of 15 replay attempts without an HMAC were accepted and logged as processed",
+        "host": "webhook.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "webhook_unsigned"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "reflected search term on /support?q= is echoed unescaped inside the <title> tag in 4 of 20 probes",
+        "host": "www.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "xss"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "deprecated /api/v1/merchants still live; the version header exposes the internal build tag of the current deployment",
+        "host": "api.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "api_versioning_leak"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "GET /webhooks/payment returns 200 with the last 5 webhook payloads (amounts, merchant ids) to anonymous callers",
+        "host": "webhook.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "unauth_webhook_200"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "chain valid for 26 days; the intermediate is a shared Let's Encrypt R3",
+        "host": "api.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tls_cert_expiry"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "a checkout token issued for a $120 charge was accepted again for $120 the same day \u2014 the token is not single-use within the 24h window",
+        "host": "pay.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "replay_token"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "nginx 1.24.0 with the HTTP/2 CVE-2023-44487 across 14 edge nodes; 6 nodes still unpatched",
+        "host": "acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "outdated_software"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "artifact bucket autoindexes 40k files including signed mobile app builds",
+        "host": "cdn.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "directory_listing"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "SPF record v=spf1 include:thirdparty-01.example ~all lets an unauthenticated relay pass the envelope; DMARC is p=none",
+        "host": "mail.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "email_spoofing_spf"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "no X-Frame-Options, X-Content-Type-Options or Referrer-Policy on the marketing homepage and /pricing; 3 headers absent across all 40 sampled pages",
+        "host": "www.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_security_headers"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "GET /api/v1/merchants/{id}/payouts enumerates merchant payouts by numeric id with no ownership check; 20 consecutive ids returned 200 with ledger amounts",
+        "host": "pay.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "idor"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "no Idempotency-Key handling; duplicate delivery of the same event id creates duplicate ledger entries",
+        "host": "webhook.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "webhook_idempotency_absent"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "the session cache holds checkout tokens in plaintext and is readable without a password",
+        "host": "redis.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "unauth_redis"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "5432 open to the internet; pg_hba allows any source for user svc-pay",
+        "host": "postgres.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "open_port"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "login endpoint returned 200 after 300 password guesses in 5 minutes; no lockout, captcha or exponential backoff on the admin form",
+        "host": "admin.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "brute_force"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "TLS 1.2 with ECDHE-RSA-AES256-GCM on the edge; TLS 1.3 offered but legacy DHE suites 0x009D/0x009E still enabled",
+        "host": "www.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "ssl_config"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "POST /api/v1/checkout/token accepted 1,000 requests in 60s from a single IP with no 429 \u2014 no rate limiting on the card tokenization endpoint",
+        "host": "api.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "rate_limit_absent"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "3DS redirect builds the callback URL with card data in the query string (?pan=411111...&cvv=123) \u2014 PAN and CVV land in browser history and the web server access log",
+        "host": "checkout.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "cvv_in_url"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "Grafana anonymous access enabled; the payouts dashboard exposes merchant volume and refund counts to unauthenticated viewers",
+        "host": "grafana.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "grafana_anon"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "GET /backups/acme_prod_thirdparty-02.example returns 200 (26MB); schema and sample rows include customer PII column names",
+        "host": "static.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "backup_file_exposed"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "no Strict-Transport-Security on www or m; the mobile homepage is served over plaintext on the app user-agent path",
+        "host": "www.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "no DNSSEC on the apex; resolvers return RRSIG-less responses and the DS record is absent from the parent zone",
+        "host": "acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "dnssec_missing"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "postgres superuser password is a single 8-character word found in the 2023 credential dumps (reused)",
+        "host": "postgres.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "weak_password_policy"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "sshd on the jump host still allows the arcfour cipher and a none MAC",
+        "host": "postgres.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "ssh_weak_cipher"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "npm audit flags 23 vulnerabilities (7 high) including an RCE in a lodash dependency pinned transitively",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "dependency_vuln"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "sandbox login form posts plaintext credentials over http; the redirect chain drops the https hop",
+        "host": "sandbox.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "cleartext_password_over_http"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "GET /api/v1/session/continue?next=//thirdparty-01.example reflects the next value unchanged in the 302 Location header",
+        "host": "api.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "open_redirect"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "POST /api/v1/transfer is reachable with a standard user session; the admin-scope check is bypassed by omitting the X-Api-Role header on 3 endpoints",
+        "host": "pay.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "broken_access_control"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "no X-Frame-Options or CSP frame-ancestors on /checkout; the page renders correctly inside a cross-origin iframe",
+        "host": "checkout.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "clickjacking"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "git log --all -S DATABASE_URL returns 14 commits; .env.example in commit 3f2a91 still contains a key-rotation remnant",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "secrets_in_git_history"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "no SBOM or provenance in the release pipeline; the dependency lockfile is unsigned",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "missing_sbom"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "POST /api/v1/transactions/search with order=id;select pg_sleep(4) returned in 4.2s vs a 0.1s baseline on 3 of 5 runs \u2014 time-based blind SQLi in the merchant search endpoint",
+        "host": "api.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "sql_injection"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "test fixtures embed PAN patterns (411111...); CI logs echo the fixtures on every failed run",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "pan_in_logs"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "nginx 1.24.0 with the HTTP/2 CVE-2023-44487 \u2014 current is 1.27.x; the Server header exposes the exact version",
+        "host": "static.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "outdated_software"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "6379 answers an anonymous CONFIG GET on 3 of 3 connections \u2014 no auth configured",
+        "host": "redis.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "open_port"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "no HSTS on the mobile user-agent path; the preload list has no entry for the apex",
+        "host": "m.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "certificate for www.acme-corp-com.example valid until 2026-10-08 (11 days); Let's Encrypt auto-renewal confirmed in the deployment task log",
+        "host": "www.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tls_cert_expiry"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "repo README documents a 6-character default admin password and a password reset that never expires",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "weak_password_policy"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "GET /backups/ returns an autoindex of 214 .sql.gz files (one per nightly job) with no index page configured",
+        "host": "static.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "directory_listing"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "admin.acme-corp-com.example exposes 8443 (self-signed console) and 6379 to the public internet; 6379 answers PING to an anonymous connection",
+        "host": "admin.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "open_port"
+      },
+      {
+        "class": "standard",
+        "company": "acme-corp-com.example",
+        "detail": "admin portal accepts 6-character passwords; 11 of 40 audit accounts accepted abc123 as their new password during the test window",
+        "host": "admin.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "weak_password_policy"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme-corp-com.example",
+        "detail": "/.env on the admin origin returns 200 with DATABASE_URL=postgres://user@example.com:5432/acme_prod and a live card-provider secret key (14 variables total)",
+        "host": "admin.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "exposed_env_file"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme-corp-com.example",
+        "detail": "500 on /api/v1/payouts returns a raw stack with the SQLAlchemy query string and table names (transaction_accounts, payouts_ledger)",
+        "host": "api.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "verbose_error"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme-corp-com.example",
+        "detail": "POST /checkout/session/{id}/confirm carries no CSRF token; a cross-site form POST was accepted on 5 of 5 live sessions",
+        "host": "checkout.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "csrf"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme-corp-com.example",
+        "detail": "a live card-provider key appears as a literal in src/thirdparty-03.example; 12 secrets in the public payments SDK repo, 9 still usable against sandbox",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "hardcoded_api_key"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme-corp-com.example",
+        "detail": "GET /graphql?query={__schema{types{name}}} returns the full introspection schema \u2014 14 mutation types incl. approvePayout, adjustLimits and impersonateMerchant on the production admin API",
+        "host": "admin.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "graphql_introspection"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme-corp-com.example",
+        "detail": "no Content-Security-Policy on www or the /checkout-receipt path; 12 sampled responses fall back to an implicit default-src wildcard",
+        "host": "www.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_csp"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme-corp-com.example",
+        "detail": "SPA catch-all serves thirdparty-04.example for /api/* \u2014 requests to /api/v1/merchants/99999 returned 200 HTML instead of 404, masking routing and auth failures",
+        "host": "checkout.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "spa_catchall"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme-corp-com.example",
+        "detail": "status.acme-corp-com.example CNAMEs to a status-page vendor the company stopped paying in March; the page now serves a parked vendor landing page \u2014 a takeover surface",
+        "host": "status.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "stale_subdomain"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme-corp-com.example",
+        "detail": "no CSP on the checkout iframe host; the card widget is injected via <script> from a third-party wallet vendor with no integrity attribute",
+        "host": "checkout.acme-corp-com.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      }
+    ],
+    "runs": [
+      "run-20260927T215200"
+    ]
+  },
+  "acme.example": {
+    "facts": 58,
+    "findings": [
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "webhook event 61c2a1 (thirdparty-01.example, $2,450.00) replayed verbatim 3 hours later with the same signature and was processed twice \u2014 no idempotency check on replay",
+        "host": "pay.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "payment_webhook_replay"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "session cookie acme_sid lacks Secure and SameSite; set over https but readable on the http downgrade path",
+        "host": "acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "cookie_secure_flag_missing"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "the tokenization proxy writes the full PAN 411111...1111 to stdout on debug; 214 PAN-bearing log lines captured in one 10-minute run",
+        "host": "pay.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "pan_in_logs"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "HTTPS /checkout returns a 307 to http://checkout.acme.example/verify on the payment-capture path \u2014 a session downgrade on a PCI surface",
+        "host": "checkout.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "checkout_redirect_downgrade"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "no DMARC policy; the single TXT record found is p=none, so spoofed billing mail is not rejected",
+        "host": "acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "dmarc_missing"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "GET /healthz returns full component versions (nginx 1.24.0, node 20.11.1, redis 7.2) to anonymous callers",
+        "host": "status.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "health_endpoint_info"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "admin console reachable from the public internet with no VPN or WAF layer and no geo-block",
+        "host": "admin.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "admin_on_public_internet"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "no DKIM selector published; transactional billing email is sent unsigned",
+        "host": "mail.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "dkim_missing"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "POST /webhooks/payment accepts JSON with no signature header; 12 of 15 replay attempts without an HMAC were accepted and logged as processed",
+        "host": "webhook.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "webhook_unsigned"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "reflected search term on /support?q= is echoed unescaped inside the <title> tag in 4 of 20 probes",
+        "host": "www.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "xss"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "deprecated /api/v1/merchants still live; the version header exposes the internal build tag of the current deployment",
+        "host": "api.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "api_versioning_leak"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "GET /webhooks/payment returns 200 with the last 5 webhook payloads (amounts, merchant ids) to anonymous callers",
+        "host": "webhook.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "unauth_webhook_200"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "chain valid for 26 days; the intermediate is a shared Let's Encrypt R3",
+        "host": "api.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tls_cert_expiry"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "a checkout token issued for a $120 charge was accepted again for $120 the same day \u2014 the token is not single-use within the 24h window",
+        "host": "pay.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "replay_token"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "nginx 1.24.0 with the HTTP/2 CVE-2023-44487 across 14 edge nodes; 6 nodes still unpatched",
+        "host": "acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "outdated_software"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "artifact bucket autoindexes 40k files including signed mobile app builds",
+        "host": "cdn.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "directory_listing"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "SPF record v=spf1 include:thirdparty-01.example ~all lets an unauthenticated relay pass the envelope; DMARC is p=none",
+        "host": "mail.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "email_spoofing_spf"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "no X-Frame-Options, X-Content-Type-Options or Referrer-Policy on the marketing homepage and /pricing; 3 headers absent across all 40 sampled pages",
+        "host": "www.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_security_headers"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "GET /api/v1/merchants/{id}/payouts enumerates merchant payouts by numeric id with no ownership check; 20 consecutive ids returned 200 with ledger amounts",
+        "host": "pay.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "idor"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "no Idempotency-Key handling; duplicate delivery of the same event id creates duplicate ledger entries",
+        "host": "webhook.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "webhook_idempotency_absent"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "the session cache holds checkout tokens in plaintext and is readable without a password",
+        "host": "redis.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "unauth_redis"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "5432 open to the internet; pg_hba allows any source for user svc-pay",
+        "host": "postgres.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "open_port"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "login endpoint returned 200 after 300 password guesses in 5 minutes; no lockout, captcha or exponential backoff on the admin form",
+        "host": "admin.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "brute_force"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "TLS 1.2 with ECDHE-RSA-AES256-GCM on the edge; TLS 1.3 offered but legacy DHE suites 0x009D/0x009E still enabled",
+        "host": "www.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "ssl_config"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "POST /api/v1/checkout/token accepted 1,000 requests in 60s from a single IP with no 429 \u2014 no rate limiting on the card tokenization endpoint",
+        "host": "api.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "rate_limit_absent"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "3DS redirect builds the callback URL with card data in the query string (?pan=411111...&cvv=123) \u2014 PAN and CVV land in browser history and the web server access log",
+        "host": "checkout.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "cvv_in_url"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "Grafana anonymous access enabled; the payouts dashboard exposes merchant volume and refund counts to unauthenticated viewers",
+        "host": "grafana.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "grafana_anon"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "GET /backups/acme_prod_thirdparty-02.example returns 200 (26MB); schema and sample rows include customer PII column names",
+        "host": "static.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "backup_file_exposed"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "no Strict-Transport-Security on www or m; the mobile homepage is served over plaintext on the app user-agent path",
+        "host": "www.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "no DNSSEC on the apex; resolvers return RRSIG-less responses and the DS record is absent from the parent zone",
+        "host": "acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "dnssec_missing"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "postgres superuser password is a single 8-character word found in the 2023 credential dumps (reused)",
+        "host": "postgres.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "weak_password_policy"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "sshd on the jump host still allows the arcfour cipher and a none MAC",
+        "host": "postgres.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "ssh_weak_cipher"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "npm audit flags 23 vulnerabilities (7 high) including an RCE in a lodash dependency pinned transitively",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "dependency_vuln"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "sandbox login form posts plaintext credentials over http; the redirect chain drops the https hop",
+        "host": "sandbox.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "cleartext_password_over_http"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "GET /api/v1/session/continue?next=//thirdparty-01.example reflects the next value unchanged in the 302 Location header",
+        "host": "api.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "open_redirect"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "POST /api/v1/transfer is reachable with a standard user session; the admin-scope check is bypassed by omitting the X-Api-Role header on 3 endpoints",
+        "host": "pay.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "broken_access_control"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "no X-Frame-Options or CSP frame-ancestors on /checkout; the page renders correctly inside a cross-origin iframe",
+        "host": "checkout.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "clickjacking"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "git log --all -S DATABASE_URL returns 14 commits; .env.example in commit 3f2a91 still contains a key-rotation remnant",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "secrets_in_git_history"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "no SBOM or provenance in the release pipeline; the dependency lockfile is unsigned",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "missing_sbom"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "POST /api/v1/transactions/search with order=id;select pg_sleep(4) returned in 4.2s vs a 0.1s baseline on 3 of 5 runs \u2014 time-based blind SQLi in the merchant search endpoint",
+        "host": "api.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "sql_injection"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "test fixtures embed PAN patterns (411111...); CI logs echo the fixtures on every failed run",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "pan_in_logs"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "nginx 1.24.0 with the HTTP/2 CVE-2023-44487 \u2014 current is 1.27.x; the Server header exposes the exact version",
+        "host": "static.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "outdated_software"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "6379 answers an anonymous CONFIG GET on 3 of 3 connections \u2014 no auth configured",
+        "host": "redis.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "open_port"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "no HSTS on the mobile user-agent path; the preload list has no entry for the apex",
+        "host": "m.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "certificate for www.acme.example valid until 2026-10-08 (11 days); Let's Encrypt auto-renewal confirmed in the deployment task log",
+        "host": "www.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tls_cert_expiry"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "repo README documents a 6-character default admin password and a password reset that never expires",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "weak_password_policy"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "GET /backups/ returns an autoindex of 214 .sql.gz files (one per nightly job) with no index page configured",
+        "host": "static.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "directory_listing"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "admin.acme.example exposes 8443 (self-signed console) and 6379 to the public internet; 6379 answers PING to an anonymous connection",
+        "host": "admin.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "open_port"
+      },
+      {
+        "class": "standard",
+        "company": "acme.example",
+        "detail": "admin portal accepts 6-character passwords; 11 of 40 audit accounts accepted abc123 as their new password during the test window",
+        "host": "admin.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "weak_password_policy"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme.example",
+        "detail": "/.env on the admin origin returns 200 with DATABASE_URL=postgres://user@example.com:5432/acme_prod and a live card-provider secret key (14 variables total)",
+        "host": "admin.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "exposed_env_file"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme.example",
+        "detail": "500 on /api/v1/payouts returns a raw stack with the SQLAlchemy query string and table names (transaction_accounts, payouts_ledger)",
+        "host": "api.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "verbose_error"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme.example",
+        "detail": "POST /checkout/session/{id}/confirm carries no CSRF token; a cross-site form POST was accepted on 5 of 5 live sessions",
+        "host": "checkout.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "csrf"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme.example",
+        "detail": "a live card-provider key appears as a literal in src/thirdparty-03.example; 12 secrets in the public payments SDK repo, 9 still usable against sandbox",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "hardcoded_api_key"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme.example",
+        "detail": "GET /graphql?query={__schema{types{name}}} returns the full introspection schema \u2014 14 mutation types incl. approvePayout, adjustLimits and impersonateMerchant on the production admin API",
+        "host": "admin.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "graphql_introspection"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme.example",
+        "detail": "no Content-Security-Policy on www or the /checkout-receipt path; 12 sampled responses fall back to an implicit default-src wildcard",
+        "host": "www.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_csp"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme.example",
+        "detail": "SPA catch-all serves thirdparty-04.example for /api/* \u2014 requests to /api/v1/merchants/99999 returned 200 HTML instead of 404, masking routing and auth failures",
+        "host": "checkout.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "spa_catchall"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme.example",
+        "detail": "status.acme.example CNAMEs to a status-page vendor the company stopped paying in March; the page now serves a parked vendor landing page \u2014 a takeover surface",
+        "host": "status.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "stale_subdomain"
+      },
+      {
+        "class": "blind_spot",
+        "company": "acme.example",
+        "detail": "no CSP on the checkout iframe host; the card widget is injected via <script> from a third-party wallet vendor with no integrity attribute",
+        "host": "checkout.acme.example",
+        "observed_at": "2026-09-27T21:52:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      }
+    ],
+    "runs": [
+      "run-20260927T215200"
+    ]
+  },
+  "ledgerway.example": {
+    "facts": 60,
+    "findings": [
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "GET /signer/health returns the Ed25519 public key and key id; the matching dev keypair was published in a public gist in June",
+        "host": "signer.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "signer_key_leak"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "CSP script-src includes a third-party widget origin and unsafe-inline \u2014 no real XSS mitigation",
+        "host": "app.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "csp_unsafe_https_script"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "a tool result containing ignore prior instructions flipped the agent into sending an API key on 2 of 5 test runs",
+        "host": "mcp.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "mcp_prompt_injection"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "session cookie lacks SameSite and is set without Secure on the http cache path",
+        "host": "app.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "cookie_secure_flag_missing"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "the webhook-events topic is readable without authentication from the public internet",
+        "host": "events.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "unauth_events_200"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "SPF is -all but there is no DMARC alignment, so spoofed account mail still lands in inboxes",
+        "host": "mail.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "email_spoofing_spf"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "9092 (kafka) open to the internet; SASL is not enforced on 3 of 6 brokers",
+        "host": "events.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "open_port"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "the sourcemap for the portal bundle is public and maps to the current production commit hash",
+        "host": "cdn.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "sourcemap_exposed"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "tools/list over SSE returns 12 tools including filesystem-write and shell-run before authentication; the handshake accepts any client name",
+        "host": "mcp.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "mcp_tools_unauth"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "grafana 10.1 on the dashboard host with an unpatched CVE from the current year",
+        "host": "dashboard.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "outdated_software"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "POST /api/v1/tokens accepted 500 requests in 30s from one IP with no 429 and no sliding window",
+        "host": "api.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "rate_limit_absent"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "POST /webhooks/replay accepts a body with no signature header; 10 of 12 replays with forged payloads were accepted",
+        "host": "webhooks.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "webhook_unsigned"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "GET /webhooks/replay returns the last 20 event bodies (including token counts) to anonymous callers",
+        "host": "webhooks.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "unauth_webhook_200"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "GET /oauth/authorize returns a 302 to the callback with a code even when state is absent (4 of 4 probes)",
+        "host": "oauth.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "oauth_state_missing"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "sshd allows the chacha20-poly1305 fallback and password auth on the signer jump host",
+        "host": "signer.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "ssh_weak_cipher"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "chain valid for 19 days; automated renewal confirmed in the ops log",
+        "host": "api.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tls_cert_expiry"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "redirect_uri validation accepts any *.example subdomain; a wildcard entry in the allowlist matches attacker-controlled hosts",
+        "host": "oauth.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "oauth_redirect_uri_open"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "admin dashboard on the public internet with no VPN gate",
+        "host": "dashboard.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "admin_on_public_internet"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "docs serves no X-Content-Type-Options; an uploaded .html file mirror was served as text/html",
+        "host": "docs.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_security_headers"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "GET /api/v1/agents returns 200 with 40 agent definitions and 120 env-var mappings to anonymous callers",
+        "host": "api.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "unauth_api_200"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "account recovery allows a 6-character password; 9 of 30 audit accounts reset to password1",
+        "host": "oauth.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "weak_password_policy"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "no X-Frame-Options or frame-ancestors on the dashboard; the admin panel is iframeable by any origin",
+        "host": "dashboard.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_xframe"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "npm audit reports 19 vulnerabilities (6 high) including prototype-pollution in a transitive dependency of the MCP client",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "dependency_vuln"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "grafana anonymous view is enabled on the agent-runs board, which includes token counts",
+        "host": "grafana.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "grafana_anon"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "no DNSSEC on the apex; docs and oauth both resolve unsigned",
+        "host": "ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "dnssec_missing"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "access tokens appear in structured logs (field access_token) on 4 of 10 signer requests; 31 tokens captured in a 15-minute run",
+        "host": "signer.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "oauth_token_in_logs"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "PUT /api/v1/agents/{id}/env lets any session overwrite another workspace's env vars \u2014 the tenant id is read from the body, not the session",
+        "host": "api.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "broken_access_control"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "the production bundle contains pk_live_... as a literal, pulled from a window config object at page load",
+        "host": "app.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "js_bundle_api_key"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "HTTPS /checkout returns a 307 to a plaintext http download path \u2014 a session downgrade on a billing surface",
+        "host": "checkout.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "https_to_http_downgrade"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "the same thirdparty-01.example event id was delivered twice within 24h and both deliveries were applied \u2014 no dedupe on the event sink",
+        "host": "webhooks.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "webhook_replay"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "the session store holds raw access tokens in plaintext with no ACL restricting reads",
+        "host": "redis.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "unauth_redis"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "dev login posts plaintext credentials over http; the 302 chain drops the https hop",
+        "host": "dev.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "cleartext_password_over_http"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "no DMARC record published; no policy for unaligned mail",
+        "host": "ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "dmarc_missing"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "no Idempotency-Key on /webhooks/replay; retries after timeouts double-process provider billings",
+        "host": "webhooks.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "webhook_idempotency_absent"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "GET /releases/ autoindexes 214 versioned bundles including the previous key-bearing build",
+        "host": "cdn.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "directory_listing"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "the sample OAuth app's client secret is committed in .env.example (commit 91c2be)",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "oauth_client_secret_in_git"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "no DKIM selector published; account-recovery mail is sent unsigned",
+        "host": "mail.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "dkim_missing"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "the sampling handler echoes the model's message back without a human-in-the-loop gate on 6 of 10 requests \u2014 a prompt-injection channel",
+        "host": "mcp.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "mcp_sampling_confusion"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "no Strict-Transport-Security on the mobile portal",
+        "host": "m.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_hsts"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "POST /api/v1/notes reflects the note title unescaped into the SPA on 3 of 5 probes \u2014 stored XSS in the notebook surface",
+        "host": "app.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "xss"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "git log -S API_KEY returns 9 commits; a live key rotated in July is still present in history",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "secrets_in_git_history"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "no SBOM in releases; the lockfile is unsigned",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "missing_sbom"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "authorize accepts scope=read,write,admin for any client; a sample app receives admin on 3 of 5 attempts",
+        "host": "oauth.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "oauth_scopes_granularity"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "api host exposes 8080/8081 (dev proxy) and 15672 (rabbitmq management) to the public internet",
+        "host": "api.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "open_port"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "GET /static/js/thirdparty-02.example returns 200 (1.2MB) \u2014 full TypeScript source including API key names and internal endpoint paths",
+        "host": "app.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "sourcemap_exposed"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "dashboard certificate valid for 19 days; deployment tooling confirms auto-renew is configured",
+        "host": "dashboard.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "INFO",
+        "type": "tls_cert_expiry"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "6379 answers an anonymous CONFIG GET; no auth on the oauth session cache",
+        "host": "redis.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "open_port"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "GET /mcp returns 200 with 8 tools (execute-request, get-server-variables, run-agent) before any auth handshake; tool schemas expose internal server env-var names",
+        "host": "api.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "mcp_tools_unauth"
+      },
+      {
+        "class": "standard",
+        "company": "ledgerway.example",
+        "detail": "dashboard enforces an 8-character minimum but accepts 3 repeated characters; 6 of 20 audit passwords were aaaa8888",
+        "host": "dashboard.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "weak_password_policy"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "docs.ledgerway.example CNAMEs to a discontinued hosting plan (an unclaimed bucket); DNS now resolves to a registered placeholder page",
+        "host": "docs.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "stale_subdomain"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "GET /.env on the mcp origin returns 200 with an API key, an OAuth client secret and 9 provider tokens \u2014 dotfiles are served as static assets",
+        "host": "mcp.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "exposed_env_file"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "pk_live_... appears as a literal in sdk/src/thirdparty-03.example; 9 secrets across the public SDK and sample apps",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "hardcoded_api_key"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "no CSP on the consent page; a 200-byte injected script loaded from a third-party widget origin",
+        "host": "oauth.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "LOW",
+        "type": "missing_csp"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "500 on /api/v1/oauth/token leaks the Go stack with the signing key path (/etc/thirdparty-04.example) and the internal redis address",
+        "host": "api.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "verbose_error"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "SPA catch-all serves thirdparty-05.example for /api/v1/internal/* \u2014 internal routes return 200 HTML and hide 404s from scanners",
+        "host": "app.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "spa_catchall"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "the authorize flow does not bind state to the session; a forged authorize link carrying attacker state was accepted and issued a code",
+        "host": "oauth.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "HIGH",
+        "type": "csrf"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "the portal serves /.env from public/ \u2014 a template repo ships the env file into the static root",
+        "host": "thirdparty-01.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "exposed_env_file"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "no CSP on the dashboard; script-src allows unsafe-inline on 3 of 5 sampled pages",
+        "host": "app.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "missing_csp"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "a 40-character API key in the production JS bundle for the portal login page (cdn/portal/thirdparty-06.example, line 812)",
+        "host": "cdn.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "CRITICAL",
+        "type": "hardcoded_api_key"
+      },
+      {
+        "class": "blind_spot",
+        "company": "ledgerway.example",
+        "detail": "an unhandled panic returns the full goroutine stack including env-var names and the internal mcp.ledgerway.example address",
+        "host": "signer.ledgerway.example",
+        "observed_at": "2026-09-27T22:07:00Z",
+        "scan": "probe-report",
+        "severity": "MEDIUM",
+        "type": "verbose_error"
+      }
+    ],
+    "runs": [
+      "run-20260927T220700"
+    ]
   },
   "target-01.example": {
     "facts": 60,

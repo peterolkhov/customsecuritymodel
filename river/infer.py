@@ -130,7 +130,16 @@ def _extract_text(resp) -> str:
     if hasattr(resp, "response_json"):           # ChatCompleteResult (river_client 0.12+)
         resp = resp.response_json
     if isinstance(resp, str):
-        return resp.strip()
+        # Some river_client builds return response_json as a JSON-encoded
+        # string — decode it before extracting the text.
+        stripped = resp.strip()
+        if stripped.startswith("{"):
+            try:
+                resp = json.loads(stripped)
+            except json.JSONDecodeError:
+                return stripped
+        else:
+            return stripped
     if isinstance(resp, (list, tuple)) and resp:
         resp = resp[0]
     if hasattr(resp, "get"):

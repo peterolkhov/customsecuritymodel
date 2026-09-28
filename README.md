@@ -32,3 +32,15 @@ Hackathon build, 1:30–5:00 PM PT. Live so far:
 - `eval/` — target-disjoint held-out harness + `scoreboard.html`.
 - `demo/` — loss curve, fleet telemetry, 2-min Loom script + narrative.
 - [`BASELINE.md`](BASELINE.md) — the baseline security data this project contrasts against: corpus severity split (52,748 findings, 54.7% INFO), the rulebook-floor scorecard, and the blind-spot taxonomy.
+
+## How a company uses it
+
+A company engineer points `company/run.py` at their probe scan and gets an owned severity model + memory + suite in one command:
+
+```sh
+python3 company/run.py onboard --company acme --scan report.json   # first scan (pairs -> LoRA -> brain -> suite)
+python3 company/run.py update  --company acme --scan report2.json  # every later scan (memory + suite refresh)
+python3 company/run.py infer   --company acme --finding 'type: x; host: y; detail: z'   # owned model severity
+```
+
+Offline by default (dry-run train, local GBrain mirror); `--train` + `RIVER_API_KEY` lands a real checkpoint. See [`company/README.md`](company/README.md), or run `make company-demo` for the no-keys walkthrough.

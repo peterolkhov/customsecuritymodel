@@ -228,7 +228,8 @@ def iter_reports(corpus_dir: Path):
 
 
 def build(corpus_dir: Path, out_path: Path, manifest_path: Path,
-          max_rows: int, dry_run: bool, seed: int = 20260927) -> int:
+          max_rows: int, dry_run: bool, seed: int = 20260927,
+          target_id: str | None = None) -> int:
     rng = random.Random(seed)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -247,7 +248,7 @@ def build(corpus_dir: Path, out_path: Path, manifest_path: Path,
                 continue
             target_idx += 1  # one unique pseudonym per report that yields candidates
             scope = (report.get("scope") or "unknown.example").lower().rstrip(".")
-            target = f"target-{target_idx:03d}.example"
+            target = target_id or f"target-{target_idx:03d}.example"
             tp = [1]  # thirdparty-NN counter is per report too
             host_map = make_host_map(scope, hosts, target, tp)
             observed_at = _normalize_generated(report.get("generated"))
@@ -304,7 +305,8 @@ def build(corpus_dir: Path, out_path: Path, manifest_path: Path,
                     break
         corpus_info = {"kind": corpus_kind, "path": str(corpus_dir),
                        "reports_scanned": reports, "companies": companies,
-                       "findings_seen": findings_seen, "dedup_candidates": len(candidates)}
+                       "findings_seen": findings_seen, "dedup_candidates": len(candidates),
+                       "target_id": target_id}
     else:
         # Fallback: fixture corpus — pass rows through, restamp provenance.
         corpus_kind = "fallback"
@@ -324,7 +326,14 @@ def build(corpus_dir: Path, out_path: Path, manifest_path: Path,
         if isinstance(c, dict) and "host_map" in c:
             detail = deid.scrub(c["detail"], c["host_map"], c["brand"])
             if len(detail) > 280:
-                detail = detail[:280].rstrip() + "..."
+                # Back off to a delimiter so a truncation never splits a
+                # de-identified domain mid-token (a fake FQDN fragment would
+                # trip the brain's refuse guard downstream).
+                cut = detail[:280]
+                i = max(cut.rfind(" "), cut.rfind(","), cut.rfind(";"))
+                if i > 0:
+                    cut = cut[:i]
+                detail = cut.rstrip(",; ") + "..."
             row = {
                 "task": "severity",
                 "instruction": INSTRUCTION,
@@ -393,8 +402,12 @@ def main(argv=None) -> int:
                     help="cap on emitted pairs (0 = unlimited; default 300)")
     ap.add_argument("--dry-run", action="store_true", help="emit manifest only, no pairs JSONL")
     ap.add_argument("--seed", type=int, default=20260927)
+    ap.add_argument("--target-id", default=None,
+                    help="stable per-company pseudonym (e.g. acme.example); "
+                         "default per-report target-NNN.example")
     a = ap.parse_args(argv)
-    return build(Path(a.corpus), Path(a.out), Path(a.manifest), a.max_rows, a.dry_run, a.seed)
+    return build(Path(a.corpus), Path(a.out), Path(a.manifest), a.max_rows, a.dry_run, a.seed,
+                 a.target_id)
 
 
 if __name__ == "__main__":

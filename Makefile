@@ -1,6 +1,9 @@
 PYTHON ?= python3
+COMPANY ?= acme
+SCAN ?= demo/fixtures/acme/report.json
 
-.PHONY: help selftest train adapter adapter-dry brain-selftest
+.PHONY: help selftest train adapter adapter-dry brain-selftest \
+	company-onboard company-demo company-selftest
 
 help: ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
@@ -20,3 +23,12 @@ adapter: ## probe reports -> data/out/pairs.jsonl (falls back to the example fix
 
 adapter-dry: ## manifest-only dry run of the adapter
 	$(PYTHON) data/build_pairs.py --dry-run
+
+company-onboard: ## company flow: scan -> pairs -> brain -> suite  (COMPANY=acme SCAN=path)
+	$(PYTHON) company/run.py onboard --company $(COMPANY) --scan $(SCAN)
+
+company-demo: ## offline end-to-end demo on the acme fixture (no keys)
+	$(PYTHON) company/run.py demo
+
+company-selftest: ## offline check of the company orchestrator
+	$(PYTHON) company/run.py selftest
